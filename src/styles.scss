@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* copy css */
+.rel-pos {
+    position: relative;
+  }
+  .copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  xmp {
+    font-size: 17px;
+  }
+  .textAreaforStoreCopyText {
+    visibility: hidden;
+  }
+.ZIndex {
+    z-index: 1300 !important;
+}

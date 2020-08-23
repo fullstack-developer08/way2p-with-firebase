@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <button class="btn btn-primary" (click)="getFacebookVisitors()">Facebook Visitors</button>
+            </div>
+            <div class="col-sm-3">
+                <select name="country" id="" class="form-control" (change)="onSelectCountry($event)" [value]=''>
+                    <option value="">Country</option>
+                    <option *ngFor="let country of countries" [value]="country" >{{country}}</option>
+                </select>
+                
+            </div>
+            <div class="col-sm-3">
+                <select name="cities" id="" class="form-control" (change)="onSelectCity($event)" [value]=''>
+                    <option value="">Cities</option>
+                    <option *ngFor="let city of cities" [value]="city" >{{city}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                
+            </div>
+        </div>
+    </div>
+    <table class="table table-sm" *ngIf="!(facebookVisitors.length > 0)">
+        <caption>Visitors Info</caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">City</th>
+                <th scope="col">Country Name</th>
+                <th scope="col">Country Capital</th>
+                <th scope="col">Time Zone</th>
+                <th scope="col">IP Address</th>
+                <th scope="col">Currency Name</th>
+                <th scope="col">Blog Name</th>
+                <th scope="col">ORG</th>
+                <th scope="col">DELETE</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visitor of searchedVisitors; let i = index">
+                <th scope="row">{{i}}</th>
+                <td>{{visitor.res?.city}}</td>
+                <td>{{visitor.res?.country_name}}</td>
+                <td>{{visitor.res?.country_capital}}</td>
+                <td>{{visitor.res?.timezone}}</td>
+                <td>{{visitor.res?.ip}}</td>
+                <td>{{visitor.res?.currency_name}}</td>
+                <td class="text-primary" [routerLink]="visitor.blog?.blogHref"><a>{{visitor.blog?.blogName}}</a></td>
+                <td>{{visitor.res?.org}}</td>
+                <td><button class="btn btn-danger" (click)="deleteRecord(visitor.id)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-sm" *ngIf="facebookVisitors.length > 0">
+        <caption>Facebook Visitors</caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Blog Name</th>
+                <th scope="col">Facebook Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visitor of facebookVisitors; let i = index">
+                <th scope="row">{{i}}</th>
+                <td>{{visitor.blogName}}</td>
+                <td>{{visitor.facebookId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

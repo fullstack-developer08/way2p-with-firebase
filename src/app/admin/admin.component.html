@@ -1,0 +1,43 @@
+<div class="container">
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="row mb-5 pb-5">
+    <div class="col-sm-6">
+        <div class="form-group">
+          <label for="articleName">Article Index</label>
+          <input formControlName="sort" [readonly]="sort" type="number" class="form-control" id="articleIndex" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+          <label for="articleName">Article Name</label>
+          <input formControlName="blogName" type="text" class="form-control" id="articleName" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+          <label for="articleTechName">Article Tech Name</label>
+          <input formControlName="blogTech" [readonly]="blogTech" type="text" class="form-control" id="articleTechName">
+        </div>
+        <div class="form-group">
+          <label for="articleUrl">Article URL</label>
+          <input formControlName="blogHref" type="text" class="form-control" id="articleUrl" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+          <label for="articleType">Article Type</label>
+          <input formControlName="articleType" type="text" [readonly]="articleType" class="form-control" id="articleType" aria-describedby="Article Type"/>
+        </div>
+        <div class="form-group">
+          <label for="visible">Visibility</label>
+          <input formControlName="visible" type="text" class="form-control" id="visible" aria-describedby="Visibility"/>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">{{blog?.id ? 'EDIT' : 'ADD'}}</button>
+        <button type="button" class="btn btn-danger" (click)="deleteBlog()">DELETE</button>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+          <label for="articleData">Article Data</label>
+          <textarea formControlName="blogData" rows="20" type="email" class="form-control" id="articleData" aria-describedby="emailHelp"></textarea>
+        </div>
+    </div>
+  </div>
+      </form>
+
+</div>

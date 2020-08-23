@@ -1,0 +1,191 @@
+<!-- <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal" routerLink="/">way2programming</h5>
+    <form class="search pr-1">
+        <input class="form-control " type="search" placeholder="Enter atleast 4 characters to search" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="search" (keyup)="onSearch(search)" autocomplete="off" aria-label="Search">
+        <ul *ngIf="searchedMatchedBlogs?.length > 0" class="list-group list-group-flush search-ac" style="z-index:1200 !important;">
+            <li class="list-group-item custom-item" (click)="navigate()" *ngFor="let blog of searchedMatchedBlogs"
+                [routerLink]="blog.blogHref">
+                {{blog.blogName}}</li>
+        </ul>
+    </form>
+    
+    <nav class="my-2 my-md-0 mr-md-3">
+        <div class="btn-group pr-1" [class.show]="selectedTech === 'angular'" (click)="toggle('angular')">
+            <button class="btn btn-outline-primary dropdown-toggle" >Angular</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'angular'">
+                <a class="dropdown-item" routerLink="/angular/angular-introduction">Angular</a>
+                <a class="dropdown-item" routerLink="/complete-angularjs-learn-and-understand">AngularJs</a>
+                <a class="dropdown-item" routerLink="/angular/angular-redux-with-global-error-concept">Angular Apps</a>
+            </div>
+        </div>
+        <div class="btn-group pr-1" [class.show]="selectedTech === 'react'" (click)="toggle('react')">
+            <button class="btn btn-outline-primary dropdown-toggle">React</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'react'">
+                <a class="dropdown-item" routerLink="/react/react-introduction">React</a>
+                <a class="dropdown-item" routerLink="/react/reactjs-indecision-app">React Apps</a>
+            </div>
+        </div>
+        <div class="btn-group pr-1" [class.show]="selectedTech === 'java'" (click)="toggle('java')">
+            <button class="btn btn-outline-primary dropdown-toggle">Java</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'java'">
+                <a class="dropdown-item" routerLink="/dependency-injection-in-spring">Spring</a>
+                <a class="dropdown-item" routerLink="/spring-hibernate-application-1">Spring Hibernate</a>
+                <a class="dropdown-item" routerLink="/basic-application-in-jsf">JSF</a>
+                <a class="dropdown-item" routerLink="/restful-web-service-basic-application">Java Rest</a>
+                <a class="dropdown-item" routerLink="/prime-number-java-program">Core Java</a>
+                <a class="dropdown-item" routerLink="/struts-basic-apps">Struts</a>
+                <a class="dropdown-item" routerLink="/hibernate-states-of-objects">Hibernate</a>
+                <a class="dropdown-item" routerLink="/spring-boot-intro">Spring Boot</a>
+                <a class="dropdown-item" routerLink="/java/microservice">Java Microservices</a>
+                <a class="dropdown-item" routerLink="/camunda">Camunda</a>
+            </div>
+        </div>
+        <div class="btn-group pr-1" [class.show]="selectedTech === 'php'" (click)="toggle('php')">
+            <button class="btn btn-outline-primary dropdown-toggle">Php</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'php'">
+                <a class="dropdown-item" routerLink="/codeigniter-basics">Codeigniter</a>
+                <a class="dropdown-item" routerLink="/opencart-installation-in-godaddy-shared-hosting">Opencart</a>
+                <a class="dropdown-item" routerLink="/array-in-php">Core PHP</a>
+                <a class="dropdown-item" routerLink="/download-install-laravel">Laravel</a>
+            </div>
+        </div>
+        <div class="btn-group pr-1" [class.show]="selectedTech === 'others'" (click)="toggle('others')">
+            <button class="btn btn-outline-primary dropdown-toggle">Others</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'others'">
+                <a class="dropdown-item" routerLink="/ecmascript/es5-vs-es6">Ecmascript</a>
+                <a class="dropdown-item" routerLink="/typescript">Typescript</a>
+                <a class="dropdown-item" routerLink="/send-form-data-using-ajax-and-post-request">Ajax</a>
+                <a class="dropdown-item" routerLink="/linux/useful-commands">Linux</a>
+                <a class="dropdown-item" routerLink="/adding-two-number-basic-application-in-android">Android</a>
+                <a class="dropdown-item" routerLink="/docker-intro">Docker</a>
+                <a class="dropdown-item" routerLink="/install-django-project-in-ubuntu-operating-system">Django</a>
+            </div>
+        </div>
+        <div *ngIf="isAdmin" class="btn-group pr-1" [class.show]="selectedTech === 'admin'" (click)="toggle('admin')">
+            <button class="btn btn-outline-primary dropdown-toggle">Admin</button>
+            <div class="dropdown-menu ZIndex" [class.show]="selectedTech === 'admin'">
+                <a class="dropdown-item" routerLink="/admin">Admin Home</a>
+                <a class="dropdown-item" routerLink="/blog/design/1">Blog design</a>
+                <a class="dropdown-item" routerLink="/visitors-details">Visitors Details</a>
+                <a class="dropdown-item" (click)="adminLogout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+</div> -->
+
+<nav class="navbar is-link">
+  <div class="navbar-brand">
+    <a class="navbar-item" routerLink="/">
+      way2programming
+    </a>
+    <div class="navbar-burger burger" [class.is-active]="burgerToggle" data-target="navbarExampleTransparentExample" (click)="clickBurger()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu" [class.is-active]="burgerToggle">
+    <div class="navbar-start">
+      <a class="navbar-item" routerLink="/">
+        Home
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Angular
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/angular/angular-introduction">Angular</a>
+            <a class="navbar-item" routerLink="/complete-angularjs-learn-and-understand">AngularJs</a>
+            <a class="navbar-item" routerLink="/angular/angular-redux-with-global-error-concept">Angular Apps</a>
+          <!-- <hr class="navbar-divider"> -->
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          React
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/react/react-introduction">React</a>
+            <a class="navbar-item" routerLink="/react/reactjs-indecision-app">React Apps</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Java
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/dependency-injection-in-spring">Spring</a>
+            <a class="navbar-item" routerLink="/spring-hibernate-application-1">Spring Hibernate</a>
+            <a class="navbar-item" routerLink="/basic-application-in-jsf">JSF</a>
+            <a class="navbar-item" routerLink="/restful-web-service-basic-application">Java Rest</a>
+            <a class="navbar-item" routerLink="/prime-number-java-program">Core Java</a>
+            <a class="navbar-item" routerLink="/struts-basic-apps">Struts</a>
+            <a class="navbar-item" routerLink="/hibernate-states-of-objects">Hibernate</a>
+            <a class="navbar-item" routerLink="/spring-boot-intro">Spring Boot</a>
+            <a class="navbar-item" routerLink="/java/microservice">Java Microservices</a>
+            <a class="navbar-item" routerLink="/camunda">Camunda</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          PHP
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/codeigniter-basics">Codeigniter</a>
+            <a class="navbar-item" routerLink="/opencart-installation-in-godaddy-shared-hosting">Opencart</a>
+            <a class="navbar-item" routerLink="/array-in-php">Core PHP</a>
+            <a class="navbar-item" routerLink="/download-install-laravel">Laravel</a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Others
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/ecmascript/es5-vs-es6">Ecmascript</a>
+            <a class="navbar-item" routerLink="/typescript">Typescript</a>
+            <a class="navbar-item" routerLink="/send-form-data-using-ajax-and-post-request">Ajax</a>
+            <a class="navbar-item" routerLink="/linux/useful-commands">Linux</a>
+            <a class="navbar-item" routerLink="/adding-two-number-basic-application-in-android">Android</a>
+            <a class="navbar-item" routerLink="/docker-intro">Docker</a>
+            <a class="navbar-item" routerLink="/install-django-project-in-ubuntu-operating-system">Django</a>
+        </div>
+      </div>
+
+      <div *ngIf="isAdmin" class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Admin
+        </a>
+        <div class="navbar-dropdown is-boxed ZIndex">
+            <a class="navbar-item" routerLink="/admin">Admin Home</a>
+            <a class="navbar-item" routerLink="/blog/design/1">Blog design</a>
+            <a class="navbar-item" routerLink="/visitors-details">Visitors Details</a>
+            <a class="navbar-item" (click)="adminLogout()">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="field is-grouped">
+            <form class="search pr-1 ZIndex">
+                <input class="form-control " type="search" placeholder="Enter atleast 4 characters to search" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="search" (keyup)="onSearch(search)" autocomplete="off" aria-label="Search"/>
+                <ul *ngIf="searchedMatchedBlogs?.length > 0" class="list-group list-group-flush search-ac ZIndex" style="z-index:1200 !important;">
+                    <li class="list-group-item custom-item" (click)="navigate()" *ngFor="let blog of searchedMatchedBlogs"
+                        [routerLink]="blog.blogHref">
+                        {{blog.blogName}}</li>
+                </ul>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,10 @@
+<ul class="list-group" id="list-tab" role="tablist">
+    <ng-container *ngFor="let x of blogNavs; last as l; index as i">
+        <a class="list-group-item list-group-item-action" [routerLink]="x.blogHref" [class.active]="activeBlog.blogHref===x.blogHref">
+            {{x.blogName}} 
+        </a>
+        <a *ngIf="l && isAdmin" class="list-group-item d-flex justify-content-between align-items-center" routerLink="/admin" [queryParams]="{sort: i+1, blogTech: activeBlog?.blogTech}">
+            <span class="badge badge-primary badge-pill">ADD NEW BLOG</span>
+        </a>
+    </ng-container>
+</ul>
