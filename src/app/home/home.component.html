@@ -3,84 +3,38 @@
     <p class="lead"></p>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Latest Articles</h4>
-            </div>
-            <div class="card-body">
-                <ng-container *ngFor="let latest of latestBlogs">
-                    <button 
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    [routerLink]="latest.blogHref" 
-                    [queryParams]="{ from: 'home'}"
-                    >
-                        {{latest.blogName}}
-                    </button>
-                </ng-container>
-                <button 
-                    *ngIf="isAdmin"
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    routerLink="/admin" 
-                    [queryParams]="{ articleType: 'latest'}"
-                >
-                    +
-                </button>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">On Backend</h4>
-            </div>
-            <div class="card-body">
-                <ng-container *ngFor="let backend of backendBlogs">
-                    <button 
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    [routerLink]="backend.blogHref" 
-                    [queryParams]="{ from: 'home'}"
-                    >
-                        {{backend.blogName}}
-                    </button>
-                </ng-container>
-                <button 
-                    *ngIf="isAdmin"
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    routerLink="/admin" 
-                    [queryParams]="{ articleType: 'backend'}"
-                >
-                    +
-                </button>
-            </div>
-        </div>
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">On Frontend</h4>
             </div>
             <div class="card-body">
                 <ng-container *ngFor="let frontend of frontendBlogs">
-                    <button 
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    [routerLink]="frontend.blogHref" 
-                    [queryParams]="{ from: 'home'}"
-                    >
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" [routerLink]="frontend.blogHref" [queryParams]="{ from: 'home'}">
                         {{frontend.blogName}}
                     </button>
                 </ng-container>
-                <button 
-                    *ngIf="isAdmin"
-                    type="button" 
-                    class="btn btn-lg btn-block btn-outline-primary" 
-                    routerLink="/admin" 
-                    [queryParams]="{ articleType: 'frontend'}"
-                >
+                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'frontend'}">
                     +
                 </button>
             </div>
         </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">On Backend</h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngFor="let backend of backendBlogs">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" [routerLink]="backend.blogHref" [queryParams]="{ from: 'home'}">
+                        {{backend.blogName}}
+                    </button>
+                </ng-container>
+                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'backend'}">
+                    +
+                </button>
+            </div>
+        </div>
+
     </div>

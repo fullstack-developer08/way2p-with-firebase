@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store';
 import { Observable, Subject } from 'rxjs';

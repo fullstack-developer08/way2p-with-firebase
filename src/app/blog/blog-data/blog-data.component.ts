@@ -88,21 +88,25 @@ export class BlogDataComponent implements OnInit, OnDestroy {
               this.blogNavs = [];
               querySnapshot.forEach(data => {
                 let blog = data.data();
-                if (!this.isAdmin && !(blog.visible === "false")) {
+                console.log(blog)
+                if (this.isAdmin || (!this.isAdmin && !(blog.visible === "false"))) {
                   this.blogNavs.push(
                     {
-                      blogHref: data.data().blogHref,
-                      blogName: data.data().blogName,
-                      sort: data.data().sort,
-                    });
-                } else if(this.isAdmin) {
-                  this.blogNavs.push(
-                    {
-                      blogHref: data.data().blogHref,
-                      blogName: data.data().blogName,
-                      sort: data.data().sort,
+                      blogHref: blog.blogHref,
+                      blogName: blog.blogName,
+                      articleType: blog.articleType,
+                      sort: blog.sort,
                     });
                 }
+                //  else if(this.isAdmin) {
+                //   this.blogNavs.push(
+                //     {
+                //       blogHref: blog.blogHref,
+                //       blogName: blog.blogName,
+                //       articleType: blog.articleType,
+                //       sort: blog.sort,
+                //     });
+                // }
               });
               this.sortNavsAndDispatch();
             });

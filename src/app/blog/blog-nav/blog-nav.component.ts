@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AppState } from 'src/app/store';
 import { Store, select } from '@ngrx/store';
 import { Subject, Observable } from 'rxjs';
@@ -16,6 +16,7 @@ export class BlogNavComponent implements OnInit, OnDestroy {
   public ngDestroyed$ = new Subject();
   admin$: Observable<any>;
   isAdmin: boolean;
+  @Input() articleType;
 
   constructor(
     private store: Store<AppState>
@@ -29,7 +30,8 @@ export class BlogNavComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((data) => {
         if(data && data.blogNavs) {
-          this.blogNavs = data.blogNavs;
+          console.log(this.articleType)
+          this.blogNavs = data.blogNavs.filter((obj) => obj.articleType === this.articleType)
         }
         if(data && data.activeBlog) {
           this.activeBlog = data.activeBlog;

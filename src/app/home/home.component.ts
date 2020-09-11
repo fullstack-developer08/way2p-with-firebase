@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../store';
 import { takeUntil } from 'rxjs/operators';
 import { FirebaseService } from '../common/services/firebase.service';
+import { SeoService } from '../common/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,11 @@ export class HomeComponent implements OnInit {
   
   constructor(
     private store: Store<AppState>,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private seoService: SeoService,
   ) { 
     this.admin$ = this.store.pipe(select('admin'));
+      this.seoService.setTitle('Learn Together - way2programming.com');
   }
 
   ngOnInit(): void {
