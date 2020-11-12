@@ -1,0 +1,160 @@
+<div class="jumbotron">
+    <h1 class="display-4">Code Coverage with Jacoco and Sonar</h1>
+  </div>
+<div class="row">
+    
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+       
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Add below attributes under properties.
+                </div>
+                <div class="card-body">
+                    <pre>
+&lt;jacoco.version>0.8.3&lt;/jacoco.version>
+&lt;sonar.java.coveragePlugin>jacoco&lt;/sonar.java.coveragePlugin>
+&lt;sonar.dynamicAnalysis>reuseReports&lt;/sonar.dynamicAnalysis>
+&lt;sonar.jacoco.reportPath>${{'{'}}project.basedir}/../target/jacoco.exec&lt;/sonar.jacoco.reportPath>
+&lt;sonar.language>java&lt;/sonar.language>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Add below plugin in plugins
+                </div>
+                <div class="card-body">
+                    <pre>
+&lt;plugin>
+    &lt;groupId>org.jacoco&lt;/groupId>
+    &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+    &lt;version>${{'{'}}jacoco.version}&lt;/version>
+    &lt;configuration>
+        &lt;skip>${{'{'}}maven.test.skip}&lt;/skip>
+        &lt;destFile>${{'{'}}basedir}/target/coverage-reports/jacoco-unit.exec&lt;/destFile>
+        &lt;dataFile>${{'{'}}basedir}/target/coverage-reports/jacoco-unit.exec&lt;/dataFile>
+        &lt;output>file&lt;/output>
+        &lt;append>true&lt;/append>
+        &lt;excludes>
+            &lt;exclude>*MethodAccess&lt;/exclude>
+        &lt;/excludes>
+    &lt;/configuration>
+    &lt;executions>
+        &lt;execution>
+            &lt;id>jacoco-initialize&lt;/id>
+            &lt;goals>
+                &lt;goal>prepare-agent&lt;/goal>
+            &lt;/goals>
+            &lt;phase>test-compile&lt;/phase>
+        &lt;/execution>
+        &lt;execution>
+            &lt;id>jacoco-site&lt;/id>
+            &lt;phase>verify&lt;/phase>
+            &lt;goals>
+                &lt;goal>report&lt;/goal>
+            &lt;/goals>
+        &lt;/execution>
+    &lt;/executions>
+&lt;/plugin>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Download the SonarQube
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Go to <a href="https://www.sonarqube.org/downloads/" target="_href">Sonar website</a> and
+                        download community addition of sonar qube.
+                    </p>
+                    <img alt="" src="assets/images/sonar-community.PNG" class="img-fluid mt-3" />
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Run the Sonarqube using StartSonar.batch file
+                </div>
+                <div class="card-body">
+                    <img alt="" src="assets/images/run-sonar.PNG" class="img-fluid mt-3" />
+
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Build the project
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Right click on the project and run as Maven build and provide goals as `clean install`.
+                    </p>
+                    <p class="card-text">
+                        We can also direactly build from the root folder if we have Maven path in environment variable.
+                    </p>
+                    <pre>
+mvn clean install                            
+                    </pre>
+                    <p class="card-text">
+                        After build the project we can see the code coverage by Jacoco using below path<br>
+                        <img alt="" src="assets/images/jacocoreport.PNG" class="img-fluid mt-3" />
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Code coverage with Sonar report
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        
+                    </p>
+                    <p class="card-text">
+                        After build the project, we need to run sonar build using below command.
+                    </p>
+                    <pre>
+mvn sonar:sonar                           
+                    </pre>
+                    <p class="card-text">
+                        After build the project we can see the code coverage by Jacoco using below path<br>
+                        <img alt="" src="assets/images/sonarrepot.PNG" class="img-fluid mt-3" />
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Code coverage with Sonar report
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        
+                    </p>
+                    <p class="card-text">
+                        Launch the localhost:9000 port and we can see sonarqube report with code coverage.
+                    </p>
+                    
+                    <p class="card-text">
+                        <img alt="" src="assets/images/sonar1.png" class="img-fluid mt-3" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

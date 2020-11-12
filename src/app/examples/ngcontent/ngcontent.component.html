@@ -1,0 +1,146 @@
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let d of data">
+            <div class="col-md">
+                <product-card>
+                    <h5 class="card-title">{{d.cardTitle}}</h5>
+                    <p class="card-text">{{d.cardText}}</p>
+                </product-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-body">
+                    In the above cards we are using ng-content attributes. Please see below code.
+                    <br />
+                    Points to be remember.
+                    <ul>
+                        <li>1. ng-content element without select attribute will pickup whole html available inside the
+                            product-card component.</li>
+                        <li>2. ng-content element with select attribute we can take only specific element like class or
+                            id. If it a class based pickup then we need to pass (.) or else (#).</li>
+                        <li>If you will see example we are using with select with class based pickup.</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body text-info">
+            <tabset>
+                <tab heading="product-card.component.ts">
+                    <pre>
+import {{ '{' }} Component, OnInit } from '@angular/core';
+
+@Component({{ '{' }}
+    selector: 'product-card',
+    template: `
+    &lt;div class="card">
+        &lt;div class="card-body">
+            &lt;ng-content select=".card-title">&lt;/ng-content>
+            &lt;a href="#" class="btn btn-primary">Go somewhere&lt;/a>
+            &lt;ng-content select=".card-text">&lt;/ng-content>
+        &lt;/div>
+    &lt;/div>
+  `
+})
+export class ProductCardComponent implements OnInit {{ '{' }}
+    flowType: string = "NI";
+
+    constructor() {{ '{' }} }
+
+    ngOnInit(): void {{ '{' }}
+    }
+
+}
+
+</pre>
+                </tab>
+                <tab heading="test.component.html">
+                    <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;ng-container *ngFor="let d of data">
+            &lt;div class="col-md">
+                &lt;product-card>
+                    &lt;h5 class="card-title">{{ '{' }}{{ '{' }}d.cardTitle}}&lt;/h5>
+                    &lt;p class="card-text">{{ '{' }}{{ '{' }}d.cardText}}&lt;/p>
+                &lt;/product-card>
+            &lt;/div>
+        &lt;/ng-container>
+    &lt;/div>
+&lt;/div>
+                </pre>
+                </tab>
+                <tab heading="test.component.ts">
+                    <pre>
+import {{ '{' }} Component, OnInit } from '@angular/core';
+
+@Component({{ '{' }}
+  selector: 'app-ngcontent',
+  templateUrl: './ngcontent.component.html',
+  styleUrls: ['./ngcontent.component.scss']
+})
+export class TestComponent implements OnInit {{ '{' }}
+
+  data = [
+    {{ '{' }}
+      cardTitle: 'Heading1',
+      cardText: 'cardText1'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading2',
+      cardText: 'cardText2'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading3',
+      cardText: 'cardText3'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading4',
+      cardText: 'cardText4'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading5',
+      cardText: 'cardText5'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading6',
+      cardText: 'cardText6'
+    },
+    {{ '{' }}
+      cardTitle: 'Heading7',
+      cardText: 'cardText7'
+    },
+  ]
+  
+  constructor() {{ '{' }} }
+
+  ngOnInit(): void {{ '{' }}
+  }
+
+}
+</pre>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

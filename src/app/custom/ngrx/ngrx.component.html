@@ -1,0 +1,675 @@
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Ngrx</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    Ngrx Store (version - 10.0.1)
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <tabset>
+
+                                                    <tab heading="counter.action.ts">
+                                                        <pre>
+import {{'{'}} createAction } from '@ngrx/store';
+
+export const increment = createAction('[Counter Component] Increment');
+export const decrement = createAction('[Counter Component] Decrement');
+export const reset = createAction('[Counter Component] Reset');
+</pre>
+                                                    </tab>
+
+                                                    <tab heading="counter.reducer.ts">
+                                                        <pre>
+import {{'{'}} createReducer, on } from '@ngrx/store';
+import {{'{'}} decrement, increment, reset } from '../actions/counter.actions';
+ 
+export const initialState = 0;
+ 
+const _counterReducer = createReducer(
+  initialState,
+  on(increment, (state) => state + 1),
+  on(decrement, (state) => state - 1),
+  on(reset, (state) => 0)
+);
+ 
+export function counterReducer(state, action) {{'{'}}
+  return _counterReducer(state, action);
+}
+</pre>
+                                                    </tab>
+
+                                                    <tab heading="counter.component.ts">
+                                                        <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} Store } from '@ngrx/store';
+import {{'{'}} Observable } from 'rxjs';
+import {{'{'}} decrement, increment, reset } from '../store/actions/counter.actions';
+import {{'{'}} IStore } from '../store/models/Store';
+
+@Component({{'{'}}
+    selector: 'app-counter',
+    templateUrl: './counter.component.html',
+    styleUrls: ['./counter.component.css']
+})
+export class CounterComponent implements OnInit {{'{'}}
+
+    count$: Observable&lt;number>;
+    
+    constructor(private store: Store&lt;IStore>) {{'{'}} 
+        this.count$ = store.select('count');
+    }
+
+    ngOnInit(): void {{'{'}}
+    }
+
+    increment() {{'{'}}
+        this.store.dispatch(increment());
+    }
+    
+    decrement() {{'{'}}
+        this.store.dispatch(decrement());
+    }
+    
+    reset() {{'{'}}
+        this.store.dispatch(reset());
+    }
+
+}
+</pre>
+                                                    </tab>
+
+                                                    <tab heading="app.module.ts">
+                                                        <pre>
+import {{'{'}} BrowserModule } from '@angular/platform-browser';
+import {{'{'}} NgModule } from '@angular/core';
+import {{'{'}} AppRoutingModule } from './app-routing.module';
+import {{'{'}} StoreModule } from '@ngrx/store';
+import {{'{'}} AppComponent } from './app.component';
+import {{'{'}} CounterComponent } from './counter/counter.component';
+import {{'{'}} counterReducer } from './store/reducers/counter.reducer';
+import {{'{'}} TodoComponent } from './todo/todo.component';
+import {{'{'}} todoReducer } from './store/reducers/todo.reducer';
+import {{'{'}} TodoEffects } from './store/effects/todo.effects';
+import {{'{'}} DisplayMessageComponent } from './display-message/display-message.component';
+import {{'{'}} messageReducer } from './store/reducers/message.reducer';
+import {{'{'}} SpecComponent } from './spec/spec.component';
+import {{'{'}} environment } from 'src/environments/environment';
+
+@NgModule({{'{'}}
+  declarations: [
+    AppComponent,
+    CounterComponent,
+    TodoComponent,
+    DisplayMessageComponent,
+    SpecComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    StoreModule.forRoot({{'{'}} 
+      count: counterReducer, 
+      todos: todoReducer, 
+      message: messageReducer,
+      router: routerReducer,
+    })
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {{'{'}} }
+
+</pre>
+                                                    </tab>
+
+                                                </tabset>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[1] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    Ngrx Devtools (version - 10.0.1)
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Installation
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+$ npm install @ngrx/store-devtools --save
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Setup
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {{'{'}} environment } from '../environments/environment'; // Angular CLI environment
+ 
+@NgModule({{'{'}}
+  imports: [
+    StoreModule.forRoot(reducers),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({{'{'}}
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+  ],
+})
+export class AppModule {{'{'}}}
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Setup for production
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {{'{'}} environment } from '../environments/environment'; // Angular CLI environment
+ 
+@NgModule({{'{'}}
+  imports: [
+    StoreModule.forRoot(reducers),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    environment.production ? [] : StoreDevtoolsModule.instrument({{'{'}}
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+  ],
+})
+export class AppModule {{'{'}}}
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[2] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    NgRx Effects (version - 10.0.1)
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    What is Ngrx Effects?
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                When we need data from the API for any component. component will http
+                                                service or some other service dependency that have http service, means
+                                                component is having the logic to get the data from the API.
+
+                                                <br />
+                                                <br />
+
+                                                Using Ngrx Effects we do not require dependency of http service. We can
+                                                simply dispatch the action like ngrx store and it will trigger the
+                                                effects, After that effects will call API and get the data from API and
+                                                store to the ngrx store. Once data reach to the store, we can get the
+                                                data from store.
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    What is the advantage of Ngrx Effects?
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                1. Compoment will be easily testable since there no http service
+                                                involved.<br />
+                                                2. Component will have only presentational logic.<br />
+                                                3. Clean and maintainable code.
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Installation
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+$ npm install @ngrx/effects --save
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Registering effects
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <!-- Block Start-->
+                                                <div class="card mb-3">
+                                                    <div class="card-header">
+                                                        <strong class="text-success">
+                                                            Root level (app.module.ts)
+                                                        </strong>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre>
+import {{'{'}} EffectsModule } from '@ngrx/effects';
+import {{'{'}} MovieEffects } from './effects/movie.effects';
+
+@NgModule({{'{'}}
+    imports: [
+        EffectsModule.forRoot([MovieEffects])
+    ],
+})
+export class AppModule {{'{'}}}
+                                                </pre>
+                                                    </div>
+                                                </div>
+                                                <!-- Block End-->
+
+                                                <!-- Block Start-->
+                                                <div class="card mb-3">
+                                                    <div class="card-header">
+                                                        <strong class="text-success">
+                                                            lazy modules level
+                                                        </strong>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre>
+import {{'{'}} EffectsModule } from '@ngrx/effects';
+import {{'{'}} MovieEffects } from './effects/movie.effects';
+
+@NgModule({{'{'}}
+    imports: [
+        EffectsModule.forFeature([MovieEffects])
+    ],
+})
+export class AdminModule {{'{'}}}
+                                                </pre>
+                                                    </div>
+                                                </div>
+                                                <!-- Block End-->
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Basic Example - Todo Effects app
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <tabset>
+                                                    <tab heading="todo.effects.ts">
+                                                        <pre>
+import {{'{'}} Injectable } from '@angular/core';
+import {{'{'}} Actions, createEffect, ofType } from '@ngrx/effects';
+import {{'{'}} EMPTY } from 'rxjs';
+import {{'{'}} map, mergeMap, catchError } from 'rxjs/operators';
+import {{'{'}} TodoService } from 'src/app/services/todo.service';
+import {{'{'}} getTodos } from '../actions/todo.actions';
+
+@Injectable()
+export class TodoEffects {{'{'}}
+
+    constructor(
+        private actions$: Actions,
+        private todoService: TodoService
+    ) {{'{'}} }
+
+    loadTodos$ = createEffect(() => this.actions$.pipe(
+        ofType('[Todo Page] Load Todos'),
+        mergeMap(() => this.todoService.getTodos()
+            .pipe(
+                map(todos => (getTodos(todos))),
+                catchError(() => EMPTY)
+            ))
+    ));
+
+}
+</pre>
+                                                    </tab>
+
+                                                    <tab heading="todo.component.ts">
+                                                        <pre>
+ import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} Store } from '@ngrx/store';
+import {{'{'}} Observable } from 'rxjs';
+import {{'{'}} HelperService } from '../services/helper.service';
+import {{'{'}} TodoService } from '../services/todo.service';
+import {{'{'}} getTodos } from '../store/actions/todo.actions';
+import {{'{'}} IStore } from '../store/models/Store';
+
+@Component({{'{'}}
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent implements OnInit {{'{'}}
+  todos$: Observable&lt;any>;
+
+  constructor(private todoService: TodoService, 
+    private store: Store&lt;IStore>,
+    private helper: HelperService) {{'{'}} 
+    this.todos$ = this.store.select('todos');
+  }
+
+  ngOnInit(): void {{'{'}}
+    // this.todoService.getTodos().subscribe(todos => {{'{'}}
+    //   this.store.dispatch(getTodos(todos));
+    // });
+    <mark>this.store.dispatch({{'{'}} type: '[Todo Page] Load Todos' });</mark>
+  }
+
+}
+</pre>
+                                                    </tab>
+                                                    <tab heading="todo.service.ts">
+                                                        <pre>
+import {{'{'}} HttpClient } from '@angular/common/http';
+import {{'{'}} Injectable } from '@angular/core';
+
+@Injectable({{'{'}}
+    providedIn: 'root'
+})
+export class TodoService {{'{'}}
+
+    constructor(private http: HttpClient) {{'{'}}
+
+    }
+
+    getTodos() {{'{'}}
+        return this.http.get('https://jsonplaceholder.typicode.com/todos');
+    }
+
+}
+                                                        </pre>
+                                                    </tab>
+                                                </tabset>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[3] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    ngrx/router-store (version-10.0.1)
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Installation
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+$ npm install @ngrx/router-store --save
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Setup in apa.module.ts
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import {{'{'}} AppComponent } from './app.component';
+
+@NgModule({{'{'}}
+    imports: [
+    BrowserModule,
+    StoreModule.forRoot({{'{'}}
+        router: routerReducer,
+    }),
+    RouterModule.forRoot([
+        // routes
+    ]),
+    // Connects RouterModule with StoreModule, uses MinimalRouterStateSerializer by default
+    StoreRouterConnectingModule.forRoot(),
+    ],
+    bootstrap: [AppComponent],
+})
+export class AppModule {{'{'}}}
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Router is big object so we will store only url, params and
+                                                    queryParams in the store
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <tabset>
+                                                    <tab heading="custom serializer file">
+<pre>
+import {{'{'}} Params, RouterStateSnapshot } from '@angular/router';
+import {{'{'}} RouterStateSerializer } from '@ngrx/router-store';
+
+export interface RouterStateUrl {{'{'}}
+  url: string;
+  params: Params;
+  queryParams: Params;
+}
+
+export class CustomSerializer implements RouterStateSerializer&lt;RouterStateUrl> {{'{'}}
+  serialize(routerState: RouterStateSnapshot): RouterStateUrl {{'{'}}
+    let route = routerState.root;
+
+    while (route.firstChild) {{'{'}}
+      route = route.firstChild;
+    }
+
+    const {{'{'}}
+      url,
+      root: {{'{'}} queryParams },
+    } = routerState;
+    const {{'{'}} params } = route;
+
+    // Only return an object including the URL, params and query params
+    // instead of the entire snapshot
+    return {{'{'}} url, params, queryParams };
+  }
+}
+</pre>
+                                                    </tab>
+                                                    <tab heading="register in app module">
+<pre>
+import {{'{'}} StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import {{'{'}} AppComponent } from './app.component';
+import {{'{'}} CustomSerializer } from './store/custom-route-serializer';
+
+@NgModule({{'{'}}
+    imports: [
+    BrowserModule,
+    StoreModule.forRoot({{'{'}}
+        router: routerReducer,
+    }),
+    RouterModule.forRoot([
+        // routes
+    ]),
+    // Connects RouterModule with StoreModule, uses MinimalRouterStateSerializer by default
+    StoreRouterConnectingModule.forRoot(
+        {{'{'}}
+            serializer: CustomSerializer
+        }
+    ),
+    ],
+    bootstrap: [AppComponent],
+})
+export class AppModule {{'{'}}}
+</pre>
+                                                    </tab>
+                                                </tabset>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

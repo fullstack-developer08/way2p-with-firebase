@@ -1,0 +1,959 @@
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Angular in Action</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <tabset>
+                                            <tab heading="component">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} FormControl, FormGroup } from '@angular/forms';
+
+@Component({{'{'}}
+    selector: 'app-reactive-form-ex-without-formbuilder',
+    templateUrl: './reactive-form-ex-without-formbuilder.component.html',
+    styleUrls: ['./reactive-form-ex-without-formbuilder.component.css']
+})
+export class ReactiveFormExWithoutFormbuilderComponent implements OnInit {{'{'}}
+    contactForm: FormGroup;
+
+    constructor() {{'{'}} }
+
+    ngOnInit(): void {{'{'}}
+    this.contactForm = this.createContactForm();
+    }
+
+    createContactForm() {{'{'}}
+    return new FormGroup({{'{'}}
+        'firstName': new FormControl(null),
+        'lastName': new FormControl(null),
+        'email': new FormControl(null),
+        'message': new FormControl(null)
+    });
+    }
+
+    onSubmit() {{'{'}}
+    console.log(this.contactForm.value);
+    }
+
+}</pre>
+                                            </tab>
+                                            <tab heading="html">
+                                                <pre>
+
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-sm-3">&lt;/div>
+        &lt;div class="col-sm-6">
+            &lt;form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                &lt;div class="form-group">
+                    &lt;label for="firstName">First Name&lt;/label>
+                    &lt;input type="text" class="form-control" id="firstName" aria-describedby="firstName Field"
+                        formControlName="firstName">
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="lastName">Last Name&lt;/label>
+                    &lt;input type="text" class="form-control" id="lastName" aria-describedby="lastName Field"
+                        formControlName="lastName">
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="email">Email&lt;/label>
+                    &lt;input type="email" class="form-control" id="email" aria-describedby="email Field"
+                        formControlName="email">
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="email">Message&lt;/label>
+                    &lt;textarea class="form-control" id="message" aria-describedby="message Field"
+                        formControlName="message">
+                    &lt;/textarea>
+                &lt;/div>
+                &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-sm-3">&lt;/div>
+    &lt;/div>
+&lt;/div>
+                                        </pre>
+                                            </tab>
+                                        </tabset>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[1] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <tabset>
+                                            <tab heading="component">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({{'{'}}
+  selector: 'app-reactive-form-with-formbuilder',
+  templateUrl: './reactive-form-with-formbuilder.component.html',
+  styleUrls: ['./reactive-form-with-formbuilder.component.css']
+})
+export class ReactiveFormWithFormbuilderComponent implements OnInit {{'{'}}
+  contactForm: FormGroup;
+  courseName: string[] = [];
+  displayFormError: boolean = false;
+
+  constructor(private fb: FormBuilder) {{'{'}} }
+
+  ngOnInit(): void {{'{'}}
+    this.courseName = [
+      'Angular',
+      'Java',
+      'Rxjs'
+    ];
+    this.contactForm = this.createContactForm();
+  }
+
+  createContactForm() {{'{'}}
+    return this.fb.group({{'{'}}
+      'firstName': ['', Validators.required],
+      'lastName': ['', Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
+      'courseName': ['Angular', Validators.required],
+      'message': ['', Validators.required]
+    });
+  }
+
+  onSubmit() {{'{'}}
+    if (this.contactForm.invalid) {{'{'}}
+      this.contactForm.markAllAsTouched();
+      console.log(this.contactForm);
+    } else {{'{'}}
+      console.log(this.contactForm);
+      console.log(this.contactForm.value);
+      console.log(this.contactForm.valid);
+    }
+  }
+
+}
+</pre>
+                                            </tab>
+                                            <tab heading="html">
+                                                <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-sm-3">&lt;/div>
+        &lt;div class="col-sm-6">
+            &lt;form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                &lt;div class="form-group">
+                    &lt;label for="firstName">First Name&lt;/label>
+                    &lt;input type="text" class="form-control" id="firstName" aria-describedby="firstName Field"
+                        formControlName="firstName">
+                    &lt;ng-container
+                        *ngIf="contactForm.controls.firstName.invalid && (contactForm.controls.firstName.touched)">
+                        &lt;small class="text-danger" *ngIf="contactForm.controls.firstName.errors.required">
+                            Please enter first name.
+                        &lt;/small>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="lastName">Last Name&lt;/label>
+                    &lt;input type="text" class="form-control" id="lastName" aria-describedby="lastName Field"
+                        formControlName="lastName">
+                    &lt;ng-container
+                        *ngIf="contactForm.controls.lastName.invalid && contactForm.controls.lastName.touched">
+                        &lt;small class="text-danger" *ngIf="contactForm.controls.lastName.errors.required">
+                            Please enter last name.
+                        &lt;/small>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="email">Email&lt;/label>
+                    &lt;input type="email" class="form-control" id="email" aria-describedby="email Field"
+                        formControlName="email">
+                    &lt;ng-container *ngIf="contactForm.controls.email.invalid && contactForm.controls.email.touched">
+                        &lt;small class="text-danger" *ngIf="contactForm.controls.email.errors.email">
+                            Please enter valid email.
+                        &lt;/small>
+                        &lt;small class="text-danger" *ngIf="contactForm.controls.email.errors.required">
+                            Please enter email address.
+                        &lt;/small>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="courseName">Email&lt;/label>
+                    &lt;select class="form-control" id="courseName" aria-describedby="course Field"
+                        formControlName="courseName">
+                        &lt;option *ngFor="let course of courseName" [value]="course">{{'{'}}{{'{'}}course}}&lt;/option>
+                    &lt;/select>
+                &lt;/div>
+                &lt;div class="form-group">
+                    &lt;label for="email">Message&lt;/label>
+                    &lt;textarea class="form-control" id="message" aria-describedby="message Field"
+                        formControlName="message">
+                    &lt;/textarea>
+                    &lt;ng-container
+                        *ngIf="contactForm.controls.message.invalid && contactForm.controls.message.touched">
+                        &lt;small class="text-danger" *ngIf="contactForm.controls.message.errors.required">
+                            Please enter message.
+                        &lt;/small>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-sm-3">&lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+                                            </tab>
+                                            <tab heading="css">
+                                                <pre>
+input.ng-touched.ng-invalid {{'{'}}
+    border: 1px solid red;
+    box-shadow: 0 0 13px inset rgba(255, 0 , 0, 0.2);
+}
+textarea.ng-touched.ng-invalid {{'{'}}
+    border: 1px solid red;
+    box-shadow: 0 0 13px inset rgba(255, 0 , 0, 0.2);
+}
+</pre>
+                                            </tab>
+                                        </tabset>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[2] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    valueChanges
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    valueChanges is return Observable. It means we can take latest value
+                                                    of the field using valueChange.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    patchValue
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Using patchValue we can update the some control of the form but
+                                                    setValue function need all control to update the value.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        <tabset>
+                                            <tab>
+                                                <pre>
+this.contactForm.get('firstName').valueChanges.subscribe(data => {{'{'}}
+    if(data === "Arif") {{'{'}}
+        this.contactForm.patchValue({{'{'}}firstName: 'Arifkh1'});
+    }
+});
+                                                </pre>
+                                            </tab>
+                                        </tabset>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[3] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    debounceTime
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    debounceTime delays values emitted by the source Observable, but
+                                                    drops previous pending delayed emissions if a new value arrives on
+                                                    the source Observable. This operator keeps track of the most recent
+                                                    value from the source Observable, and emits that only when dueTime
+                                                    enough time has passed without any other value appearing on the
+                                                    source Observable. If a new value appears before dueTime silence
+                                                    occurs, the previous value will be dropped and will not be emitted
+                                                    on the output Observable.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Need to import debounceTime from rxjs/operators
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} debounceTime } from 'rxjs/operators'
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    we can add valueChanges code in ngOnInit method, since it is
+                                                    observable so it will get execute when ever there is new data
+                                                    dispatch
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+    ngOnInit(): void {{'{'}}
+        this.courseName = [
+          'Angular',
+          'Java',
+          'Rxjs'
+        ];
+        this.contactForm = this.createContactForm();
+    
+        this.contactForm.get('firstName').valueChanges.pipe(debounceTime(700)).subscribe(data => {{'{'}}
+          console.log("test");
+          if (data === "Arif") {{'{'}}
+            this.contactForm.patchValue({{'{'}} firstName: 'Arifkh1' });
+          }
+        });
+      }
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Form Array Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="assets/images/form-array-example.PNG" class="img-fluid"
+                                                    alt="">
+                                                <p class="card-text">
+                                                    In above image Add Skill button is used to add more input field. It
+                                                    happended dynamically and we can add as many as number of skills
+                                                    fields. It can be achieved using FormArray.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    html
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-sm-3">&lt;/div>
+        &lt;div class="col-sm-6">
+            &lt;form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+                &lt;div formGroupName="empDetails">
+                    &lt;div class="form-group">
+                        &lt;label for="emailAddress">Email address&lt;/label>
+                        &lt;input type="text" class="form-control" id="emailAddress" formControlName="emailAddress"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.emailAddress.invalid && empForm?.controls.empDetails.controls.emailAddress.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.required">
+                                Please enter email address.
+                            &lt;/small>
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.email">
+                                Please enter valid email address.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/div>
+
+                    &lt;div class="form-group">
+                        &lt;label for="employeeName">Employee Name&lt;/label>
+                        &lt;input type="text" class="form-control" id="employeeName" formControlName="employeeName"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.employeeName.invalid && empForm?.controls.empDetails.controls.employeeName.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.employeeName.errors.required">
+                                Please enter employee name.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/div>
+                &lt;/div>
+                <mark>&lt;div class="form-group" formArrayName="skills">
+                    &lt;label for="skills">Skills&lt;/label>
+                    &lt;ng-container *ngFor="let skill of empForm?.get('skills').controls; index as i">
+                        &lt;input type="text" class="form-control mt-2" id="skills" placeholder="Add Skills"
+                            formControlName="{{'{'}}{{'{'}}i}}">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.skills.controls[i].invalid && empForm?.controls.skills.controls[i].touched">
+                            &lt;small class="text-danger" *ngIf="empForm.controls.skills.controls[i].errors.required">
+                                Please enter skill name.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;button (click)="addSkill()" type="button" class="btn btn-sm btn-primary mt-2">+ Add Skills&lt;/button>
+                | &lt;button (click)="removeSkill()" type="button" class="btn btn-sm btn-primary mt-2">- Remove
+                    Skills&lt;/button></mark>
+                &lt;br />
+                &lt;br />
+                &lt;br />
+                &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-sm-3">&lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    component.ts
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({{'{'}}
+  selector: 'app-reactive-form-with-formarray',
+  templateUrl: './reactive-form-with-formarray.component.html',
+  styleUrls: ['./reactive-form-with-formarray.component.css']
+})
+export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
+  empForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {{'{'}} 
+
+  }
+
+  ngOnInit(): void {{'{'}}
+    this.empForm = this.createEmpForm()
+  }
+
+  createEmpForm() {{'{'}}
+    return this.fb.group({{'{'}}
+      'empDetails': this.fb.group({{'{'}}
+        'emailAddress': ['', [Validators.required, Validators.email]],
+        'employeeName': ['', [Validators.required]]
+      }),
+      <mark>'skills': this.fb.array([
+        ['', Validators.required],
+        ['', Validators.required],
+        ['', Validators.required]
+      ])</mark>
+    })
+  }
+
+  onSubmit() {{'{'}}
+    console.log(this.empForm);
+  }
+
+  <mark>addSkill() {{'{'}}
+    (this.empForm.get('skills') as FormArray).push(new FormControl('', Validators.required));
+  }
+
+  removeSkill() {{'{'}}
+    const length = (this.empForm.get('skills') as FormArray).length;
+    (this.empForm.get('skills') as FormArray).removeAt(length-1);
+  }</mark>
+
+}
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    css
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+input.ng-touched.ng-invalid {{'{'}}
+    border: 1px solid red;
+    box-shadow: 0 0 13px inset rgba(255, 0 , 0, 0.2);
+}
+textarea.ng-touched.ng-invalid {{'{'}}
+    border: 1px solid red;
+    box-shadow: 0 0 13px inset rgba(255, 0 , 0, 0.2);
+}
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[5] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    ts file changes
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({{'{'}}
+  selector: 'app-reactive-form-with-formarray',
+  templateUrl: './reactive-form-with-formarray.component.html',
+  styleUrls: ['./reactive-form-with-formarray.component.css']
+})
+export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
+  empForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {{'{'}} 
+
+  }
+
+  ngOnInit(): void {{'{'}}
+    this.empForm = this.createEmpForm()
+  }
+
+  createEmpForm() {{'{'}}
+    return this.fb.group({{'{'}}
+      'empDetails': this.fb.group({{'{'}}
+        'emailAddress': ['', [Validators.required, Validators.email]],
+        'employeeName': ['', [Validators.required, <mark>this.customNameValidator.bind(this)</mark>]]
+      }),
+      'skills': this.fb.array([
+        ['', Validators.required],
+        ['', Validators.required],
+        ['', Validators.required]
+      ])
+    })
+  }
+
+  onSubmit() {{'{'}}
+    console.log(this.empForm);
+  }
+
+  addSkill() {{'{'}}
+    (this.empForm.get('skills') as FormArray).push(new FormControl('', Validators.required));
+  }
+
+  removeSkill() {{'{'}}
+    const length = (this.empForm.get('skills') as FormArray).length;
+    (this.empForm.get('skills') as FormArray).removeAt(length-1);
+  }
+
+  <mark>
+    customNameValidator(control: FormControl) {{'{'}}
+        if(control.value.indexOf('Arif') > -1) {{'{'}}
+        return {{'{'}} isNameAlreadyTaken: true };
+        }
+        return null;
+    }
+  </mark>
+
+}
+
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    html file changes
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-sm-3">&lt;/div>
+        &lt;div class="col-sm-6">
+            &lt;form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+                &lt;div formGroupName="empDetails">
+                    &lt;div class="form-group">
+                        &lt;label for="emailAddress">Email address&lt;/label>
+                        &lt;input type="text" class="form-control" id="emailAddress" formControlName="emailAddress"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.emailAddress.invalid && empForm?.controls.empDetails.controls.emailAddress.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.required">
+                                Please enter email address.
+                            &lt;/small>
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.email">
+                                Please enter valid email address.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/div>
+
+                    &lt;div class="form-group">
+                        &lt;label for="employeeName">Employee Name&lt;/label>
+                        &lt;input type="text" class="form-control" id="employeeName" formControlName="employeeName"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.employeeName.invalid && empForm?.controls.empDetails.controls.employeeName.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.employeeName.errors.required">
+                                Please enter employee name.
+                            &lt;/small>
+                            <mark>
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.employeeName.errors.isNameAlreadyTaken">
+                                Name is already taken.
+                            &lt;/small>
+                            </mark>
+                        &lt;/ng-container>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="form-group" formArrayName="skills">
+                    &lt;label for="skills">Skills&lt;/label>
+                    &lt;ng-container *ngFor="let skill of empForm?.get('skills').controls; index as i">
+                        &lt;input type="text" class="form-control mt-2" id="skills" placeholder="Add Skills"
+                            formControlName="{{'{'}}{{'{'}}i}}">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.skills.controls[i].invalid && empForm?.controls.skills.controls[i].touched">
+                            &lt;small class="text-danger" *ngIf="empForm.controls.skills.controls[i].errors.required">
+                                Please enter skill name.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;button (click)="addSkill()" type="button" class="btn btn-sm btn-primary mt-2">+ Add Skills&lt;/button>
+                | &lt;button (click)="removeSkill()" type="button" class="btn btn-sm btn-primary mt-2">- Remove
+                    Skills&lt;/button>
+                &lt;br />
+                &lt;br />
+                &lt;br />
+                &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-sm-3">&lt;/div>
+    &lt;/div>
+&lt;/div>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[6] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    ts file changes
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {{'{'}} Observable, of } from 'rxjs';
+import {{'{'}} HttpClient } from '@angular/common/http';
+import {{'{'}} map } from 'rxjs/operators';
+
+@Component({{'{'}}
+    selector: 'app-reactive-form-with-formarray',
+    templateUrl: './reactive-form-with-formarray.component.html',
+    styleUrls: ['./reactive-form-with-formarray.component.css']
+})
+export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
+    empForm: FormGroup;
+
+    constructor(private fb: FormBuilder, private http: HttpClient) {{'{'}} 
+
+    }
+
+    ngOnInit(): void {{'{'}}
+        this.empForm = this.createEmpForm()
+    }
+
+    createEmpForm() {{'{'}}
+    return this.fb.group({{'{'}}
+        'empDetails': this.fb.group({{'{'}}
+        'emailAddress': ['', [Validators.required, Validators.email]],
+        'employeeName': ['', [Validators.required, this.customNameValidator.bind(this)] <mark>,  [this.customAsyncValidator.bind(this)]</mark>]
+        }),
+        'skills': this.fb.array([
+            ['', Validators.required],
+            ['', Validators.required],
+            ['', Validators.required]
+        ])
+    })
+    }
+
+    onSubmit() {{'{'}}
+        console.log(this.empForm);
+    }
+
+    addSkill() {{'{'}}
+        (this.empForm.get('skills') as FormArray).push(new FormControl('', Validators.required));
+    }
+
+    removeSkill() {{'{'}}
+        const length = (this.empForm.get('skills') as FormArray).length;
+        (this.empForm.get('skills') as FormArray).removeAt(length-1);
+    }
+
+    customNameValidator(control: FormControl) {{'{'}}
+        if(control.value.indexOf('Arif') > -1) {{'{'}}
+            return {{'{'}} isNameAlreadyTaken: true };
+        }
+        return null;
+    }
+
+    <mark>
+    customAsyncValidator(control: AbstractControl): Observable&lt;any> {{'{'}}
+        return this.http.get('https://jsonplaceholder.typicode.com/todos').pipe(map((data: any) => {{'{'}}
+        if(control.value === 'delectus aut autem') {{'{'}}
+            return {{'{'}} isNameAlreadyTaken: true };
+        }
+        }))
+    }
+    </mark>
+
+} 
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    html file changes
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+&lt;div class="container">
+    &lt;div class="row">
+        &lt;div class="col-sm-3">&lt;/div>
+        &lt;div class="col-sm-6">
+            &lt;form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+                &lt;div formGroupName="empDetails">
+                    &lt;div class="form-group">
+                        &lt;label for="emailAddress">Email address&lt;/label>
+                        &lt;input type="text" class="form-control" id="emailAddress" formControlName="emailAddress"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.emailAddress.invalid && empForm?.controls.empDetails.controls.emailAddress.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.required">
+                                Please enter email address.
+                            &lt;/small>
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.emailAddress.errors.email">
+                                Please enter valid email address.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/div>
+
+                    &lt;div class="form-group">
+                        &lt;label for="employeeName">Employee Name&lt;/label>
+                        &lt;input type="text" class="form-control" id="employeeName" formControlName="employeeName"
+                            autocomplete="off">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.empDetails.controls.employeeName.invalid && empForm?.controls.empDetails.controls.employeeName.touched">
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.employeeName.errors.required">
+                                Please enter employee name.
+                            &lt;/small>
+                            &lt;small class="text-danger"
+                                *ngIf="empForm.controls.empDetails.controls.employeeName.errors.isNameAlreadyTaken">
+                                Name is already taken.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="form-group" formArrayName="skills">
+                    &lt;label for="skills">Skills&lt;/label>
+                    &lt;ng-container *ngFor="let skill of empForm?.get('skills').controls; index as i">
+                        &lt;input type="text" class="form-control mt-2" id="skills" placeholder="Add Skills"
+                            formControlName="{{'{'}}{{'{'}}i}}">
+                        &lt;ng-container
+                            *ngIf="empForm?.controls.skills.controls[i].invalid && empForm?.controls.skills.controls[i].touched">
+                            &lt;small class="text-danger" *ngIf="empForm.controls.skills.controls[i].errors.required">
+                                Please enter skill name.
+                            &lt;/small>
+                        &lt;/ng-container>
+                    &lt;/ng-container>
+                &lt;/div>
+                &lt;button (click)="addSkill()" type="button" class="btn btn-sm btn-primary mt-2">+ Add Skills&lt;/button>
+                | &lt;button (click)="removeSkill()" type="button" class="btn btn-sm btn-primary mt-2">- Remove
+                    Skills&lt;/button>
+                &lt;br />
+                &lt;br />
+                &lt;br /> 
+                &lt;button type="submit" class="btn btn-primary">Submit&lt;/button>
+            &lt;/form>
+        &lt;/div>
+        &lt;div class="col-sm-3">&lt;/div>
+    &lt;/div>
+&lt;/div>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

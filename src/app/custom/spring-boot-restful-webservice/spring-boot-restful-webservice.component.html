@@ -1,0 +1,1514 @@
+<div class="">
+  <div class="jumbotron">
+    <h1 class="display-4">Spring Boot Restful Web Services</h1>
+    <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+  </div>
+  <div class="row m-2">
+    <div class="col-sm-3 sticky-top">
+      <ul class="list-group" id="list-tab" role="tablist">
+        <ng-container *ngFor="let tab of tabs; let i=index">
+          <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+            [class.active]="tab === name">
+            {{tab}}
+          </a>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <tabset #staticTabs>
+        <tab heading="{{tabs[0] == name ? name : ''}}">
+          <!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+          <!-- <p class="card-text"></p> -->
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <img alt="CURD operations with mysql using Spring Boot"
+                          src="assets/images/spring-boot-restful-webservice.PNG" class="img-fluid mt-3" />
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">SpringBootRestfulWebServicesApplication</strong>
+                      </div>
+                      <div class="card-body">
+                        <code>
+                                <pre>
+package com.way2p;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringBootRestfulWebServicesApplication {{ '{' }}
+
+  public static void main(String[] args) {{ '{' }}
+    SpringApplication.run(SpringBootRestfulWebServicesApplication.class, args);
+  }
+
+}
+                                </pre>
+                            </code>
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">UserController</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.controller;
+
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.way2p.exception.UserNotFoundException;
+import com.way2p.helloworld.model.User;
+import com.way2p.service.UserDaoService;
+
+@RestController
+public class UserController {{ '{' }}
+
+  @Autowired
+  private UserDaoService service;
+
+  @GetMapping(path = "/users")
+  public ResponseEntity&lt;List&lt;User>> getAllUsers() {{ '{' }}
+    List&lt;User> users = service.findAll();
+    return ResponseEntity.ok(users);
+  }
+
+  @GetMapping(path = "/users/{{ '{' }}id}")
+  public ResponseEntity&lt;Object> getUser(@PathVariable int id) {{ '{' }}
+    User user = service.findOne(id);
+    if(user == null) {{ '{' }}
+      throw new UserNotFoundException("Not Found");
+    }
+    return ResponseEntity.ok(user);
+  }
+
+//	This function will create a new user and will return created status + location in response headers
+  @PostMapping(path = "/users")
+  public ResponseEntity&lt;Object> createUser(@Valid @RequestBody User user) {{ '{' }}
+    User savedUser = service.save(user);
+    if(user.getName() == "") {{ '{' }}
+      return ResponseEntity.badRequest().build();
+    }
+    return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{{ '{' }}id}").buildAndExpand(savedUser.getId()).toUri()).build();
+  }
+  
+  
+  @DeleteMapping(path = "/users/{{ '{' }}id}")
+  public void deleteUser(@PathVariable int id) {{ '{' }}
+    User deletedUser = service.deleteById(id);
+    if(deletedUser == null) {{ '{' }}
+      throw new UserNotFoundException("Not Found");
+    }
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">CustomizedResponseEntityHandler</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import java.util.Date;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice
+@RestController
+public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHandler {{ '{' }}
+
+  @ExceptionHandler(Exception.class)
+  public final ResponseEntity&lt;Object> handleAllException(Exception ex, WebRequest request) throws Exception {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+  
+  @ExceptionHandler(UserNotFoundException.class)
+  public final ResponseEntity&lt;Object> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+  
+  @Override
+  protected ResponseEntity&lt;Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
+  }
+  
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">ExceptionResponse</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import java.util.Date;
+
+public class ExceptionResponse {{ '{' }}
+  private Date timestamp;
+  private String message;
+  private String details;
+
+  public ExceptionResponse(Date timestamp, String message, String details) {{ '{' }}
+    super();
+    this.timestamp = timestamp;
+    this.message = message;
+    this.details = details;
+  }
+
+  public Date getTimestamp() {{ '{' }}
+    return timestamp;
+  }
+
+  public String getMessage() {{ '{' }}
+    return message;
+  }
+
+  public String getDetails() {{ '{' }}
+    return details;
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">UserNotFoundException</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class UserNotFoundException extends RuntimeException {{ '{' }}
+
+  public UserNotFoundException(String message) {{ '{' }}
+    super(message);
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">User</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.helloworld.model;
+
+import java.util.Date;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+public class User {{ '{' }}
+  private Integer id;
+  @Size(min=2, message = "name should have atlease 2 characters")
+  private String name;
+  @Past
+  private Date birthDate;
+
+  public User() {{ '{' }}
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public User(Integer id, String name, Date birthDate) {{ '{' }}
+    super();
+    this.id = id;
+    this.name = name;
+    this.birthDate = birthDate;
+  }
+
+  public Date getBirthDate() {{ '{' }}
+    return birthDate;
+  }
+
+  public void setBirthDate(Date birthDate) {{ '{' }}
+    this.birthDate = birthDate;
+  }
+
+  public Integer getId() {{ '{' }}
+    return id;
+  }
+
+  public void setId(Integer id) {{ '{' }}
+    this.id = id;
+  }
+
+  public String getName() {{ '{' }}
+    return name;
+  }
+
+  public void setName(String name) {{ '{' }}
+    this.name = name;
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">UserDaoService</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.way2p.helloworld.model.User;
+
+@Component
+public class UserDaoService {{ '{' }}
+
+  private static List&lt;User> users = new ArrayList&lt;>();
+  private static int usersCount = 3;
+  
+  
+  static {{ '{' }}
+    users.add(new User(1, "E1", new Date()));
+    users.add(new User(2, "E2", new Date()));
+    users.add(new User(3, "E3", new Date()));
+  }
+  
+  public List&lt;User> findAll() {{ '{' }}
+    return users;
+  }
+  
+  public User save(User user) {{ '{' }}
+    if(user.getId()==null) {{ '{' }}
+      user.setId(++usersCount);
+    }
+    users.add(user);
+    return user;
+  }
+  
+  public User findOne(int id) {{ '{' }}
+    for(User user: users) {{ '{' }}
+      if(user.getId() == id) {{ '{' }}
+        return user;
+      }
+    }
+    return null;
+  }
+  
+  
+  public User deleteById(int id) {{ '{' }}
+    Iterator&lt;User> iterator = users.iterator();
+    while(iterator.hasNext()) {{ '{' }}
+      User user = iterator.next();
+      if (user.getId() == id) {{ '{' }}
+        iterator.remove();
+        return user;
+      }
+    }
+    return null;
+  }
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependencies>
+  &lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-starter-data-jpa&lt;/artifactId>
+  &lt;/dependency>
+  &lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-starter-web&lt;/artifactId>
+  &lt;/dependency>
+
+  &lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-devtools&lt;/artifactId>
+    &lt;scope>runtime&lt;/scope>
+    &lt;optional>true&lt;/optional>
+  &lt;/dependency>
+
+  &lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-starter-validation&lt;/artifactId>
+  &lt;/dependency>
+
+  &lt;dependency>
+    &lt;groupId>com.h2database&lt;/groupId>
+    &lt;artifactId>h2&lt;/artifactId>
+    &lt;scope>runtime&lt;/scope>
+  &lt;/dependency>
+  &lt;dependency>
+    &lt;groupId>org.springframework.boot&lt;/groupId>
+    &lt;artifactId>spring-boot-starter-test&lt;/artifactId>
+    &lt;scope>test&lt;/scope>
+    &lt;exclusions>
+      &lt;exclusion>
+        &lt;groupId>org.junit.vintage&lt;/groupId>
+        &lt;artifactId>junit-vintage-engine&lt;/artifactId>
+      &lt;/exclusion>
+    &lt;/exclusions>
+  &lt;/dependency>
+&lt;/dependencies>
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[1] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">CustomizedResponseEntityHandler</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import java.util.Date;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice
+@RestController
+public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHandler {{ '{' }}
+
+  @ExceptionHandler(Exception.class)
+  public final ResponseEntity&lt;Object> handleAllException(Exception ex, WebRequest request) throws Exception {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+  
+  @ExceptionHandler(UserNotFoundException.class)
+  public final ResponseEntity&lt;Object> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+  
+  @Override
+  protected ResponseEntity&lt;Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {{ '{' }}
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
+    return new ResponseEntity&lt;Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
+  }
+  
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">ExceptionResponse</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import java.util.Date;
+
+public class ExceptionResponse {{ '{' }}
+  private Date timestamp;
+  private String message;
+  private String details;
+
+  public ExceptionResponse(Date timestamp, String message, String details) {{ '{' }}
+    super();
+    this.timestamp = timestamp;
+    this.message = message;
+    this.details = details;
+  }
+
+  public Date getTimestamp() {{ '{' }}
+    return timestamp;
+  }
+
+  public String getMessage() {{ '{' }}
+    return message;
+  }
+
+  public String getDetails() {{ '{' }}
+    return details;
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">UserNotFoundException</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class UserNotFoundException extends RuntimeException {{ '{' }}
+
+  public UserNotFoundException(String message) {{ '{' }}
+    super(message);
+  }
+
+}
+                            </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[2] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-hateoas&lt;/artifactId>
+&lt;/dependency>
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">UserController</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.controller;
+
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.hateoas.*;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.way2p.exception.UserNotFoundException;
+import com.way2p.helloworld.model.User;
+import com.way2p.service.UserDaoService;
+
+<mark>import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;</mark>
+
+@RestController
+public class UserController {{ '{' }}
+
+  @Autowired
+  private UserDaoService service;
+
+  @GetMapping(path = "/users")
+  public ResponseEntity&lt;List&lt;User>> getAllUsers() {{ '{' }}
+    List&lt;User> users = service.findAll();
+    return ResponseEntity.ok(users);
+  }
+
+  @GetMapping(path = "/users/{{ '{' }}id}")
+  public HttpEntity&lt;User> getUser(@PathVariable int id) {{ '{' }}
+    User user = service.findOne(id);
+    if(user == null) {{ '{' }}
+      throw new UserNotFoundException("Not Found");
+    }
+    <mark>
+    user.add(linkTo(methodOn(this.getClass()).getAllUsers()).withRel("all-users"));
+    user.add(linkTo(methodOn(UserController.class).getUser(id)).withSelfRel());
+    </mark>
+    return new ResponseEntity<>(user, HttpStatus.OK);
+  }
+
+//	This function will create a new user and will return created status + location in response headers
+  @PostMapping(path = "/users")
+  public ResponseEntity&lt;Object> createUser(@Valid @RequestBody User user) {{ '{' }}
+    User savedUser = service.save(user);
+    if(user.getName() == "") {{ '{' }}
+      return ResponseEntity.badRequest().build();
+    }
+    return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{{ '{' }}id}").buildAndExpand(savedUser.getId()).toUri()).build();
+  }
+  
+  
+  @DeleteMapping(path = "/users/{{ '{' }}id}")
+  public void deleteUser(@PathVariable int id) {{ '{' }}
+    User deletedUser = service.deleteById(id);
+    if(deletedUser == null) {{ '{' }}
+      throw new UserNotFoundException("Not Found");
+    }
+  }
+
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[3] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">SpringBootRestfulWebServicesApplication</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p;
+
+import java.util.Locale;
+<mark>
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+</mark>
+
+
+
+@SpringBootApplication
+public class SpringBootRestfulWebServicesApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(SpringBootRestfulWebServicesApplication.class, args);
+  }
+  <mark>
+  @Bean
+  public LocaleResolver localeResolver() {{'{'}}
+    SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+    localeResolver.setDefaultLocale(Locale.US);
+    return localeResolver;
+  }
+  
+  @Bean
+  public ResourceBundleMessageSource messageSource() {{'{'}}
+    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasename("messages");
+    return messageSource;
+  }
+</mark>
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">messages.properties</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+good.morning.message=Good Morning
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">messages_fr.properties</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+good.morning.message=Bonjour
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">HelloWorld</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+package com.way2p.helloworld;
+
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.way2p.helloworld.model.HelloWorldModel;
+
+@RestController
+public class HelloWorld {{'{'}}
+	
+	@Autowired
+	private MessageSource messageSource;
+
+	
+	@GetMapping(path="/hello-world/internationalization")
+	public String internationalization(@RequestHeader(name="Accept-Language", required = false) Locale locale) {{'{'}}
+		return messageSource.getMessage("good.morning.message", null, locale);
+	}
+	
+	
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[4] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Change-1</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">If request header for accept language we need to add in each controller
+                          method then this will become complex logic. We can change like below in controller class.</p>
+
+                        <pre>
+ @GetMapping(path="/hello-world/internationalization")
+	public String internationalization() {{'{'}}
+		return messageSource.getMessage("good.morning.message", null, <mark>LocaleContextHolder.getLocale()</mark>);
+	}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Chaneg - 2</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">Instead of SessionLocaleResolver we can use AcceptHeaderLocaleResolver,
+                          since we need Accept Language from headers.</p>
+                        <pre>
+                          package com.way2p;
+
+import java.util.Locale;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+
+@SpringBootApplication
+public class SpringBootRestfulWebServicesApplication  {{'{'}}
+
+	public static void main(String[] args)  {{'{'}}
+		SpringApplication.run(SpringBootRestfulWebServicesApplication.class, args);
+	}
+	
+	@Bean
+	public LocaleResolver localeResolver()  {{'{'}}
+		<mark>AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();</mark>
+		localeResolver.setDefaultLocale(Locale.US);
+		return localeResolver;
+	}
+	
+}
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Change - 3</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">Instead of creating ResourceBundleMessageSource Bean, we can configure in
+                          application.properties file.</p>
+                        <p><strong>application.properties</strong></p>
+                        <pre>
+spring.messages.basename=messages
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[5] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">We only need to add below dependency to pom.xml file. And we can request
+                          with below Accept headers without any code change.</p>
+                        <ul>
+                          <li>Accept: application/xml</li>
+                          <li>Accept: application/json</li>
+                        </ul>
+                        <pre>
+                            &lt;!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+&lt;dependency>
+  &lt;groupId>com.fasterxml.jackson.dataformat&lt;/groupId>
+  &lt;artifactId>jackson-dataformat-xml&lt;/artifactId>
+&lt;/dependency>
+
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[6] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">pom.xml</p>
+
+                        <pre>
+&lt;dependency>
+  &lt;groupId>io.springfox&lt;/groupId>
+  &lt;artifactId>springfox-boot-starter&lt;/artifactId>
+  &lt;version>3.0.0&lt;/version>
+&lt;/dependency>     
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">SwaggerConfig</p>
+
+                        <pre>
+package com.way2p.config;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {{'{'}}
+
+  public static final Contact DEFAULT_CONTACT = new Contact("Arif Khan", "http://way2programming.com",
+      "tech.aarifkhan@gmail.com");
+  
+  public static final ApiInfo DEFAULT = new ApiInfo("Spring Boot Restful Web Service Documentation",
+      "Api Documentation", "1.0", "urn:tos", DEFAULT_CONTACT, "Apache 2.0",
+      "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList&lt;>());
+
+  private static final Set&lt;String> DEFAULT_PRODUCES_AND_CONSUMES = new HashSet&lt;String>(Arrays.asList("application/json", "application/xml"));
+
+  @Bean
+  public Docket api() {{'{'}}
+    return new Docket(DocumentationType.SWAGGER_2)
+        .apiInfo(DEFAULT)
+        .produces(DEFAULT_PRODUCES_AND_CONSUMES)
+        .consumes(DEFAULT_PRODUCES_AND_CONSUMES);
+  }
+
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">Launch URLS</p>
+
+                        <ul>
+                          <li>http://localhost:8080/swagger-ui/</li>
+                          <li>http://localhost:8080/v2/api-docs</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[7] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">pom.xml</p>
+
+                        <pre>
+&lt;!-- Spring Boot Actuator Starts -->
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-actuator&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.data&lt;/groupId>
+  &lt;artifactId>spring-data-rest-hal-browser&lt;/artifactId>
+&lt;/dependency>
+&lt;!-- Spring Boot Actuator Ends -->    
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">application.properties</p>
+                        <pre>
+management.endpoints.web.exposure.include=*
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[8] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Static Filtering on Field Level</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+<h3>Model -</h3>
+package com.way2p.filtering;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class SomeBean {{'{'}}
+	private String field1;
+	<mark>@JsonIgnore</mark>
+	private String field2;
+	<mark>@JsonIgnore</mark>
+	private String field3;
+	
+	public SomeBean(String field1, String field2, String field3) {{'{'}}
+		super();
+		this.field1 = field1;
+		this.field2 = field2;
+		this.field3 = field3;
+	}
+	
+	public String getField1() {{'{'}}
+		return field1;
+	}
+	public void setField1(String field1) {{'{'}}
+		this.field1 = field1;
+	}
+	public String getField2() {{'{'}}
+		return field2;
+	}
+	public void setField2(String field2) {{'{'}}
+		this.field2 = field2;
+	}
+	public String getField3() {{'{'}}
+		return field3;
+	}
+	public void setField3(String field3) {{'{'}}
+		this.field3 = field3;
+	}
+	
+}
+
+<h3>Controller -</h3>
+
+package com.way2p.filtering;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class FilteringController {{'{'}}
+
+	@GetMapping(path="/static-filtering")
+	public SomeBean retrieveSomeBean() {{'{'}}
+		return new SomeBean("field1", "field2", "field3");
+	}
+}
+
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Static Filtering on Class Level</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+package com.way2p.filtering;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+<mark>@JsonIgnoreProperties(value = {{'{'}}"field1", "field2"})</mark>
+public class SomeBean {{'{'}}
+  private String field1;
+  private String field2;
+  private String field3;
+  
+  public SomeBean(String field1, String field2, String field3) {{'{'}}
+    super();
+    this.field1 = field1;
+    this.field2 = field2;
+    this.field3 = field3;
+  }
+  
+  public String getField1() {{'{'}}
+    return field1;
+  }
+  public void setField1(String field1) {{'{'}}
+    this.field1 = field1;
+  }
+  public String getField2() {{'{'}}
+    return field2;
+  }
+  public void setField2(String field2) {{'{'}}
+    this.field2 = field2;
+  }
+  public String getField3() {{'{'}}
+    return field3;
+  }
+  public void setField3(String field3) {{'{'}}
+    this.field3 = field3;
+  }
+  
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Dynamic Filtering</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">SomeBean.java</p>
+                        <pre>
+package com.way2p.filtering;
+
+import com.fasterxml.jackson.annotation.JsonFilter;
+
+<mark>@JsonFilter("SomeBeanFilter")</mark>
+public class SomeBean {{'{'}}
+	private String field1;
+	private String field2;
+	private String field3;
+	
+	public SomeBean(String field1, String field2, String field3) {{'{'}}
+		super();
+		this.field1 = field1;
+		this.field2 = field2;
+		this.field3 = field3;
+	}
+	
+	public String getField1() {{'{'}}
+		return field1;
+	}
+	public void setField1(String field1) {{'{'}}
+		this.field1 = field1;
+	}
+	public String getField2() {{'{'}}
+		return field2;
+	}
+	public void setField2(String field2) {{'{'}}
+		this.field2 = field2;
+	}
+	public String getField3() {{'{'}}
+		return field3;
+	}
+	public void setField3(String field3) {{'{'}}
+		this.field3 = field3;
+	}
+	
+}
+
+                        </pre>
+                        <p class="card-text">FilteringController.java</p>
+                        <pre>
+package com.way2p.filtering;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
+@RestController
+public class FilteringController {{'{'}}
+
+  @GetMapping(path="/static-filtering")
+  public MappingJacksonValue retrieveSomeBean() {{'{'}}
+    SomeBean someBean = new SomeBean("field1", "field2", "field3");
+    <mark>SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("field1", "field3");
+      FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
+      MappingJacksonValue mapping = new MappingJacksonValue(someBean);
+      mapping.setFilters(filters);</mark>
+    return mapping;
+  }
+  
+  @GetMapping(path="/static-filtering-list")
+  public MappingJacksonValue retrieveListOfSomeBean() {{'{'}}
+    <mark>SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("field2", "field3");
+    FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
+    MappingJacksonValue mapping = new MappingJacksonValue(Arrays.asList(new SomeBean("field1", "field2", "field3"), new SomeBean("field12", "field22", "field32")));
+    mapping.setFilters(filters);</mark>
+    return mapping;
+  }
+}
+                          </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+
+        <tab heading="{{tabs[9] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-security&lt;/artifactId>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">application.properties</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+spring.security.user.name=arif
+spring.security.user.password=khan
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">PostMan</strong>
+                      </div>
+                      <div class="card-body">
+                        <img alt="" src="assets/images/postman-basic-auth-with-security.PNG" class="img-fluid mt-3" />
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+        <tab heading="{{tabs[10] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-data-jpa&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>com.h2database&lt;/groupId>
+  &lt;artifactId>h2&lt;/artifactId>
+  &lt;scope>runtime&lt;/scope>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">application.properties</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">data.sql</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <pre>
+insert into user values(1, sysdate(), 'AB');
+insert into user values(2, sysdate(), 'AB1');
+insert into user values(3, sysdate(), 'AB2');
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Url for H2 database</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text"></p>
+                        <ul>
+                          <li>
+                            http://localhost:8080/h2-console
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </tab>
+
+      </tabset>
+    </div>
+  </div>
+</div>

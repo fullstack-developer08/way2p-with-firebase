@@ -10,11 +10,21 @@
                 <h4 class="my-0 font-weight-normal">On Frontend</h4>
             </div>
             <div class="card-body">
+                <!-- <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)="webSocketOpen()">
+                    Open Web Socket Connection
+                </button> -->
+                <ng-container *ngFor="let links of staticFrontEndLinks">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" [class.btn-outline-success]="(links.url === 'schematics-in-angular' || links.url === 'create-schematics-like-angular-cli') ? true : false" [routerLink]="links.url">
+                        {{links.desc}}
+                    </button>
+                </ng-container>
+                
                 <ng-container *ngFor="let frontend of frontendBlogs">
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary" [routerLink]="frontend.blogHref" [queryParams]="{ from: 'home'}">
                         {{frontend.blogName}}
                     </button>
                 </ng-container>
+                
                 <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'frontend'}">
                     +
                 </button>
@@ -31,6 +41,27 @@
                         {{backend.blogName}}
                     </button>
                 </ng-container>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/spring-boot-curd-with-mysql">
+                    CURD operations with mysql using Spring Boot
+                </button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/spring-boot-restful-webservices">
+                    Spring Boot Restful Web Services
+                </button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/microservices-with-spring-clouds">
+                    Microservices with Spring Clouds
+                </button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/code-coverage-with-jacoco-and-sonar">
+                    Code Coverage with Jacoco and Sonar
+                </button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/lombok-project">
+                    Lombok
+                </button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/java/junit5">
+                    Junit5
+                </button>
+                <!-- <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/java-reactive-programming">
+                    Spring Webflux
+                </button> -->
                 <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'backend'}">
                     +
                 </button>

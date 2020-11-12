@@ -1,0 +1,368 @@
+<div class="jumbotron">
+    <h1 class="display-4">Schematics in Angular</h1>
+</div>
+<div class="row">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Install Schematics CLI
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Like Angular CLI we also need Schematics CLI. Below is the command to install Schematics CLI.
+                    </p>
+
+                    <pre>
+$ npm install -g @angular-devkit/schematics-cli                        
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Create new Schematics Project
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        In one Schematics project we can have multiple projects.
+                        So that no need to create the new schematics projects every time, but keep in mind command is
+                        same but we need to run the command from the first time created project.
+                    </p>
+                    <pre>
+$ schematics blank --name=way2p-schematics                      
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Add new script in package.json
+                </div>
+                <div class="card-body">
+
+                    <pre>
+"build:watch": "tsc -p tsconfig.json --watch",                    
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Let us <strong>compile</strong> default way2p-schematics or our way2p-schematics project
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        If there is no typescript error then compilation will completed and it will be in watch mode,
+                        if we will change anything change in existing schematic or create new schematic, It will compile
+                        automatically.
+                    </p>
+                    <pre>
+$ npm run build:watch                   
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Let us run <strong>run</strong> way2p-schematics or our way2p-schematics project
+                </div>
+                <div class="card-body">
+
+                    <pre>
+$ schematics .:way2p-schematics                   
+                    </pre>
+
+                    Since it is blank schematic so that it will print in console `Nothing to be done.`
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Create new schematic hello
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Using hello schematic we will create new hello.js file with new console.log statement.
+                        It is very simple schematic and very helpful to learn Schematics concepts.
+                    </p>
+
+                    <img alt="" src="assets/images/project_structor_with_hello.PNG" class="img-fluid mt-3" />
+
+
+
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                index.ts
+                            </div>
+                            <div class="card-body">
+                                <pre>
+import {{'{'}} Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+
+export function hello(_options: any): Rule {{'{'}}
+  return (tree: Tree, _context: SchematicContext) => {{'{'}}
+    <mark>tree.create('hello.js', `console.log('Hello World!')`);</mark>
+    return tree;
+  };
+}
+
+					            </pre>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Compilation is in watch mode so we can run hello schematic
+                            </div>
+                            <div class="card-body">
+                                <pre>
+$ schematics .:hello
+					            </pre>
+
+                                <ul>
+                                    <li>In the above command dot(.) represents the relative path and it means file will
+                                        get generated in same directory.</li>
+                                    <li><strong>It will show file Created hello.js but we can see there is no file
+                                            project directory.
+                                            The reason is Schematics think we are running in dry(debug) mode.
+                                            So that we need to run without debug mode, Then only file will be
+                                            created.</strong></li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Run with debug=false mode
+                            </div>
+                            <div class="card-body">
+                                <pre>
+$ schematics .:hello --debug=false
+                                </pre>
+
+                                <img alt="" src="assets/images/first-schematics.PNG" class="img-fluid mt-3" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Add parameter to hello schematics
+                </div>
+                <div class="card-body">
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                First create two files, schema.d.ts and schema.json
+                            </div>
+                            <div class="card-body">
+                                <h4>schema.d.ts</h4>
+                                <pre>
+export interface Schema {{'{'}}
+    name: string;
+}
+                                </pre>
+
+                                <p class="card-text m-1">
+                                    Schema.json, we can create based on existing schematicslike component, directives.
+                                    <br />
+                                    We can install @schematics library to check schema.json for component.
+                                </p>
+
+                                <pre>
+$ npm i @schematics/angular                           
+                                </pre>
+
+                                <p class="card-text m-1">
+                                    Above command we add angular schmatics in our node_modules folder and we can go to
+                                    component to check component schema.json file. And we can paste the file in our
+                                    schema.json and we can modify our schema.json file.
+                                </p>
+
+
+
+                                <h4>schema.json</h4>
+                                <pre>
+{{'{'}}
+    "$schema": "http://json-schema.org/schema",
+    "id": "HelloSchema",
+    "title": "Hello Schema",
+    "type": "object",
+    "description": "Learning Hello Schema.",
+    "properties": {{'{'}}
+        "name": {{'{'}}
+        "type": "string",
+        "description": "The name of the person, you want to greet.",
+        "$default": {{'{'}}
+            "$source": "argv",
+            "index": 0
+        },
+        "x-prompt": "What name would you like to use for the person?"
+        }
+    },
+    "required": [
+        "name"
+    ]
+}
+                                </pre>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Modify index.ts and collection.json files
+                            </div>
+                            <div class="card-body">
+                                <h4>index.ts</h4>
+                                <pre>
+import {{'{'}} Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {{'{'}} Schema } from './schema';
+
+export function hello(_options: <mark>Schema</mark>): Rule {{'{'}}
+        return (tree: Tree, _context: SchematicContext) => {{'{'}}
+        const name = _options.name;
+        tree.create('hello.js', `console.log('Hello <mark>${{'{'}}name}</mark>!')`);
+        return tree;
+    };
+}
+                                </pre>
+
+
+
+
+
+
+                                <h4>collection.json</h4>
+                                <pre>
+{{'{'}}
+    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {{'{'}}
+        "way2p-schematics": {{'{'}}
+            "description": "A blank schematic.",
+            "factory": "./way2p-schematics/index#way2pSchematics"
+        },
+        "hello": {{'{'}}
+            "description": "A blank schematic.",
+            "factory": "./hello/index#hello",
+        <mark>"schema": "./hello/schema.json"</mark>
+        }
+    }
+    }
+                                </pre>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                Compile and Run hello schematics
+                            </div>
+                            <div class="card-body">
+                                <h4>Compile</h4>
+                                <pre>
+$ npm run build:watch
+Or
+$ npm run build
+                                </pre>
+
+                                <h4>Run</h4>
+                                <pre>
+$ schematics .:hello <mark>Arif</mark> --debug=false
+                                </pre>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                We can see file is created with command line parameter `Arif`
+                            </div>
+                            <div class="card-body">
+                                <img alt="" src="assets/images/hello-parameterized.PNG" class="img-fluid mt-3" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-info">
+                        <h4 class="card-title text-primary"></h4>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                If we will not provide default parameter then it will ask for parameter
+                            </div>
+                            <div class="card-body">
+                                <img alt="" src="assets/images/with_cmd_line_schematics.PNG" class="img-fluid mt-3" />
+                                <br/>
+                                <br/>
+                                <br/>
+                                <img alt="" src="assets/images/hello-way2p.PNG" class="img-fluid mt-3" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+<br>
+<br>
+<br>

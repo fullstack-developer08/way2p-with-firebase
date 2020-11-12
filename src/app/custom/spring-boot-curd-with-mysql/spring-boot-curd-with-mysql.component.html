@@ -1,0 +1,549 @@
+<div class=" mt-5">
+    <div class="row">
+      <div class="col-sm-3">
+        <ul class="list-group" id="list-tab" role="tablist">
+          <ng-container *ngFor="let tab of tabs; let i=index">
+            <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+              [class.active]="tab === name">
+              {{tab}}
+            </a>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-sm-9">
+        <tabset #staticTabs>
+          <tab heading="{{tabs[0] == name ? name : ''}}">
+            <!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+            <!-- <p class="card-text"></p> -->
+  
+            <div class="container-fluid pt-3 mt-auto">
+              <div class="row mb-5 pb-5">
+                <div class="card border-info">
+                  <h4 class="card-header text-success">
+                    CURD operations with mysql using Spring Boot
+                  </h4>
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <div class="card-body text-info">
+
+
+                      <tabset>
+                        <tab heading="Project Structure">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">Project Structure</strong>
+  </div>
+  <div class="card-body">
+    <img alt="CURD operations with mysql using Spring Boot"
+      src="assets/images/CURD operations with mysql using Spring Boot.PNG" class="img-fluid mt-3" />
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="Application.java">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">Springboot1Application</strong>
+  </div>
+  <div class="card-body">
+    <code>
+            <pre>
+package com.way2p;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+
+import com.way2p.model.Product;
+import com.way2p.repository.ProductRepository;
+
+@SpringBootApplication
+@EnableCaching
+public class Springboot1Application implements CommandLineRunner {{ '{' }}
+
+@Autowired
+private ProductRepository productRepository;
+
+public static void main(String[] args) {{ '{' }}
+SpringApplication.run(Springboot1Application.class, args);
+}
+
+@Override
+public void run(String... args) throws Exception {{ '{' }}
+productRepository.save(new Product("test1", "A"));
+productRepository.save(new Product("test2", "B"));
+productRepository.save(new Product("test3", "C"));
+productRepository.save(new Product("test4", "D"));
+}
+
+}
+            </pre>
+        </code>
+
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="ProductController">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">ProductController</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.way2p.model.Product;
+import com.way2p.service.ProductService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+public class ProductController {{ '{' }}
+
+@Autowired
+private ProductService productService;
+
+@GetMapping("/products")
+public List&lt;Product> getAllProducts() {{ '{' }}
+return productService.getAllProducts();
+}
+
+@GetMapping("/products/{{ '{' }}pId}")
+public Optional&lt;Product> getProduct(@PathVariable("pId") Long pId) {{ '{' }}
+return productService.getProduct(pId);
+}
+
+@PostMapping("/products")
+public List&lt;Product> addProducts(@RequestBody Product product) {{ '{' }}
+return productService.addProduct(product);
+}
+
+@PutMapping("/products/{{ '{' }}pId}")
+public List&lt;Product> updateProduct(@RequestBody Product product, @PathVariable("pId") Long id) {{ '{' }}
+return productService.updateProduct(id, product);
+}
+
+@DeleteMapping("/products/{{ '{' }}pId}")
+public List&lt;Product> deleteProduct(@PathVariable("pId") Long id) {{ '{' }}
+return productService.deleteProduct(id);
+}
+
+
+}
+                                                
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="ProductNotFoundException">
+ <!-- Block Start-->
+ <div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">ProductNotFoundException</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.exception;
+
+public class ProductNotFoundException extends RuntimeException {{ '{' }}
+
+private static final long serialVersionUID = 1L;
+
+public ProductNotFoundException(Long id) {{ '{' }}
+super("The product with "+ id + "cannot be found!");
+}
+
+}
+
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="ProductNotFoundResponse">
+ <!-- Block Start-->
+ <div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">ProductNotFoundResponse</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ControllerAdvice
+public class ProductNotFoundResponse {{ '{' }}
+
+@ResponseBody
+@ExceptionHandler(ProductNotFoundException.class)
+@ResponseStatus(HttpStatus.NOT_FOUND)
+String productNotFoundHandler(ProductNotFoundException e) {{ '{' }}
+return e.getMessage();
+}
+}
+
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="Product">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">Product</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name="products")
+public class Product {{ '{' }}
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+
+private String name;
+private String category;
+
+public Product() {{ '{' }}
+
+}
+
+public Long getId() {{ '{' }}
+return id;
+}
+
+public void setId(Long id) {{ '{' }}
+this.id = id;
+}
+
+public Product(String name, String category) {{ '{' }}
+this.name = name;
+this.category = category;
+}
+
+public String getName() {{ '{' }}
+return name;
+}
+
+public void setName(String name) {{ '{' }}
+this.name = name;
+}
+
+public String getCategory() {{ '{' }}
+return category;
+}
+
+public void setCategory(String category) {{ '{' }}
+this.category = category;
+}
+
+}
+
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="ProductRepository">
+ <!-- Block Start-->
+ <div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">ProductRepository</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.repository;
+
+import org.springframework.stereotype.Repository;
+
+import com.way2p.model.Product;
+
+import org.springframework.data.repository.CrudRepository;
+
+@Repository
+public interface ProductRepository extends CrudRepository&lt;Product, Long> {{ '{' }}
+
+}
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="ProductService">
+ <!-- Block Start-->
+ <div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">ProductService</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.stereotype.Service;
+
+import com.way2p.model.Product;
+import com.way2p.repository.ProductRepository;
+
+@Service
+public class ProductService {{ '{' }}
+//	private List&lt;Product> products = new ArrayList&lt;>(Arrays.asList(
+//			new Product("P101", "Monitor", "Electronics"),
+//			new Product("P102", "Laptop", "Electronics")
+//	));
+
+//	public List&lt;Product> getAllProducts() {{ '{' }}
+//		return products;
+//	}
+//	
+//	public Product getProduct(String id)  {{ '{' }}
+//		return products.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+//	}
+//	
+//	public void addProduct(Product product) {{ '{' }}
+//		products.add(product);
+//	}
+//	
+//	public void updateProduct(String id, Product prod)  {{ '{' }}
+//		for (int i = 0; i &lt; products.size(); i++) {{ '{' }}
+//			Product product = products.get(i);
+//			
+//			if (product.getId().equals(id))  {{ '{' }}
+//				products.set(i, prod);
+//				return;
+//			}
+//		}
+//	}
+//	
+//	public void deleteProduct(String id) {{ '{' }}
+//		products.removeIf(p -> p.getId().equals(id));
+//	}
+@Autowired
+private ProductRepository productRepository;
+
+@Cacheable("products")
+public List&lt;Product> getAllProducts() {{ '{' }}
+List&lt;Product> products = new ArrayList&lt;>();
+productRepository.findAll().forEach(products::add);
+return products;
+}
+
+@Cacheable(value = "product", key = "#p0")
+public Optional&lt;Product> getProduct(Long id) {{ '{' }}
+return productRepository.findById(id);
+}
+
+@CacheEvict(value="products", allEntries = true)
+public List&lt;Product> addProduct(Product product) {{ '{' }}
+productRepository.save(product);
+return this.getAllProducts();
+}
+
+@Caching(evict = {{ '{' }}
+@CacheEvict(value="product", key = "#p0"),
+@CacheEvict(value="products", allEntries = true)	
+})
+public List&lt;Product> updateProduct(Long id, Product prod) {{ '{' }}
+if (productRepository.findById(id).get() != null) {{ '{' }}
+productRepository.save(prod);
+}
+return this.getAllProducts();
+}
+
+@Caching(evict = {{ '{' }}
+@CacheEvict(value="product", key = "#p0"),
+@CacheEvict(value="products", allEntries = true)	
+})
+public List&lt;Product> deleteProduct(Long id) {{ '{' }}
+productRepository.deleteById(id);
+return this.getAllProducts();
+}
+
+}
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="WebConfig">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">WebConfig</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.web.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration
+@EnableWebMvc
+public class WebConfig extends WebMvcConfigurerAdapter {{ '{' }}
+
+@Override
+public void addCorsMappings(CorsRegistry registry) {{ '{' }}
+registry.addMapping("/**")
+.allowedOrigins("http://localhost:4200")
+.allowedMethods("PUT", "DELETE", "GET", "POST")
+//        .allowedHeaders("header1", "header2", "header3")
+//        .exposedHeaders("header1", "header2")
+.allowCredentials(false).maxAge(3600);
+}
+
+
+}
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="WebController">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">WebController</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+package com.way2p.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class WebController {{ '{' }}
+
+@RequestMapping(value="/")
+public String home() {{ '{' }}
+return "/index";
+}
+
+
+}
+
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="application.properties">
+ <!-- Block Start-->
+ <div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">application.properties</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+spring.datasource.url=jdbc:mysql://localhost:3306/OnlineShoppingDB
+spring.datasource.username=root
+spring.datasource.password=Nextlevel@1
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+                        <tab heading="Dependencies">
+<!-- Block Start-->
+<div class="card mb-3">
+  <div class="card-header">
+    <strong class="text-success">Dependencies</strong>
+  </div>
+  <div class="card-body">
+    <pre>
+&lt;dependency>
+&lt;groupId>org.springframework.boot&lt;/groupId>
+&lt;artifactId>spring-boot-starter-web&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+&lt;groupId>org.springframework.boot&lt;/groupId>
+&lt;artifactId>spring-boot-starter-data-jpa&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+&lt;groupId>mysql&lt;/groupId>
+&lt;artifactId>mysql-connector-java&lt;/artifactId>
+&lt;scope>runtime&lt;/scope>
+&lt;/dependency>
+
+&lt;dependency>
+&lt;groupId>org.springframework.boot&lt;/groupId>
+&lt;artifactId>spring-boot-starter-thymeleaf&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+&lt;groupId>org.springframework.boot&lt;/groupId>
+&lt;artifactId>spring-boot-starter-cache&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+&lt;groupId>org.springframework.boot&lt;/groupId>
+&lt;artifactId>spring-boot-devtools&lt;/artifactId>
+&lt;scope>runtime&lt;/scope>
+&lt;optional>true&lt;/optional>
+&lt;/dependency>
+        </pre>
+  </div>
+</div>
+<!-- Block End-->
+                        </tab>
+
+                      </tabset>
+  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
+  
+        </tabset>
+      </div>
+    </div>
+  </div>

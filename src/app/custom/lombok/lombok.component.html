@@ -1,0 +1,106 @@
+<div class="jumbotron">
+    <h1 class="display-4">Lombok Project</h1>
+</div>
+<div class="row">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Introduction
+                </div>
+                <div class="card-body">
+                    Lombok is one of the most useful development tool/dependencies. Using lombok we can avoid boiler
+                    plate code for POJO class like setter, getter and no/all args constructor code.
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Download Lombok and Add it to your Eclipse/STS/Any Editor
+                </div>
+                <div class="card-body">
+                    <p class="card-text">We can download the lombok jar from the <a
+                            href="https://projectlombok.org/download" target="_blank">lombok</a> website.</p>
+                    <p class="card-text">After download we can run the jar using below command</p>
+                    <pre>
+java -jar lombok.jar
+                   </pre>
+                    <p class="card-text">It will open below window and we need to provide our editor location. Once we
+                        done this we need to restart our editor.</p>
+                    <img alt="" src="assets/images/lombok_add_to_editor.PNG" class="img-fluid mt-3" />
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Add lombok dependency to your project lombok pom.xml file
+                </div>
+                <div class="card-body">
+                    <pre>
+&lt;dependency>
+    &lt;groupId>org.projectlombok&lt;/groupId>
+    &lt;artifactId>lombok&lt;/artifactId>
+    &lt;optional>true&lt;/optional>
+&lt;/dependency>
+                    </pre>
+                </div>
+            </div>
+
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Now we can use below annotation in our pojo class.
+                </div>
+                <div class="card-body">
+                    @Data - This will add all the things like Setter, Getter, No Args Constructor, All Args Constructor etc..<br/>
+                    @Getter - It will add only getter<br/>
+                    @Setter - It will add only setter<br/>
+                    @NoArgsConstructor - It will no args constructor, which is mandatory while working with JPA<br/>
+                    @AllArgsConstructor - It will add all args constructor.<br/>
+                    <br/>
+
+                    <h5>Example</h5>
+                    <pre>
+package com.way2p.model;
+
+import org.springframework.data.annotation.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor()
+public class Customer {{'{'}}
+    @Id
+    private Long id;
+    private String firstName;
+    private String lastName;
+    public Customer(String firstName, String lastName) {{'{'}}
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+}
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

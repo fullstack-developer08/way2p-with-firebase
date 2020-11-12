@@ -1,0 +1,533 @@
+<!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+<!-- <p class="card-text"></p> -->
+
+
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Javascript Interview Questions</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === name">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == name ? name : ''}}">
+
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <pre>
+var obj = {{'{'}}a: 1, b: 2};
+
+var clonedObj = Object.assign({{'{'}}}, obj);
+                                                </pre>
+
+                                                <p class="card-text">
+                                                    Now the value of clonedObj is {{'{'}}a:1,b:2} but points to a
+                                                    different object than obj.
+                                                    <br />
+                                                </p>
+
+                                                <p class="card-text">
+                                                    Note the potential pitfall, through: Object.clone() will just do a
+                                                    shallow copy, not a deep copy.
+                                                    This means that nested objects aren't copied. They still refer to
+                                                    the same nested objects as the original.
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Do not directly mutate the object always use Object.assign to update the
+                                                value. Lets understand the problem if we will directly mutate object.
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="assets/images/mutate-issue1.PNG" alt="" class="img-fluid">
+
+                                                <p class="card-text">
+                                                    If you will see the code and console then you will get the idea what
+                                                    is the issue if we will directly mutate/change the value.
+
+                                                </p>
+
+                                                <ul>
+                                                    <li>
+                                                        First we have created the obj object with nested object c.
+                                                    </li>
+                                                    <li>
+                                                        Then we have cloned the object from obj variable.
+                                                    </li>
+                                                    <li>
+                                                        then we can just mutate the name variable that resides under the
+                                                        nested object c.
+                                                    </li>
+                                                    <li>
+                                                        we also changed the a variable but that is not inside the nested
+                                                        object.
+                                                    </li>
+                                                    <li>
+                                                        If you will see the console both variable have different
+                                                        behavior.
+                                                    </li>
+                                                    <li>
+                                                        after mutating a value inside obj object will change only obj
+                                                        object but c.name will getting change in obj object and
+                                                        clonedObj also.
+                                                    </li>
+                                                    <li>
+                                                        Direct Mutation will cause issue of clonedObj. Let us fix.
+                                                        Please check below tab with fix example.
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Fixing the mutate issue using the Object.assign
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="assets/images/fixing-mutate-issue.PNG" alt=""
+                                                    class="img-fluid">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[1] == name ? name : ''}}">
+
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Using ES6 Spread Operator
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="assets/images/using-es6-spread-operator.PNG"
+                                                    class="img-fluid" />
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Using Unshift and push method
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="assets/images/using_unshift_and_push_method.PNG"
+                                                    class="img-fluid" />
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[2] == name ? name : ''}}">
+
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <ul>
+                                                <li>
+                                                    A closure is the combination of function bundled together
+                                                    (enclosed).
+                                                </li>
+                                                <li>
+                                                    In other words, a closure gives you access to an outer function's
+                                                    scope from an inner function.
+                                                </li>
+                                                <li>
+                                                    In Javascript, closure are created every time a functon is created,
+                                                    at function creation time.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Understand closure using simple example.
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card mb-3">
+                                                    <div class="card-header">
+                                                        Let us understand the problem with global variable.
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="assets/images/closure_problem_1.PNG"
+                                                            class="img-fluid" />
+                                                    </div>
+
+                                                    <div class="alert alert-warning">
+                                                        There is a problem in above solution. If we will see console
+                                                        there i have set the counter to 100 and i called add function
+                                                        again, The counter is started from the 101.
+                                                    </div>
+                                                </div>
+
+                                                <div class="card mb-3">
+                                                    <div class="card-header">
+                                                        Let us understand the problem with local variable.
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="assets/images/closure_problem_2.PNG"
+                                                            class="img-fluid" />
+                                                    </div>
+                                                    <div class="alert alert-warning">
+                                                        There is a problem in above solution. Every time we are calling
+                                                        add() function counter is becoming 0.
+                                                    </div>
+                                                </div>
+
+                                                <div class="card mb-3">
+                                                    <div class="card-header">
+                                                        Let us understand the problem with inner function.
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="assets/images/closure_problem_3.PNG"
+                                                            class="img-fluid" />
+                                                    </div>
+                                                    <div class="alert alert-warning">
+                                                        There is a problem in above solution. It will also be same like
+                                                        local variable.
+                                                    </div>
+                                                </div>
+
+                                                <div class="alert alert-success">
+                                                    To fix this issue we need to have outer function called only once so
+                                                    that counter will not reset to 0. This we can fix by self-invoking
+                                                    function.
+                                                </div>
+
+                                                <div class="card mb-3">
+                                                    <div class="card-header text-success">
+                                                        closure - self invoking function
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="assets/images/working_closure.PNG"
+                                                            class="img-fluid" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="card mb-3">
+                                                    <div class="card-header text-success">
+                                                        Points to be remember
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <ul class="text-success">
+                                                            <li>The self invoking function only runs once. It sets the
+                                                                counter to zero (0), and returns a function expression.
+                                                            </li>
+                                                            <li>This way add becomes a function. The wonderful part is
+                                                                that it cab access the counter in the parent scope.</li>
+                                                            <li>This is called Javascript closure. It makes possible for
+                                                                a fnction to have "private" variables.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[3] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <ul>
+                                                <li>
+                                                    In programming we often want to take something and extend it.
+                                                </li>
+                                                <li>
+                                                    For Instance - we have a user object, and want to make admin and
+                                                    guest object as slightly modified variants of it.<br />
+                                                    We would like to reuse what we have in user object.
+                                                </li>
+                                                <li>
+                                                    not copy/reimplement its menthod, just build new object on top of
+                                                    it.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Prototype inheritance is a language feature that helps in
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Reuse existing object to make the new object.<br />
+                                                    Ex - User is a object, we can use user object to make Admin and
+                                                    Guest object as slightly modified variants of it.
+                                                </p>
+                                                <p class="card-text">
+                                                    Non Copy/ Reimplemet ints method, just build new object on tp of it.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                [[prototype]] property
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    In Javascript, Object have a special hidden property
+                                                    [[prototype]](as named in the specification), that is either null or
+                                                    references another object. The object is called a prototype.
+                                                </p>
+                                                <img src="assets/images/proto_property.PNG" class="img-fluid" />
+                                                <p class="card-text">
+                                                    In the above attached image we can see highlighted __proto__ hidden
+                                                    property. This property we can use to set and get the object.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Using __proto__ property creating admin object from user object.
+                                            </div>
+                                            <div class="card-body">
+
+                                                <p class="card-text">
+                                                    __proto__ is a getter/setter for [[prototype]]. __proto__ it is not
+                                                    same as [[prototype]]. It is a getter, setter for it.
+                                                </p>
+
+                                                <img src="assets/images/user_prototype_admin.PNG" class="img-fluid" />
+
+                                                <p class="card-text">
+                                                    If we will see attached image, there we can see user property are
+                                                    set into __proto__ property. since it is hidden property so we can
+                                                    directly access this property.
+                                                </p>
+
+                                                <p class="card-text">
+                                                    Here we can say user object is the prototype of admin object.
+                                                </p>
+
+                                                <p class="card-text">
+                                                    Or we can say admin is prototypically inherits from user.
+                                                </p>
+
+                                                <p class="card-text">
+                                                    So If user has lot of properties and methods then they will become
+                                                    automatically available in admin, such property are called
+                                                    "inherited".
+                                                </p>
+
+                                                <p>
+                                                    If we have a method in user, it can be called on admin.
+                                                </p>
+
+                                                <p>
+                                                    __proto__ is deprecated, instead new methods of Object. Please check
+                                                    below.
+                                                </p>
+
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                __proto__ is deprecated, instead use setPropertyOf and getPropertyOf
+                                                methods.
+                                            </div>
+                                            <div class="card-body">
+
+                                                <img src="assets/images/prototype_ex1.PNG" class="img-fluid" />
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[4] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+                                        <img src="assets/images/adds_elements_dynamically.PNG" class="img-fluid" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[5] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+                                        Hoisting is a default behaviour of javascript where all the variables and
+                                        function declarations are moved on top.
+                                        <br />
+                                        This means that irrespective of where the variables and functions are declared,
+                                        they are moved on top of the scope.<br />
+
+                                        <img src="assets/images/hoisting_in_js.PNG" class="img-fluid" />
+
+                                        <div class="alert alert-warning">
+                                            Note1: Variable initializations are not hoisted, only variable declarations
+                                            are hoisted. <br />
+                                            Note2: To avoid hositing, we can run javascript in strict mode by
+                                            using "use strict" on top of the code.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[6] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+                                        <div class="alert alert-success">
+                                            Dynamic Typing: In javascript we will not declare type of the variable.
+                                            Based on assigned value it will assign the type dynamically. so that
+                                            Javascript is dynamically typed language.
+                                        </div>
+
+                                        <div class="alert alert-info">
+                                            Static Typing: In Java we defined the type of the variable so that Java is
+                                            static typed language. Even in typescript we can defined the type of the
+                                            variable but it is not mandatory in typescript.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br />
+<br /><br />
+<br />
+<br />

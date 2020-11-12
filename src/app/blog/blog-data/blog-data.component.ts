@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Input } from '@angular/core';
 import { FirebaseService } from "../../common/services/firebase.service"
 import { dispatchBlog, dispatchBlogNavs, dispatchQueryParamHome } from "../../store/actions/blog.actions";
 import { Store, select } from '@ngrx/store';
@@ -22,6 +22,11 @@ export class BlogDataComponent implements OnInit, OnDestroy {
   public ngDestroyed$ = new Subject();
   admin$: Observable<any>;
   isAdmin;
+  navFetchFlag;
+  activeNav;
+  innerHtmlData;
+  @ViewChild('dbData') dbData:ElementRef;
+  @Input("blogData") blogData;
 
   constructor(
     private firebaseSrvc: FirebaseService,
@@ -32,6 +37,13 @@ export class BlogDataComponent implements OnInit, OnDestroy {
     private helperService: HelperService
   ) { 
     this.admin$ = this.store.pipe(select('admin'));
+  }
+
+  ngOnChanges() {
+    if (this.dbData) {
+      debugger;
+      this.dbData.nativeElement.innerHTML = this.blogData;
+    }
   }
 
   ngOnInit(): void {
@@ -71,47 +83,62 @@ export class BlogDataComponent implements OnInit, OnDestroy {
 
   setBlog(path, param?): any {
     this.store.dispatch(setLoader(true));
+
     this.firebaseSrvc.getBlogsUsingURL(path).get()
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe(querySnapshot => {
         querySnapshot.forEach(queryDoc => {
           let blog = queryDoc.data();
+          
           if (blog) {
             this.setTitle(blog);
-            blog = {...blog, id: queryDoc.id}
+            blog = {...blog, id: queryDoc.id};
+
+            if(blog && blog.blogTech && this.navFetchFlag === undefined) {
+              this.navFetchFlag = true;
+            } else if (blog && blog.blogTech && (this.activeNav !== blog.blogTech)) {
+              this.navFetchFlag = true;
+            } else {
+              this.navFetchFlag = false;
+            }
+             
             this.store.dispatch(dispatchBlog(blog));
             this.store.dispatch(setLoader(false));
             
-            !param && this.firebaseSrvc.getBlogNavLinks(blog.blogTech).get()
-            .pipe(takeUntil(this.ngDestroyed$))
-            .subscribe((querySnapshot) => {
-              this.blogNavs = [];
-              querySnapshot.forEach(data => {
-                let blog = data.data();
-                console.log(blog)
-                if (this.isAdmin || (!this.isAdmin && !(blog.visible === "false"))) {
-                  this.blogNavs.push(
-                    {
-                      blogHref: blog.blogHref,
-                      blogName: blog.blogName,
-                      articleType: blog.articleType,
-                      sort: blog.sort,
-                    });
-                }
-                //  else if(this.isAdmin) {
-                //   this.blogNavs.push(
-                //     {
-                //       blogHref: blog.blogHref,
-                //       blogName: blog.blogName,
-                //       articleType: blog.articleType,
-                //       sort: blog.sort,
-                //     });
-                // }
+            if (this.navFetchFlag) {
+              !param && this.firebaseSrvc.getBlogNavLinks(blog.blogTech).get()
+              .pipe(takeUntil(this.ngDestroyed$))
+              .subscribe((querySnapshot) => {
+                this.activeNav = blog.blogTech;
+                this.blogNavs = [];
+                querySnapshot.forEach(data => {
+                  let blog = data.data();
+                  if (this.isAdmin || (!this.isAdmin && !(blog.visible === "false"))) {
+                    this.blogNavs.push(
+                      {
+                        blogHref: blog.blogHref,
+                        blogName: blog.blogName,
+                        articleType: (blog.articleType === undefined || blog.articleType === "") ? "" : blog.articleType,
+                        sort: +blog.sort,
+                      });
+                  }
+                  //  else if(this.isAdmin) {
+                  //   this.blogNavs.push(
+                  //     {
+                  //       blogHref: blog.blogHref,
+                  //       blogName: blog.blogName,
+                  //       articleType: blog.articleType,
+                  //       sort: blog.sort,
+                  //     });
+                  // }
+                });
+                this.sortNavsAndDispatch();
               });
-              this.sortNavsAndDispatch();
-            });
+            }
+
             this.helperService.copyPreTagContent(blog);
           }
+
         });
       });
   }

@@ -30,8 +30,8 @@ export class BlogNavComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((data) => {
         if(data && data.blogNavs) {
-          console.log(this.articleType)
-          this.blogNavs = data.blogNavs.filter((obj) => obj.articleType === this.articleType)
+          this.blogNavs = data.blogNavs.filter(
+            (obj) => (obj.articleType === this.articleType))
         }
         if(data && data.activeBlog) {
           this.activeBlog = data.activeBlog;

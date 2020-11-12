@@ -1,0 +1,762 @@
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Schematics like Angular CLI / Generate code using Angular Schematics</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <p class="card-text">
+                                            click <a target="_blank" routerLink="/schematics-in-angular">here</a> to
+                                            learn basic hello schematics.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[1] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Create new project under the existing(way2p-schematics) project
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+$ schematics blank --name=multi-tab-component
+</pre>
+
+                                                <img src="assets/images/create-multi-tab-component-schematics.PNG"
+                                                    alt="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    We will prompt the user for component name using command prompt
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>schema.json</h5>
+                                                <pre>
+    {{'{'}}
+        "$schema": "http://json-schema.org/schema",
+        "id": "MultiTabComponentSchema",
+        "title": "Multi Tab Component Schema",
+        "type": "object",
+        "description": "This Schema is for Multitab Component",
+        "properties": {{'{'}}
+          "name": {{'{'}}
+            "type": "string",
+            "description": "Name is used for component name",
+            <mark>"x-prompt": "What name would you like to use for the component?"</mark>
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+</pre>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Let us create skelton of folder and files
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li>First create new folder <strong>files</strong></li>
+                                                    <li>Then create another folder like __name@dasherize__</li>
+                                                    <li>Then create file like __name@dasherize__.component.ts</li>
+                                                    <li>Then create another file like __name@dasherize__.component.html
+                                                    </li>
+                                                    <li>similarly create sytle file __name@dasherize__.component.scss
+                                                    </li>
+                                                </ul>
+
+
+                                                <tabset>
+                                                    <tab heading="__name@dasherize__.component.ts">
+                                                        <pre>
+import {{'{'}} Component, OnInit, ViewChild } from '@angular/core';
+import {{'{'}} TabsetComponent } from 'ngx-bootstrap/tabs';
+import {{'{'}} HelperService } from 'src/app/common/services/helper.service';
+
+@Component({{'{'}}
+  selector: '<%= dasherize(name) %>',
+  templateUrl: './<%= dasherize(name) %>.component.html',
+  styleUrls: ['./<%= dasherize(name) %>.component.scss']
+})
+export class <%= classify(name) %>Component implements OnInit {{'{'}}
+  @ViewChild('staticTabs', {{'{'}} static: false }) staticTabs: TabsetComponent;
+  activeTab: string;
+  tabs: string[] = [];
+  
+  constructor(private helperService: HelperService) {{'{'}}
+    this.helperService.copyPreTagContent(null);
+  }
+
+  ngOnInit(): void {{'{'}}
+    this.tabs = [
+      'heading 1',
+      'heading 2',
+      'heading 3',
+      'heading 4',
+      'heading 5',
+    ];
+    this.activeTab = this.tabs[0];
+  }
+
+  selectTab(tabId: number, name? : string) {{'{'}}
+    this.staticTabs.tabs[tabId].active = true;
+    this.activeTab = name;
+  }
+
+}
+
+</pre>
+                                                    </tab>
+                                                    <tab heading="__name@dasherize__.component.html">
+                                                        <pre>
+    &lt;div class="">
+    &lt;div class="jumbotron">
+        &lt;h1 class="display-4">Display Name of Blog&lt;/h1>
+    &lt;/div>
+    &lt;div class="row m-2">
+        &lt;div class="col-sm-3 sticky-top">
+            &lt;ul class="list-group" id="list-tab" role="tablist">
+                &lt;ng-container *ngFor="let tab of tabs; let i=index">
+                    &lt;a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{'{'}}{{'{'}}tab}}
+                    &lt;/a>
+                &lt;/ng-container>
+            &lt;/ul>
+        &lt;/div>
+        &lt;div class="col-sm-9">
+            &lt;tabset #staticTabs>
+
+                &lt;tab heading="{{'{'}}{{'{'}}tabs[0] == activeTab ? activeTab : ''}}">
+                    &lt;div class="container-fluid pt-3 mt-auto">
+                        &lt;div class="row mb-5 pb-5">
+                            &lt;div class="card border-info">
+                                &lt;h4 class="card-header text-success">
+
+                                &lt;/h4>
+                                &lt;div class="list-group" id="list-tab" role="tablist">
+                                    &lt;div class="card-body text-info">
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/tab>
+                &lt;tab heading="{{'{'}}{{'{'}}tabs[1] == activeTab ? activeTab : ''}}">
+                    &lt;div class="container-fluid pt-3 mt-auto">
+                        &lt;div class="row mb-5 pb-5">
+                            &lt;div class="card border-info">
+                                &lt;h4 class="card-header text-success">
+
+                                &lt;/h4>
+                                &lt;div class="list-group" id="list-tab" role="tablist">
+                                    &lt;div class="card-body text-info">
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/tab>
+                &lt;tab heading="{{'{'}}{{'{'}}tabs[2] == activeTab ? activeTab : ''}}">
+                    &lt;div class="container-fluid pt-3 mt-auto">
+                        &lt;div class="row mb-5 pb-5">
+                            &lt;div class="card border-info">
+                                &lt;h4 class="card-header text-success">
+
+                                &lt;/h4>
+                                &lt;div class="list-group" id="list-tab" role="tablist">
+                                    &lt;div class="card-body text-info">
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/tab>
+                &lt;tab heading="{{'{'}}{{'{'}}tabs[3] == activeTab ? activeTab : ''}}">
+                    &lt;div class="container-fluid pt-3 mt-auto">
+                        &lt;div class="row mb-5 pb-5">
+                            &lt;div class="card border-info">
+                                &lt;h4 class="card-header text-success">
+
+                                &lt;/h4>
+                                &lt;div class="list-group" id="list-tab" role="tablist">
+                                    &lt;div class="card-body text-info">
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/tab>
+                &lt;tab heading="{{'{'}}{{'{'}}tabs[4] == activeTab ? activeTab : ''}}">
+                    &lt;div class="container-fluid pt-3 mt-auto">
+                        &lt;div class="row mb-5 pb-5">
+                            &lt;div class="card border-info">
+                                &lt;h4 class="card-header text-success">
+
+                                &lt;/h4>
+                                &lt;div class="list-group" id="list-tab" role="tablist">
+                                    &lt;div class="card-body text-info">
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+                                        &lt;!-- Block Start-->
+                                        &lt;div class="card mb-3">
+                                            &lt;div class="card-header">
+                                                &lt;strong class="text-success">
+
+                                                &lt;/strong>
+                                            &lt;/div>
+                                            &lt;div class="card-body">
+
+                                            &lt;/div>
+                                        &lt;/div>
+                                        &lt;!-- Block End-->
+
+
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/tab>
+
+            &lt;/tabset>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+
+&lt;br />
+&lt;br />
+&lt;br />
+&lt;br />
+&lt;br />
+&lt;br />
+</pre>
+                                                    </tab>
+                                                    <tab heading="__name@dasherize__.component.scss">
+                                                        <pre>
+        // It will be blank scss file
+    </pre>
+                                                    </tab>
+                                                </tabset>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    modify index.ts file
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>index.ts</h5>
+                                                <pre>
+    import {{'{'}}strings } from '@angular-devkit/core';
+    import {{'{'}} apply, Rule, SchematicContext, Tree, url, template, mergeWith } from '@angular-devkit/schematics';
+    import {{'{'}} Schema } from './schema';
+    
+    export function multiTabComponent(_options: any): Rule {{'{'}}
+      return (tree: Tree, _context: SchematicContext) => {{'{'}}
+        const name = _options.name;
+    
+        const sourceTemplate = url('./files');
+    
+        const sourceParametrizedTemplate = apply(sourceTemplate, [
+          template(
+            {{'{'}}
+              ... _options, ... strings
+            }
+          )
+        ]);
+    
+        tree = mergeWith(sourceParametrizedTemplate)(tree, _context) as Tree;
+    
+        return tree;
+      };
+    }
+</pre>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    modify collection.json file
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5>collection.json</h5>
+                                                <pre>
+{{'{'}}
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {{'{'}}
+    "way2p-schematics": {{'{'}}
+      "description": "A blank schematic.",
+      "factory": "./way2p-schematics/index#way2pSchematics"
+    },
+    "hello": {{'{'}}
+      "description": "A blank schematic.",
+      "factory": "./hello/index#hello",
+      "schema": "./hello/schema.json"
+    },
+    "multi-tab-component": {{'{'}}
+      "description": "A blank schematic.",
+      "factory": "./multi-tab-component/index#multiTabComponent",
+      "schema": "./multi-tab-component/schema.json"
+    }
+  }
+}
+
+</pre>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Run the multi-tab-schematics
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <pre>
+$ schematics .:multi-tab-component --debug=false
+</pre>
+                                                <img src="assets/images/multi-tab-component-example.PNG" alt=""
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Run the multi-tab-schematics for Angular project using ng cli
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <pre>
+$ ng g ../way2p-schematics/src/collection.json:multi-tab-component --dry-run=false
+</pre>
+
+                                                <img src="assets/images/without_angular_project_config.PNG" alt=""
+                                                    class="img-fluid">
+
+                                                <div class="alert alert-warning">
+                                                    If you will check above attached image, there we can see
+                                                    test/test.component.ts, html and css created just inside the angular
+                                                    project but we want inside the src/app/test/test.component.ts, html
+                                                    and css like this. For this we need to write more code in index.ts
+                                                    file.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Fix the above problem
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <h5>index.ts</h5>
+                                                <pre>
+                                                    import {{'{'}}strings } from '@angular-devkit/core';
+import {{'{'}} apply, Rule, SchematicContext, Tree, url, template, mergeWith, SchematicsException, move } from '@angular-devkit/schematics';
+import {{'{'}}parseName} from '@schematics/angular/utility/parse-name';
+
+export function multiTabComponent(_options: any): Rule {{'{'}}
+  return (tree: Tree, _context: SchematicContext) => {{'{'}}
+
+    const sourceTemplate = url('./files');
+
+    
+    <mark>const workspaceAsBuffer = tree.read('angular.json');
+    if(!workspaceAsBuffer) {{'{'}}
+      throw new SchematicsException("Not an Angular CLI workspace");
+    }
+    const workspace = JSON.parse(workspaceAsBuffer.toString());
+    const projectName = workspace.defaultProject;
+    const project = workspace.projects[projectName];
+    const path = `${{'{'}}project.sourceRoot}/${{'{'}}project.projectType === 'application' ? 'app' : 'lib'}`;
+    const parsed = parseName(path, _options.name);
+    _options.name = parsed.name;</mark>
+    
+
+    const sourceParametrizedTemplate = apply(sourceTemplate, [
+      template(
+        {{'{'}}
+          ... _options, 
+          ... strings,
+        }
+      ),
+      <mark>move(parsed.path)</mark>
+    ]);
+
+    tree = mergeWith(sourceParametrizedTemplate)(tree, _context) as Tree;
+
+    return tree;
+  };
+}
+
+</pre>
+
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Now run the multitab component schematics again
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <pre>
+$ ng g ../way2p-schematics/src/collection.json:multi-tab-component --dry-run=false
+</pre>
+
+                                                <img src="assets/images/with-correct-path.PNG" alt=""
+                                                    class="img-fluid">
+
+                                                <div class="alert alert-success">
+                                                    In the above attached image we can see files is created inside the
+                                                    src/app/ directory.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[2] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[3] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

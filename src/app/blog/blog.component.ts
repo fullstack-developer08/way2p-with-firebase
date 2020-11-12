@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store';
 import { Observable, Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { AppStateService } from '../store/app-state.service';
 import { dispatchBlogIdForEdit, dispatchBlogIdForDelete } from '../store/actions/blog.actions';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { DomSanitizer } from '@angular/platform-browser';
+import { BlogDataComponent } from './blog-data/blog-data.component';
 
 @Component({
   selector: 'app-blog',
@@ -20,6 +20,8 @@ export class BlogComponent implements OnInit, OnDestroy {
   blog: any;
   isAdmin: boolean;
   public ngDestroyed$ = new Subject();
+  innerHtmlBlogData;
+
   
   constructor(
     private store: Store<AppState>,
@@ -30,11 +32,13 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.admin$ = this.store.pipe(select('admin'));
   }
 
+
   ngOnInit(): void {
     this.blog$
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((data) => {
         this.blog = data;
+        this.innerHtmlBlogData = this.blog.activeBlog && this.blog.activeBlog.blogData;
       });
 
     this.admin$

@@ -101,4 +101,8 @@ export class FirebaseService {
       ); 
     }
 
+    addContactInfo(obj) {
+      return this.firestore.collection("contact").add(obj);
+    }
+
 }

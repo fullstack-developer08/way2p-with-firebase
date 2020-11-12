@@ -1,8 +1,9 @@
 <div class="container-fluid pt-3 mt-auto">
     <div class="row mb-5 pb-5">
         <div class="col-sm-3">
-            <!-- <script data-ad-client="ca-pub-3327350365549789" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-            <blog-nav [articleType]='"frontend"'></blog-nav>
+            <div *ngIf="!blog?.isHomeQueryParamExists" class="card border-info">
+                <blog-nav [articleType]='""'></blog-nav>
+            </div>
         </div>
         <div class="col-sm-6">
             <div class="card border-info">
@@ -11,14 +12,13 @@
                 <button *ngIf="isAdmin" class="btn btn-success" (click)="initEditBlog(blog?.activeBlog?.id)">Edit</button>
                 <button *ngIf="isAdmin" class="btn btn-danger" (click)="initDeleteBlog(blog?.activeBlog?.id)">Delete</button>
                 <div class="list-group" id="list-tab" role="tablist">
-                    <blog-data [innerHTML]="blog?.activeBlog?.blogData | sanitizeHtml"></blog-data>
+                    <blog-data [blogData]="innerHtmlBlogData"></blog-data>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <div *ngIf="!blog?.isHomeQueryParamExists" class="card border-info">
-                <blog-nav></blog-nav>
-            </div>
+            <!-- <script data-ad-client="ca-pub-3327350365549789" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+            <blog-nav [articleType]='"frontend"'></blog-nav>
         </div>
     </div>
 </div>

@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card border" [class.border-danger]="contactFormValid==='INVALID'" [class.border-success]="contactFormValid==='VALID'">
+                <div class="card-header">
+                    Contact Us
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success" *ngIf="formSubmittedSuccessfully!==''">
+                        {{formSubmittedSuccessfully}}
+                    </div>
+                    <form [formGroup]="contactForm" (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <input type="text" placeholder="Enter Name" class="form-control" formControlName="name" />
+                            <ng-container *ngIf="contactForm.get('name').invalid && contactForm.get('name').touched">
+                                <small class="text-danger" *ngIf="contactForm.get('name').errors.required">
+                                    Name is required.
+                                </small>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Enter Email" class="form-control" formControlName="email" />
+                            <ng-container *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched">
+                                <small class="text-danger" *ngIf="contactForm.get('email').errors.required">
+                                    Email is required.
+                                </small>
+                                <small class="text-danger" *ngIf="contactForm.get('email').errors.email">
+                                    Not a valid email.
+                                </small>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Enter Message" class="form-control" formControlName="message"></textarea>
+                            <ng-container *ngIf="contactForm.get('message').invalid && contactForm.get('message').touched">
+                                <small class="text-danger" *ngIf="contactForm.get('message').errors.required">
+                                    Message is required.
+                                </small>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>

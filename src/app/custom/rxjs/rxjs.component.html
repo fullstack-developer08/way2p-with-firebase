@@ -1,0 +1,650 @@
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Rxjs/ Rxjs Operators</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{i+1}} | {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[0]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <p class="card-text">
+                                            of is used to convert object in the form of Observable.
+                                        </p>
+
+                                        <ul>
+                                            <li>Emit variable amount of values in a sequence and then emits a complete
+                                                notification.</li>
+                                            <li>of can emit same value like form. If we will give of(1,2,3,4,5) it will
+                                                emit sequentially five times. If we will give from([1,2,3,4,5]) it will
+                                                work same as of(1,2,3,4,5).</li>
+                                        </ul>
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+    const person = {{'{'}}
+        name: 'arif'
+    };
+
+    const person$: Observable&lt;Object> = of(person);
+
+    person$.subscribe(p => console.log(p));
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[1] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[1]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <p class="card-text">
+                                            from is used to convert promise and observable into the observable.
+                                        </p>
+                                        <ul>
+                                            <li>from operator can be used to convert a promise to an observable!</li>
+                                            <li>For arrays and iterables, all contained values will be emitted as a
+                                                sequence!</li>
+                                            <li>This operator can also be used to emit a string as a sequence of
+                                                characters!</li>
+                                            <li>of operator can take multiple arguments, but from operator take one
+                                                argument promise, array or string.</li>
+                                        </ul>
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 1
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+    const employees = [
+        {{'{'}}name: 'xyz1'},
+        {{'{'}}name: 'xyz2'}
+    ];
+
+
+    const promiseOfEmployees: Promise&lt;Object> = Promise.resolve(employees);
+    const promiseOfEmployees$: Observable&lt;Object> = from(promiseOfEmployees);
+
+    promiseOfEmployees$.subscribe(e => console.log(e));
+
+    // convertering oberservable into observertion(it has no uses in real time)
+
+    const person2$: Observable&lt;Object> = from(person$);
+
+    person2$.subscribe(e => console.log(e));
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 2 (Converting string into sequence of char)
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+from('string').subscribe(s=>console.log(s))
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 3 (Converting array into sequence of values)
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+from([1,2,3,4,5,6,7,8]).subscribe(s=>console.log(s))
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[2] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[2]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    interval operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Creates an Observable that emits sequential numbers every specified
+                                                    interval of time.
+                                                </p>
+                                                <p class="card-text">
+                                                    interval operator needs only one argument, that is interval of time.
+                                                </p>
+                                                <img src="/assets/images/rxjs/interval.PNG" alt="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} interval } from 'rxjs';
+import {{'{'}} take } from 'rxjs/operators';
+
+const numbers = interval(1000);
+
+const takeFourNumbers = numbers.pipe(take(4));
+
+takeFourNumbers.subscribe(x => console.log('Next: ', x));
+
+// Logs:
+// Next: 0
+// Next: 1
+// Next: 2
+// Next: 3
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[3] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[3]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    timer operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Creates an Observable that starts emitting after an dueTime and
+                                                    emits ever increasing numbers after each period of time thereafter.
+                                                </p>
+                                                <p class="card-text">
+                                                    It is same like interval but it takes two arguments, first is
+                                                    dueTime and second is interval of time.
+                                                </p>
+                                                <p class="card-text">
+                                                    If we will provide only one argument that is dueTime then it will
+                                                    take only 1 element from the observable.
+                                                </p>
+                                                <img src="/assets/images/rxjs/timer.PNG" alt="" class="img-fluid">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 1
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Emits ascending numbers, one every second (1000ms), starting after 3
+                                                    seconds
+                                                </p>
+                                                <pre>
+import {{'{'}} timer } from 'rxjs';
+
+const numbers = timer(3000, 1000);
+numbers.subscribe(x => console.log(x));
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 2
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Emits one number after five seconds
+                                                </p>
+                                                <pre>
+import {{'{'}} timer } from 'rxjs';
+
+const numbers = timer(5000);
+numbers.subscribe(x => console.log(x));
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[4]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    concat operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Creates an output Observable which sequentially emits all values
+                                                    from given Observable and then moves on to the next.
+                                                </p>
+                                                <img src="/assets/images/rxjs/concat.PNG" alt="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} concat, interval } from 'rxjs';
+import {{'{'}} take } from 'rxjs/operators';
+
+const timer1 = interval(1000).pipe(take(10));
+const timer2 = interval(2000).pipe(take(6));
+const timer3 = interval(500).pipe(take(10));
+
+const result = concat(timer1, timer2, timer3);
+result.subscribe(x => console.log(x));
+
+// results in the following:
+// (Prints to console sequentially)
+// -1000ms-> 0 -1000ms-> 1 -1000ms-> ... 9
+// -2000ms-> 0 -2000ms-> 1 -2000ms-> ... 5
+// -500ms-> 0 -500ms-> 1 -500ms-> ... 9
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[5] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[5]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    merge operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Creates an output Observable which concurrently emits all values
+                                                    from every given input Observable.
+                                                </p>
+                                                <img src="/assets/images/rxjs/merge.PNG" alt="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} merge, interval } from 'rxjs';
+import {{'{'}} take } from 'rxjs/operators';
+
+const timer1 = interval(1000).pipe(take(10));
+const timer2 = interval(2000).pipe(take(6));
+const timer3 = interval(500).pipe(take(10));
+
+const result = merge(timer1, timer2, timer3);
+result.subscribe(x => console.log(x));
+
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[6] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[6]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    map operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    map operator is used to manipulate the data based on our
+                                                    requirement.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[7] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[7]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    tap operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    tap operator will not allow us to manipulate the data.
+                                                </p>
+                                                <p class="card-text">
+                                                    tap operator is used for debug purpose mostly.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[8] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[8]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    swicthMap operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li>switchMap operator is flattening operator.</li>
+                                                    <li>Flattening operator means avoid subscribing two times, rather we
+                                                        can combine two observable.</li>
+                                                    <li>switchMap operator returns new Observable.</li>
+                                                    <li>We can use source observable values to create new observable.
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+const numbers$ = of(1,2,3).pipe(switchMap(num=>of(num, num*2, num*3)));
+numbers$.subscribe(console.log);
+</pre>
+
+                                                <ul>
+                                                    <li>In above example of will emit three values. It means switchMap
+                                                        will return Observable three times.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[9] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[9]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    mergeMap/flatMap operator
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                               
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+const title$ = of('Mr', 'Mrs', 'Master');
+const inputEl = document.querySelector("input");
+const input$ = fromEvent(inputEl, 'input');
+const result$ = title$.pipe(mergeMap(title=> input$.pipe(map((e: any)=> title + '-' + e.target.value))))
+result$.subscribe(console.log)
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

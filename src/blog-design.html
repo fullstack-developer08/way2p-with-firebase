@@ -1,69 +1,36 @@
-<pre>
-    &lt;div class="card-body text-info">
-    &lt;h4 class="card-title text-primary">&lt;/h4>
-    &lt;hr/>
-    &lt;div class="card mb-3">
-        &lt;div class="card-header">
-            
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;p class="mt-2">&lt;/p>
-        &lt;/div>
-    &lt;/div>
+<div class="card-body text-info">
+    <h4>What is change detection?</h4>
+    <p>
+        The basic mechanism of the change detection is to perform checks against two states, one is the current state, the other is the new state. If one of this state is different of the other, then something has changed, meaning we need to update (or re-render)
+        the view.
+    </p>
+    <p>
+        Change Detection means updating the view (DOM) when the data has changed.
+    </p>
+    <p>
+        The way Angular runs the change detection by starting from the top and continuing until it reaches the bottom, makes the system more predictable and more performant.
+    </p>
+    <h4>Angular Change Detection Strategies</h4>
+    <ul>
+        <li>ChangeDetectionStrategy.Default</li>
+        <li>ChangeDetectionStrategy.onPush</li>
+    </ul>
+    <p>
+        <strong>ChangeDetectionStrategy.Default</strong> By default, Angular has to be conservative and will checks every time something may have changed, this is called dirty checking.
+    </p>
+    <p>
+        <strong>ChangeDetectionStrategy.onPush</strong> With onPush, Angular will only depend on the component’s inputs, events, markForCheck method, or the use of the async pipe in the template, to perform a change detection mechanism and update the
+        view.
+    </p>
 
-    &lt;div class="card mb-3">
-        &lt;div class="card-header">
-            
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;p class="mb-2">&lt;/p>
-        &lt;/div>
-    &lt;/div>
+    <h4>Example- Change detection with object</h4>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://stackblitz.com/edit/angular-change-detection-with-object" allowfullscreen></iframe>
+    </div>
 
-    &lt;div class="card mb-3">
-        &lt;div class="card-header">
-            
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;p class="mb-2">&lt;/p>
-            
-            &lt;h4 class="text-success">&lt;/h4>
-            &lt;pre>
-             
-            &lt;/pre>
-            &lt;div class="alert alert-info">&lt;/div>
-        &lt;/div>
-    &lt;/div>
+    <h4>Example- Change detection with subscription</h4>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://stackblitz.com/edit/angular-change-detection-with-subscription" allowfullscreen></iframe>
+    </div>
 
-    &lt;div class="card mb-3">
-        &lt;div class="card-header text-primary">
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;p class="card-text">&lt;/p>
-            
-        &lt;/div>
-    &lt;/div>
-
-    &lt;div class="card mb-3">
-        &lt;div class="card-header">
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;pre>
-
-            &lt;/pre>
-        &lt;/div>
-    &lt;/div>
-
-    &lt;div class="card mb-3">
-        &lt;div class="card-header">
-        &lt;/div>
-        &lt;div class="card-body">
-            &lt;pre>
-      
-            &lt;/pre>
-            &lt;p class="mb-2">&lt;/p>
-        &lt;/div>
-    &lt;/div>
-
-&lt;/div>
-</pre>
+</div>

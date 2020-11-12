@@ -1,0 +1,103 @@
+<div class="jumbotron">
+    <h1 class="display-4">Angular Lifecycle Hooks</h1>
+</div>
+<div class="row">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Angular Lifecycle Hooks
+                </div>
+                <div class="card-body">
+                    <img src="assets/images/angular-lifecycle-hook.PNG" alt="" class="img-fluid mt-3">
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Introduction
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ngOnChanges</td>
+                                <td>
+                                    It executes multiple times. First time it execute when component gets initialized
+                                    and after that it execute when we bind any value to @input property from the parent
+                                    component.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngOnInit</td>
+                                <td>
+                                    It executes only once when we initialized the component.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngDoCheck</td>
+                                <td>
+                                    It executes multiple times when any change detect by the component like button click,
+                                    property change if it render the UI.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngAfterContentInit</td>
+                                <td>
+                                    It executes only once and when ng-content of the component get initialized.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngAfterContentChecked</td>
+                                <td>
+                                    It executes multiple times when any change detect in ng-content elements.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngAfterViewInit</td>
+                                <td>
+                                    It executes only once when component get initialized fully and rendered into UI.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngAfterViewChecked</td>
+                                <td>
+                                    It executes only once when component and child component get initialized fully and rendered into UI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ngOnDestroy</td>
+                                <td>
+                                    When our component about to destroy. It execute just before destroy.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

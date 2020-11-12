@@ -1,0 +1,687 @@
+<!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+<!-- <p class="card-text"></p> -->
+
+
+<div class="">
+  <div class="jumbotron">
+    <h1 class="display-4">TypeScript Full Course</h1>
+    <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+  </div>
+  <div class="row m-2">
+    <div class="col-sm-3 sticky-top">
+      <ul class="list-group" id="list-tab" role="tablist">
+        <ng-container *ngFor="let tab of tabs; let i=index">
+          <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === name">
+            {{tab}}
+          </a>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <tabset #staticTabs>
+
+        <tab heading="{{tabs[0] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <!-- <h4 class="card-header text-success">
+
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    TypeScript is an open source pure object oriented programming language(means supports such as
+                    classes, interfaces, inheritance, generics, etc.). It is a strongly typed superset of JavaScript
+                    which compiles to plain JavaScript. It contains all elements of JavaScript. It is a language
+                    designed for large scale JavaScript application development, which can be executed on browser. The
+                    typescript is a language as well as a set of tools. Typescript is the ES(ECMAScript)6 version of
+                    JavaScript with some additional features.
+
+                    <br /><br />
+
+                    Typescript cannot run directly on the browser. It needs a compiler to compile the file and generate
+                    it in JavaScript file, which can run directly on the browser. The Typescript source file is in ".ts"
+                    extension. Typescript uses TSC(Typescript Compiler), which convert Typescript code (.ts file) to
+                    JavaScript (.js file).
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[1] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                  Advantages
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <ul>
+                      <li>Typescript support static typing, Strongly type, Modules, Optional Parameters etc.</li>
+                      <li>TypeScript support object oriented programming features such as classes, interfaces,
+                        inheritance,
+                        generics, etc.</li>
+                      <li>Type is simple and easy to learn.</li>
+                      <li>TypeScript is fast.</li>
+                      <li>TypeScript provides the error -checking feature at compilation time. It will compile the code
+                        and
+                        if any error found, then it highlighted the mistakes before the script is run.</li>
+                      <li>TypeScript support all the JavaScript libraries because it is the superset of JavaScript.
+                        TypeScript Support reusability because of inheritance.</li>
+                    </ul>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[2] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <!-- <h4 class="card-header text-success">
+                  
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    When application code extends in JavaScript, then it becomes difficult to maintain and complex to
+                    understand. And JavaScript was not able to fulfil the requirement of Object Oriented programming
+                    language which prevent JavaScript from succeeding at the enterprise level. To overcome these problem
+                    TypeScript comes into picture.
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[3] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <!-- <h4 class="card-header text-success">
+                  
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      TypeScript Code is converted into Plain JavaScript Code : TypeScript code is not understandable by
+                      the browsers that is why if the code is written in TypeScript then it is compiled and converted
+                      the code i.e. translate the typescript code into JavaScript. This process is known as Transpiled
+                      with the help of JavaScript Code, browsers are able to read the code and display.
+                    </p>
+
+                    <p class="card-text">
+                      JavaScript is a subset of TypeScript: Whatever code is written in JavaScript can be converted into
+                      TypeScript by simply changing the extension from .js to .ts.
+                    </p>
+
+                    <p class="card-text">
+                      TypeScript can be used anywhere: TypeScript code can run any browser, devices or in any operating
+                      system. TypeScript is not specific to any Virtual-machine etc.
+                    </p>
+
+                    <p class="card-text">
+                      TypeScript Support JS libraries: With the support of TypeScript, developers can use existing
+                      JavaScript code, incluse popular JavScript libraries, and can be called other JavaScript code too.
+                    </p>
+
+                    <p class="card-text">
+                      TypeScript supports OOPs concept.
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[4] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  Advantage of TypeScript over JavaScript:
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <ul>
+                      <li>TypeScript always highlights errors at compilation time during the time of development,
+                        whereas JavaScript points out errors at the runtime.</li>
+                      <li>TypeScript supports strongly typed or static typing, whereas this is not in JavaScript.</li>
+                      <li>TypeScript runs on any browser or JavaScript engine.</li>
+                      <li>Great tooling supports with intellisense which provides active hints as the code is added.
+                      </li>
+                      <li>It has a namespace concept by defining by module. </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  Disadvantage of TypeScript over JavaScript:
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <ul>
+                      <li>1. TypeScript takes a long time to compile the code.
+                      </li>
+                      <li>2. TypeScript does not support abstract classes.
+                      </li>
+                      <li>If we run the TypeScript application in the browser, a compilation step is required to
+                        transform TypeScript into JavaScript.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[5] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[6] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <!-- <h4 class="card-header text-success">
+                  Advantage of TypeScript over JavaScript:
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      The TypeScript language is internally divided into three main layers. Each of these layers is
+                      divided into sublayer or components.
+
+                    </p>
+
+                    <p class="card-text">
+                      These layers are:
+                    </p>
+
+                    Language<br />
+                    The TypeScript Compiler<br />
+                    The TypeScript Language Services<br />
+                  </div>
+                </div>
+              </div>
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  Language:
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    It features the TypeScript language elements. It comprises elements like syntax, keywords, and type
+                    annotations.
+                  </div>
+                </div>
+              </div>
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  The TypeScript Compiler:
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card text">
+                      The TypeScript Compiler (TSC) transform the TypeScript program equivalent to its JavaScript code.
+                      It also performs the parsing, and type checking of our TypeScript code to JavaScript code.
+                    </p>
+                    <p class="card-text">
+                      App.ts ------->tsc app.ts------>app.js
+                      <br /><br />
+                      Browser doesn't support the execution of TypeScript code directly. So the program written in
+                      TypeScript must be re-written in JavaScript equivalent code which supports the execution of code
+                      in browser directly. To perform this, TypeScript comes with TypeScript compiler named "tsc". The
+                      current version of TypeScript compiler supports ES6 by default. It compilers the source code in
+                      any module like ES6, SystemJS, AMD etc.
+                      <br /><br />
+                      We can install the TyScript compiler by locally. Globally, or both with any npm package. Once
+                      installation completes, we can compile the TypeScript file by running the tsc command on the
+                      command line.
+                      <br /><br />
+                      Example: tsc helloworld.tsc // it compiles the TS file hellowworld.ts into the helloworld.js file.
+                      <br /><br />
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  The TypeScript Language Services
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card text">
+                      The language service provides information which helps editors and other tools to give better
+                      assistance
+                      Features such as automated refactoring and intellisense. It exposes an additional layer around the
+                      core-compiler pipeline. It supports some standard typical editor operators like code formatting
+                      and outlining, colorization, statement completion, signature help, etc.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[7] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <!-- <h4 class="card-header text-success">
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      To Set up Development Environment for typescript, we require the following -
+                    </p>
+
+                    <ul>
+                      <li> IDE(Visual Studio Code)
+                      </li>
+                      <li>Nodejs</li>
+                      <li>TypeScript</li>
+                    </ul>
+
+                    <p class="card-text">
+                      After installation of nodejs we can check version of node using below command.
+                    </p>
+
+                    <pre>
+$ npm -v
+                   </pre>
+
+                    <p class="card-text">
+                      Install TypeScript Globally
+                    </p>
+
+                    <pre>
+$ npm install -g typescript                     
+                   </pre>
+
+                    <p class="card-text">
+                      To check typescript version
+                    </p>
+
+                    <pre>
+$ tsc -v
+                   </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[8] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <!-- <h4 class="card-header text-success">
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      Steps to follow:
+                    </p>
+
+                    <ol>
+                      <li>Create project directory and open in editor.</li>
+                      <li>Initialize the typescript project using below command (It is mandatory otherwise we can get
+                        many error while writing simple javascript code also)
+                        <pre>
+$ tsc --init
+                      </pre>
+                      </li>
+                      <li>Create the first-program.ts file and write simple javascript code</li>
+                      <li>Convert the ts code to js code by using tsc compile</li>
+                      <li>
+                        <pre>
+$ tsc first-program.ts
+                        </pre>
+                      </li>
+                      <li>Above command will generate the js file</li>
+                      <li>To run JS file we need one html file so that create one html file</li>
+                    </ol>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  first-program.ts
+                </h4>
+                <pre>
+var msg = "Hello World";
+
+console.log(msg);
+
+document.write(msg);
+
+alert(msg);
+                </pre>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[9] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <!-- <h4 class="card-header text-success">
+                </h4> -->
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      JavaScript is not a typed language. It means we can not specify the type of a variable such as
+                      number, string, Boolean etc. However, TypeScript is a typed language, where we can specify the
+                      type of the variables, function parameters and object properties.
+                    </p>
+
+                    <p class="card-text">
+                      We can specify the type using: Type after the name of the variable, parameters or property. There
+                      can be space after the colon. TypeScript includes all the primitive types of JavaScript - number,
+                      string and Boolean.
+                    </p>
+
+                    <tabset>
+                      <tab heading="type-annotations.ts">
+                        <pre>
+var a : number = 0;
+var b : string = "Hello World!";
+var isActive : boolean = true;
+
+console.log(a);
+console.log(typeof(a));
+
+console.log(b);
+console.log(typeof(b));
+
+console.log(isActive);
+console.log(typeof(isActive));
+
+
+// a = "A"; we can not assign another type to a, that is typescript is a strongly typed language
+
+function add1(a: number, b:number){{'{'}}
+    var z = a + b;
+    console.log(z);
+}
+
+add1(1,2);
+// add1(1,"2"); it will allow to pass string parameters
+
+
+function offers(name: string, displayName: string) {{'{'}}
+    console.log(name);
+    console.log(displayName);
+}
+
+offers("Name", "DisplayName");
+// offers(1, "2"); it will allow to pass number parameters
+</pre>
+                      </tab>
+                    </tabset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[10] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  TypeScript Variables
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      TypeScript follows the same rules as JavaScript for variable declarations.
+                      <br />
+                      Variable can be declared using: var, let, and const
+
+                    </p>
+
+                    <p class="card-text">
+                      Var Declaration:<br />
+                      Variable in TypeScript can be declared using var keyword, same as in JavaScript. The scoping rules
+                      remains the same as in TypeScript.
+                    </p>
+
+                    <p class="card-text">
+                      Let Declaration:<br />
+                      To solve problems with var declarations, ES6 introduced two new types let and const variable
+                      declarations in JavaScript .
+                    </p>
+
+                    <p class="card-text">
+                      Variable Declaration using let:<br />
+                      The let declaration follow the same syntax as var declarations. Unlike variables declared with
+                      var, variables declared with let have a blocked-scope. This means that the scope of the let
+                      variables is limited to their containing block, e.g. function if else block or loop block.
+                    </p>
+
+                    <p class="card-text">
+                      Const Declaration:<br />
+                      Variables can be declared using const similar to var or let declarations. The const makes a
+                      variable a constant where its value can not be changed. Const variables have the same scoping
+                      rules as let variables.
+                    </p>
+
+
+
+                    <tabset>
+                      <tab heading="letScope">
+                        <pre>
+function letScope() {{'{'}}
+    let a: number = 1; // It has function level scope and we can access in this function
+
+    if (a == 1) {{'{'}}
+        console.log(a); // here a is giving error because of let variable can not be used before declaration.
+        let a: number = 2; // It has if block level scope, since we have used same name 'a' as function level let variable so that now function level 'a' can not be accessible in this block.
+    }
+
+}
+</pre>
+                      </tab>
+
+                      <tab heading="varScope">
+<pre>
+function varScope() {{'{'}}
+    let a: number;
+
+    a = 20;
+
+    if (a > 5) {{'{'}}
+        var b: number;
+        b = 30;
+    }
+
+    while (a > 5) {{'{'}}
+        console.log(a);
+        a++;
+        b = 33; // editor will not throw an error and we can access b
+    }
+}
+</pre>
+                      </tab>
+
+                      <tab heading="letCanNotbeUsedBeforeDeclaration">
+<pre>
+function letCanNotbeUsedBeforeDeclaration() {{'{'}}
+    // console.log(x); // editor will throw an error
+    let x: number = 1;
+}
+</pre>
+                      </tab>
+
+<tab heading="Drawbacks_varCanbeUsedBeforeDeclaration">
+<pre>
+function Drawbacks_varCanbeUsedBeforeDeclaration() {{'{'}}
+    console.log(x); // editor will not throw an error if strict: true is commented
+    var x = 1;
+    console.log(x);
+}
+</pre>
+</tab>
+
+<tab heading="canNotRedeclareLetVariable">
+<pre>
+function canNotRedeclareLetVariable() {{'{'}}
+    let x: number = 1;
+    // let x: number = 2;
+}
+
+</pre>
+</tab>
+
+<tab heading="canRedeclareVarVariable">
+<pre>
+function canRedeclareVarVariable() {{'{'}}
+    var x: number = 1;
+    var x: number = 2;
+}
+</pre>
+</tab>
+
+
+<tab heading="canRedeclareLetVariableInOtherScope">
+  <pre>
+function canRedeclareLetVariableInOtherScope() {{'{'}}
+      let x: number = 1;
+      if (x == 1) {{'{'}}
+          let x: number = 2;
+      }
+}
+  </pre>
+  </tab>
+
+
+                    </tabset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[11] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <p class="card-text">
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[12] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info m-1">
+                <h4 class="card-header text-success">
+                  
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <pre>
+                      var a1: number = 10;
+var b1: number = 20;
+
+console.log(a1);
+console.log(b1);
+
+console.log(typeof(a1))
+console.log(typeof(b1));
+
+var a3 = 30;
+var a4 = 40;
+
+console.log(typeof(a3))
+console.log(typeof(a4))
+
+
+function multiply(num1, num2) {{'{'}}
+    console.log(num1*num2);
+}
+
+multiply(1, 'test'); // result: NAN
+
+multiply(1, 2); // result: 2
+
+
+function multiple2(num1: number, num2: number) {{'{'}}
+    console.log(num1*num2);
+}
+multiple2(1, 'test'); // this will give error at compile time
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+      </tabset>
+    </div>
+  </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

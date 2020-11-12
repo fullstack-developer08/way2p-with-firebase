@@ -19,8 +19,8 @@ export class HelperService {
     copyPreTagContent(blog) {
         this.postVisitorsInfo(
             {
-                blogName: blog.blogName,
-                blogHref: blog.blogHref
+                blogName: blog && blog.blogName,
+                blogHref: blog && blog.blogHref
             }
         );
 
@@ -37,7 +37,7 @@ export class HelperService {
                     pre[i].appendChild(button);
                     pre[i].style.padding = "10px";
                     pre[i].style.margin = "10px";
-                    pre[i].style.fontSize = "17px";
+                    pre[i].style.fontSize = "13px";
                     pre[i].style.overflow = "hidden";
                     pre[i].style.whiteSpace = "pre-wrap";
                     pre[i].style.whiteSpace = "-moz-pre-wrap";
@@ -97,7 +97,7 @@ export class HelperService {
                     };
                 }
             }
-        }, 100)
+        }, 300)
     }
 
     async runCodePrettify() {

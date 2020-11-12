@@ -1,0 +1,2391 @@
+<!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+<!-- <p class="card-text"></p> -->
+
+
+<div class="">
+  <div class="jumbotron">
+    <h1 class="display-4">Microservices with Spring Clouds</h1>
+    <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+      <hr class="my-4">
+      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+  </div>
+  <div class="row m-2">
+    <div class="col-sm-3 sticky-top">
+      <ul class="list-group" id="list-tab" role="tablist">
+        <ng-container *ngFor="let tab of tabs; let i=index">
+          <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === name">
+            {{tab}}
+          </a>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <tabset #staticTabs>
+
+
+        <tab heading="{{tabs[0] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">What we will learn in this section?</strong>
+                      </div>
+                      <div class="card-body">
+                        <ul>
+                          <li>
+                            How to read properties file using @ConfigurationProperties.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="LimitsServiceApplication">
+                            <pre>
+package com.way2p.microservice.limitsservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan("com.way2p.microservice.*")
+public class LimitsServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(LimitsServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+
+                          <tab heading="LimitConfigurationController">
+                            <pre>
+package com.way2p.microservice.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.way2p.microservice.config.Configuration;
+import com.way2p.microservice.model.LimitConfiguration;
+
+@RestController
+public class LimitConfigurationController {{'{'}}
+	
+	@Autowired
+	private Configuration config;
+
+	@GetMapping(path = "/limits")
+	public LimitConfiguration limitConfiguration() {{'{'}}
+		return new LimitConfiguration(config.getMinimum(), config.getMaximum());
+	}
+}
+
+                            </pre>
+                          </tab>
+
+
+                          <tab heading="LimitConfiguration">
+                            <pre>
+package com.way2p.microservice.model;
+
+public class LimitConfiguration {{'{'}}
+	private int minimum;
+	private int maximum;
+
+	public LimitConfiguration() {{'{'}}
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public LimitConfiguration(int minimum, int maximum) {{'{'}}
+		super();
+		this.minimum = minimum;
+		this.maximum = maximum;
+	}
+
+	public int getMinimum() {{'{'}}
+		return minimum;
+	}
+
+	public void setMinimum(int minimum) {{'{'}}
+		this.minimum = minimum;
+	}
+
+	public int getMaximum() {{'{'}}
+		return maximum;
+	}
+
+	public void setMaximum(int maximum) {{'{'}}
+		this.maximum = maximum;
+	}
+
+}
+
+                            </pre>
+                          </tab>
+
+
+                          <tab heading="Configuration">
+                            <pre>
+package com.way2p.microservice.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties("limits-service")
+public class Configuration {{'{'}}
+  private int minimum;
+  private int maximum;
+
+  public int getMinimum() {{'{'}}
+    return minimum;
+  }
+
+  public void setMinimum(int minimum) {{'{'}}
+    this.minimum = minimum;
+  }
+
+  public int getMaximum() {{'{'}}
+    return maximum;
+  }
+
+  public void setMaximum(int maximum) {{'{'}}
+    this.maximum = maximum;
+  }
+
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=limits-service
+
+limits-service.minimum=99
+limits-service.maximum=9999
+</pre>
+                          </tab>
+
+                          <tab heading="pom.xml (required dependency)">
+                            <ul>
+                              <li>Actuator</li>
+                              <li>Web</li>
+                              <li>Config Client</li>
+                              <li>Devtools</li>
+                            </ul>
+                            <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-actuator&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-starter-web&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-starter-config&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-devtools&lt;/artifactId>
+  &lt;scope>runtime&lt;/scope>
+  &lt;optional>true&lt;/optional>
+&lt;/dependency>
+                            </pre>
+                          </tab>
+
+
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[1] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">What we will learn in this section?</strong>
+                      </div>
+                      <div class="card-body">
+                        <ul>
+                          <li>Setup of spring cloud config server</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="SpringCloudConfigServerApplication">
+                            <pre>
+package com.way2p.microservice.springcloudconfigserver;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
+
+<mark>@EnableConfigServer</mark>
+@SpringBootApplication
+public class SpringCloudConfigServerApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(SpringCloudConfigServerApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=spring-cloud-config-server
+server.port=8888
+
+spring.cloud.config.server.git.uri=https://github.com/mdarif-k/spring-cloud-config-repo
+spring.cloud.config.server.git.skipSslValidation=true
+</pre>
+                          </tab>
+
+                          <tab heading="pom.xml (required dependency)">
+                            <ul>
+                              <li>Config Server</li>
+                              <li>Devtools</li>
+                            </ul>
+                            <pre>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-config-server&lt;/artifactId>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>org.springframework.boot&lt;/groupId>
+  &lt;artifactId>spring-boot-devtools&lt;/artifactId>
+  &lt;scope>runtime&lt;/scope>
+  &lt;optional>true&lt;/optional>
+&lt;/dependency>
+                            </pre>
+                          </tab>
+
+
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[2] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success"></strong>
+                      </div>
+                      <div class="card-body">
+                        Earlier we were getting minimum and maximum value from the application.properties file of
+                        limits-service, Now we have
+                        connected to spring cloud config server and config server is fetching data from git.
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Changes in Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="LimitsServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LimitsServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+//		System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "qa");
+    <mark>System.setProperty("spring.profiles.active", "qa");</mark>
+    SpringApplication.run(LimitsServiceApplication.class, args);
+  }
+  
+}
+                              
+                            </pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+  spring.application.name=limits-service
+  spring.cloud.config.uri=http://localhost:8888
+  management.endpoints.web.exposure.include=*
+</pre>
+                          </tab>
+
+
+
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Git Repository properties files</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="limits-service.properties">
+                            <pre>
+limits-service.maximum = 888
+limits-service.minimum = 11
+                            </pre>
+                          </tab>
+
+                          <tab heading="limits-service-qa.properties">
+                            <pre>
+limits-service.maximum = 222
+limits-service.minimum = 2
+</pre>
+                          </tab>
+
+                          <tab heading="limits-service-dev.properties">
+                            <pre>
+limits-service.maximum = 111
+limits-service.minimum = 1
+                            </pre>
+                          </tab>
+
+
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[3] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyExchangeServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CurrencyExchangeServiceApplication CurrencyExchangeController
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyExchangeServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="CurrencyExchangeController">
+                            <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.way2p.microservice.model.ExchangeValue;
+import com.way2p.microservice.repository.ExchangeValueRepository;
+
+@RestController
+public class CurrencyExchangeController {{'{'}}
+  
+  @Autowired
+  private Environment environment;
+  
+  @Autowired
+  private ExchangeValueRepository repository;
+  
+  @GetMapping(path = "/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")
+  public ExchangeValue exchangeValue(@PathVariable String from, @PathVariable String to) {{'{'}}
+    ExchangeValue exchangeValue = repository.findByFromAndTo(from, to);
+    exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+    return exchangeValue;
+  }
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="ExchangeValue">
+                            <pre>
+package com.way2p.microservice.model;
+
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class ExchangeValue {{'{'}}
+  @Id
+  private Long id;
+  
+  @Column(name="currency_from")
+  private String from;
+  
+  @Column(name="currency_to")
+  private String to;
+  private BigDecimal conversionMultiple;
+  private int port;
+
+  public int getPort() {{'{'}}
+    return port;
+  }
+
+  public void setPort(int port) {{'{'}}
+    this.port = port;
+  }
+
+  public ExchangeValue() {{'{'}}
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public ExchangeValue(Long id, String from, String to, BigDecimal conversionMultiple) {{'{'}}
+    super();
+    this.id = id;
+    this.from = from;
+    this.to = to;
+    this.conversionMultiple = conversionMultiple;
+  }
+
+  public Long getId() {{'{'}}
+    return id;
+  }
+
+  public void setId(Long id) {{'{'}}
+    this.id = id;
+  }
+
+  public String getFrom() {{'{'}}
+    return from;
+  }
+
+  public void setFrom(String from) {{'{'}}
+    this.from = from;
+  }
+
+  public String getTo() {{'{'}}
+    return to;
+  }
+
+  public void setTo(String to) {{'{'}}
+    this.to = to;
+  }
+
+  public BigDecimal getConversionMultiple() {{'{'}}
+    return conversionMultiple;
+  }
+
+  public void setConversionMultiple(BigDecimal conversionMultiple) {{'{'}}
+    this.conversionMultiple = conversionMultiple;
+  }
+
+}
+</pre>
+                          </tab>
+
+                          <tab heading="ExchangeValueRepository">
+                            <pre>
+package com.way2p.microservice.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.way2p.microservice.model.ExchangeValue;
+
+@Repository
+public interface ExchangeValueRepository extends JpaRepository&lt;ExchangeValue, Long>{{'{'}}
+  ExchangeValue findByFromAndTo(String from, String to);
+}
+</pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=currency-exchange-service
+server.port=8000
+
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+</pre>
+                          </tab>
+
+                          <tab heading="data.sql">
+                            <pre>
+insert into exchange_value(id, currency_from, currency_to, conversion_multiple, port) values(10001, 'USD', 'INR', 65,0);
+insert into exchange_value(id, currency_from, currency_to, conversion_multiple, port) values(10002, 'EUR', 'INR', 75,0);
+insert into exchange_value(id, currency_from, currency_to, conversion_multiple, port) values(10003, 'AUD', 'INR', 25,0);
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[4] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyConversionServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CurrencyConversionServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="CurrencyConversionController">
+                            <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+
+@RestController
+public class CurrencyConversionController {{'{'}}
+
+  @GetMapping("/currency-conversion/from/{{'{'}}from}/to/{{'{'}}to}/quantity/{{'{'}}quantity}")
+  public CurrencyConversionBean conversionValue(
+      @PathVariable String from,
+      @PathVariable String to,
+      @PathVariable BigDecimal quantity
+  ) {{'{'}}
+    
+    Map&lt;String, String> uriVariables = new HashMap&lt;>();
+    uriVariables.put("from", from);
+    uriVariables.put("to", to);
+    ResponseEntity&lt;CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity("http://localhost:8001/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}", 
+        CurrencyConversionBean.class, uriVariables);
+    CurrencyConversionBean response = responseEntity.getBody();
+    
+    return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+  }
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="CurrencyConversionBean">
+                            <pre>
+package com.way2p.microservice.model;
+
+import java.math.BigDecimal;
+
+public class CurrencyConversionBean {{'{'}}
+  private Long id;
+  private String from;
+  private String to;
+  private BigDecimal conversionMultiple;
+  private BigDecimal quantity;
+  private BigDecimal totalCalculatedAmount;
+  private int port;
+
+  public CurrencyConversionBean() {{'{'}}
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
+      BigDecimal totalCalculatedAmount, int port) {{'{'}}
+    super();
+    this.id = id;
+    this.from = from;
+    this.to = to;
+    this.conversionMultiple = conversionMultiple;
+    this.quantity = quantity;
+    this.totalCalculatedAmount = totalCalculatedAmount;
+    this.port = port;
+  }
+
+  public Long getId() {{'{'}}
+    return id;
+  }
+
+  public void setId(Long id) {{'{'}}
+    this.id = id;
+  }
+
+  public String getFrom() {{'{'}}
+    return from;
+  }
+
+  public void setFrom(String from) {{'{'}}
+    this.from = from;
+  }
+
+  public String getTo() {{'{'}}
+    return to;
+  }
+
+  public void setTo(String to) {{'{'}}
+    this.to = to;
+  }
+
+  public BigDecimal getConversionMultiple() {{'{'}}
+    return conversionMultiple;
+  }
+
+  public void setConversionMultiple(BigDecimal conversionMultiple) {{'{'}}
+    this.conversionMultiple = conversionMultiple;
+  }
+
+  public BigDecimal getQuantity() {{'{'}}
+    return quantity;
+  }
+
+  public void setQuantity(BigDecimal quantity) {{'{'}}
+    this.quantity = quantity;
+  }
+
+  public BigDecimal getTotalCalculatedAmount() {{'{'}}
+    return totalCalculatedAmount;
+  }
+
+  public void setTotalCalculatedAmount(BigDecimal totalCalculatedAmount) {{'{'}}
+    this.totalCalculatedAmount = totalCalculatedAmount;
+  }
+
+  public int getPort() {{'{'}}
+    return port;
+  }
+
+  public void setPort(int port) {{'{'}}
+    this.port = port;
+  }
+
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=currency-conversion-service
+server.port=8100
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[5] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+
+                        <p class="card-text">
+                          CurrencyConversionService is calling CurrencyExchangeService using RestClient, so we need to
+                          write lot of code to do that. If we need to call multiple calls of that service then it will
+                          be the problem.
+                          OpenFeign client resolve this issue by creating proxy for another service. In the next tab you
+                          can see the implementation of OpenFeign Client.
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[6] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Dependency</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-starter-openfeign&lt;/artifactId>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyConversionServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+<mark>@EnableFeignClients</mark>
+public class CurrencyConversionServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="CurrencyConversionController">
+                            <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+import com.way2p.microservice.service.CurrencyExchangeServiceProxy;
+
+@RestController
+public class CurrencyConversionController {{'{'}}
+  
+  <mark>@Autowired
+  private CurrencyExchangeServiceProxy proxy;</mark>
+
+  @GetMapping("/currency-conversion/from/{{'{'}}from}/to/{{'{'}}to}/quantity/{{'{'}}quantity}")
+  public CurrencyConversionBean conversionValue(
+      @PathVariable String from,
+      @PathVariable String to,
+      @PathVariable BigDecimal quantity
+  ) {{'{'}}
+    
+    <mark>CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);</mark>
+    return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+  }
+  
+}
+</pre>
+                          </tab>
+
+                          <tab heading="CurrencyExchangeServiceProxy">
+                            <pre>
+
+<mark>package com.way2p.microservice.service;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+
+@FeignClient(name = "currency-exchange-service", url = "localhost:8000")
+public interface CurrencyExchangeServiceProxy {{'{'}}
+	
+	@GetMapping("/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")
+	public CurrencyConversionBean retrieveExchangeValue(@PathVariable String from, @PathVariable String to);
+
+}</mark>
+
+                            </pre>
+                          </tab>
+
+
+                          <tab heading="CurrencyConversionBean">
+                            <pre>
+package com.way2p.microservice.model;
+
+import java.math.BigDecimal;
+
+public class CurrencyConversionBean {{'{'}}
+  private Long id;
+  private String from;
+  private String to;
+  private BigDecimal conversionMultiple;
+  private BigDecimal quantity;
+  private BigDecimal totalCalculatedAmount;
+  private int port;
+
+  public CurrencyConversionBean() {{'{'}}
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
+      BigDecimal totalCalculatedAmount, int port) {{'{'}}
+    super();
+    this.id = id;
+    this.from = from;
+    this.to = to;
+    this.conversionMultiple = conversionMultiple;
+    this.quantity = quantity;
+    this.totalCalculatedAmount = totalCalculatedAmount;
+    this.port = port;
+  }
+
+  public Long getId() {{'{'}}
+    return id;
+  }
+
+  public void setId(Long id) {{'{'}}
+    this.id = id;
+  }
+
+  public String getFrom() {{'{'}}
+    return from;
+  }
+
+  public void setFrom(String from) {{'{'}}
+    this.from = from;
+  }
+
+  public String getTo() {{'{'}}
+    return to;
+  }
+
+  public void setTo(String to) {{'{'}}
+    this.to = to;
+  }
+
+  public BigDecimal getConversionMultiple() {{'{'}}
+    return conversionMultiple;
+  }
+
+  public void setConversionMultiple(BigDecimal conversionMultiple) {{'{'}}
+    this.conversionMultiple = conversionMultiple;
+  }
+
+  public BigDecimal getQuantity() {{'{'}}
+    return quantity;
+  }
+
+  public void setQuantity(BigDecimal quantity) {{'{'}}
+    this.quantity = quantity;
+  }
+
+  public BigDecimal getTotalCalculatedAmount() {{'{'}}
+    return totalCalculatedAmount;
+  }
+
+  public void setTotalCalculatedAmount(BigDecimal totalCalculatedAmount) {{'{'}}
+    this.totalCalculatedAmount = totalCalculatedAmount;
+  }
+
+  public int getPort() {{'{'}}
+    return port;
+  }
+
+  public void setPort(int port) {{'{'}}
+    this.port = port;
+  }
+
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=currency-conversion-service
+server.port=8100
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[7] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+
+                        <p class="card-text">
+                          Now OpenFeign client we are using to call the CurrencyExchangeService but we have hard coded
+                          the URL of the service, what if we have multiple instances are up and running, for that we
+                          have Ribbon to re solve this issue. Please check the next tab for implementation.
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[8] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Dependency</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-starter-netflix-ribbon&lt;/artifactId>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyConversionServiceApplication-No Change">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients
+public class CurrencyConversionServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="CurrencyConversionController-No Change">
+                            <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+import com.way2p.microservice.service.CurrencyExchangeServiceProxy;
+
+@RestController
+public class CurrencyConversionController {{'{'}}
+  
+  @Autowired
+  private CurrencyExchangeServiceProxy proxy;
+
+  @GetMapping("/currency-conversion/from/{{'{'}}from}/to/{{'{'}}to}/quantity/{{'{'}}quantity}")
+  public CurrencyConversionBean conversionValue(
+      @PathVariable String from,
+      @PathVariable String to,
+      @PathVariable BigDecimal quantity
+  ) {{'{'}}
+    
+    CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
+    return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+  }
+  
+}
+</pre>
+                          </tab>
+
+                          <tab heading="CurrencyExchangeServiceProxy-Change">
+                            <pre>
+package com.way2p.microservice.service;
+
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+
+@FeignClient(name = "currency-exchange-service")
+<mark>@RibbonClient(name = "currency-exchange-service")</mark>
+public interface CurrencyExchangeServiceProxy {{'{'}}
+  
+  @GetMapping("/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")
+  public CurrencyConversionBean retrieveExchangeValue(@PathVariable String from, @PathVariable String to);
+
+}
+                            </pre>
+                          </tab>
+
+
+                          <tab heading="CurrencyConversionBean">
+                            <pre>
+package com.way2p.microservice.model;
+
+import java.math.BigDecimal;
+
+public class CurrencyConversionBean {{'{'}}
+  private Long id;
+  private String from;
+  private String to;
+  private BigDecimal conversionMultiple;
+  private BigDecimal quantity;
+  private BigDecimal totalCalculatedAmount;
+  private int port;
+
+  public CurrencyConversionBean() {{'{'}}
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
+      BigDecimal totalCalculatedAmount, int port) {{'{'}}
+    super();
+    this.id = id;
+    this.from = from;
+    this.to = to;
+    this.conversionMultiple = conversionMultiple;
+    this.quantity = quantity;
+    this.totalCalculatedAmount = totalCalculatedAmount;
+    this.port = port;
+  }
+
+  public Long getId() {{'{'}}
+    return id;
+  }
+
+  public void setId(Long id) {{'{'}}
+    this.id = id;
+  }
+
+  public String getFrom() {{'{'}}
+    return from;
+  }
+
+  public void setFrom(String from) {{'{'}}
+    this.from = from;
+  }
+
+  public String getTo() {{'{'}}
+    return to;
+  }
+
+  public void setTo(String to) {{'{'}}
+    this.to = to;
+  }
+
+  public BigDecimal getConversionMultiple() {{'{'}}
+    return conversionMultiple;
+  }
+
+  public void setConversionMultiple(BigDecimal conversionMultiple) {{'{'}}
+    this.conversionMultiple = conversionMultiple;
+  }
+
+  public BigDecimal getQuantity() {{'{'}}
+    return quantity;
+  }
+
+  public void setQuantity(BigDecimal quantity) {{'{'}}
+    this.quantity = quantity;
+  }
+
+  public BigDecimal getTotalCalculatedAmount() {{'{'}}
+    return totalCalculatedAmount;
+  }
+
+  public void setTotalCalculatedAmount(BigDecimal totalCalculatedAmount) {{'{'}}
+    this.totalCalculatedAmount = totalCalculatedAmount;
+  }
+
+  public int getPort() {{'{'}}
+    return port;
+  }
+
+  public void setPort(int port) {{'{'}}
+    this.port = port;
+  }
+
+}
+</pre>
+                          </tab>
+
+
+                          <tab heading="application.properties-Change">
+                            <pre>
+spring.application.name=currency-conversion-service
+server.port=8100
+
+currency-exchange-service.ribbon.listOfServers=http://localhost:8000,http://localhost:8001
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[9] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+
+                        <p class="card-text">
+                          In the previous tab we have shown the implementation of Rebbion. And we have added all the up
+                          and running servers in the application.properties file. But still we hard coded all the
+                          available server list. If we have many services up and running that time it will be very
+                          complex to update in application.properties. To fix this issue we have Eureka Naming Server.
+                          Please check next for implementation.
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[10] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Dependency</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+  &lt;dependency>
+    &lt;groupId>org.springframework.cloud&lt;/groupId>
+    &lt;artifactId>spring-cloud-starter-netflix-eureka-client&lt;/artifactId>
+  &lt;/dependency>
+  &lt;dependency>
+    &lt;groupId>org.springframework.cloud&lt;/groupId>
+    &lt;artifactId>spring-cloud-starter-netflix-eureka-server&lt;/artifactId>
+  &lt;/dependency>                     
+</pre>
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="EurekaNamingServerOrDiscoveryServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+<mark>@EnableEurekaServer</mark>
+public class EurekaNamingServerOrDiscoveryServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(EurekaNamingServerOrDiscoveryServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+<mark>spring.application.name=eureka-naming-server-or-discovery-service
+server.port=8761
+
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+eureka.client.service-url.default-url= http://localhost:8761/eureka/</mark>
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[11] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Dependency</strong>
+                      </div>
+                      <div class="card-body">
+                        &lt;dependency>
+                        &lt;groupId>org.springframework.cloud&lt;/groupId>
+                        &lt;artifactId>spring-cloud-starter-netflix-eureka-client&lt;/artifactId>
+                        &lt;/dependency>
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Changes in Excahnge Service</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyExchangeServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+<mark>@EnableDiscoveryClient</mark>
+public class CurrencyExchangeServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyExchangeServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=currency-exchange-service
+server.port=8000
+
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+
+<mark>eureka.client.service-url.default-zone= http://localhost:8761/eureka</mark>
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Changes in Conversion Service</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyConversionServiceApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients
+<mark>@EnableDiscoveryClient</mark>
+public class CurrencyConversionServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=currency-conversion-service
+server.port=8100
+
+<mark>eureka.client.service-url.default-zone=http://localhost:8761/eureka/</mark>
+currency-exchange-service.ribbon.listOfServers=http://localhost:8000,http://localhost:8001
+</pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[12] == name ? name : ''}}">
+
+
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Need to comment out listOfServers</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+    spring.application.name=currency-conversion-service
+    server.port=8100
+    
+    eureka.client.service-url.default-zone=http://localhost:8761/eureka/
+    #currency-exchange-service.ribbon.listOfServers=http://localhost:8000,http://localhost:8001
+    </pre>
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[13] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+
+                        <p class="card-text">
+                          Now we have everything is up and running with all the above problem resolved.
+                          But now we have some more challanges.
+
+                          These problem resolved by Zuul API Gateway.
+                        </p>
+
+                        <ul>
+                          <li>We are calling multiple API with different endpoints, If UI will call multiple endpoints
+                            then it will be very difficult to maintain. </li>
+                          <li>Centerlized logging missing for backend</li>
+                          <li>Many more </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[14] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Application Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="ZuulApiGatewayApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+<mark>@EnableZuulProxy</mark>
+@SpringBootApplication
+<mark>@EnableDiscoveryClient</mark>
+public class ZuulApiGatewayApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(ZuulApiGatewayApplication.class, args);
+  }
+
+}
+                            </pre>
+                          </tab>
+
+                          <tab heading="ZuulLoggingFilter">
+                            <pre>
+package com.way2p.microservice;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+
+@Component
+public class ZuulLoggingFilter extends ZuulFilter {{'{'}}
+  
+  private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+  @Override
+  public boolean shouldFilter() {{'{'}}
+    return true;
+  }
+
+  @Override
+  public Object run() throws ZuulException {{'{'}}
+    HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+    logger.info("request -> {{'{'}}} request uri -> {{'{'}}}", request, request.getRequestURI());
+    return null;
+  }
+
+  @Override
+  public String filterType() {{'{'}}
+    return "pre";
+  }
+
+  @Override
+  public int filterOrder() {{'{'}}
+    return 1;
+  }
+
+}
+</pre>
+                          </tab>
+
+                          <tab heading="application.properties">
+                            <pre>
+spring.application.name=zuul-api-gateway
+server.port=8765
+
+eureka.client.service-url.default-zone= http://localhost:8761/eureka
+</pre>
+                          </tab>
+
+                        </tabset>
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[15] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Changes in Code</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyExchangeServiceProxy">
+                            <pre>
+package com.way2p.microservice.service;
+
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+
+//@FeignClient(name = "currency-exchange-service")
+<mark>@FeignClient(name = "zuul-api-gateway")</mark>
+@RibbonClient(name = "currency-exchange-service")
+public interface CurrencyExchangeServiceProxy {{'{'}}
+  
+//	@GetMapping("/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")
+  <mark>@GetMapping("/currency-exchange-service/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")</mark>
+  public CurrencyConversionBean retrieveExchangeValue(@PathVariable String from, @PathVariable String to);
+
+}
+                            </pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[16] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">
+                          We are calling Zuul API Gateway --> CurrencyExchangeService --> CurrencyConversionService
+                        </p>
+                        <p>
+                          If there is any issue comes in one service we do not have any id between them or we can say we
+                          do not have any tracing capability. This issue can be solved by Spring Cloud Sleuth.
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[17] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml - need to add this dependency in all the services</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-starter-sleuth&lt;/artifactId>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Code changes in ZuulApiGatewayApplication</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="ZuulApiGatewayApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.context.annotation.Bean;
+
+import brave.sampler.Sampler;
+
+@EnableZuulProxy
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ZuulApiGatewayApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(ZuulApiGatewayApplication.class, args);
+  }
+  
+  <mark>@Bean
+  public Sampler defaultSampler() {{'{'}}
+      return Sampler.ALWAYS_SAMPLE;
+  }</mark>
+
+}
+                            </pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Code changes in CurrencyConversionService</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="ZuulApiGatewayApplication">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+
+import brave.sampler.Sampler;
+
+@SpringBootApplication
+@EnableFeignClients
+@EnableDiscoveryClient
+public class CurrencyConversionServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyConversionServiceApplication.class, args);
+  }
+  
+  <mark>@Bean
+  public Sampler defaultSampler() {{'{'}}
+      return Sampler.ALWAYS_SAMPLE;
+  }</mark>
+
+}
+                            </pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Code changes in CurrencyExchangeServiceApplication</strong>
+                      </div>
+                      <div class="card-body">
+                        <tabset>
+
+                          <tab heading="CurrencyExchangeService">
+                            <pre>
+package com.way2p.microservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+
+import brave.sampler.Sampler;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class CurrencyExchangeServiceApplication {{'{'}}
+
+  public static void main(String[] args) {{'{'}}
+    SpringApplication.run(CurrencyExchangeServiceApplication.class, args);
+  }
+  
+  <mark>@Bean
+  public Sampler defaultSampler() {{'{'}}
+      return Sampler.ALWAYS_SAMPLE;
+  }</mark>
+
+}
+                            </pre>
+                          </tab>
+
+                        </tabset>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Adding some logs in controller file</strong>
+                      </div>
+                      <div class="card-body">
+
+
+                        <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.way2p.microservice.model.CurrencyConversionBean;
+import com.way2p.microservice.service.CurrencyExchangeServiceProxy;
+
+@RestController
+public class CurrencyConversionController {{'{'}}
+
+<mark>private Logger logger = LoggerFactory.getLogger(this.getClass());</mark>
+
+@Autowired
+private CurrencyExchangeServiceProxy proxy;
+
+@GetMapping("/currency-conversion/from/{{'{'}}from}/to/{{'{'}}to}/quantity/{{'{'}}quantity}")
+public CurrencyConversionBean conversionValue(
+    @PathVariable String from,
+    @PathVariable String to,
+    @PathVariable BigDecimal quantity
+) {{'{'}}
+  
+  CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
+  <mark>logger.info("{{'{'}}}", response);</mark>
+  return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity, quantity.multiply(response.getConversionMultiple()), response.getPort());
+}
+
+}
+                        </pre>
+
+                        <pre>
+package com.way2p.microservice.controller;
+
+import java.math.BigDecimal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.way2p.microservice.model.ExchangeValue;
+import com.way2p.microservice.repository.ExchangeValueRepository;
+
+@RestController
+public class CurrencyExchangeController {{'{'}}
+	
+	<mark>private Logger logger = LoggerFactory.getLogger(this.getClass());</mark>
+	
+	@Autowired
+	private Environment environment;
+	
+	@Autowired
+	private ExchangeValueRepository repository;
+	
+	@GetMapping(path = "/currency-exchange/from/{{'{'}}from}/to/{{'{'}}to}")
+	public ExchangeValue exchangeValue(@PathVariable String from, @PathVariable String to) {{'{'}}
+		ExchangeValue exchangeValue = repository.findByFromAndTo(from, to);
+		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+		<mark>logger.info("{{'{'}}}", exchangeValue);</mark>
+		return exchangeValue;
+	}
+}
+
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">After re-started all the services and when we make new request to
+                          conversion service we can see all the request in all the services we will have same id for
+                          Logger.</strong>
+                      </div>
+                      <div class="card-body">
+                        <img alt="" src="assets/images/sleuth_test1.PNG" class="img-fluid mt-3" />
+                        <img alt="" src="assets/images/slueth_test2.PNG" class="img-fluid mt-3" />
+                        <img alt="" src="assets/images/slueth_test3.PNG" class="img-fluid mt-3" />
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[18] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Problem</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">
+                          Now we have unique id for all the logs between the services. But it is very difficult to check
+                          in each service console, that is where Zipkin comes into picture.
+                        </p>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+
+        <tab heading="{{tabs[19] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    Go to https://zipkin.io/pages/quickstart and click on latest release, It will start downloading the
+                    latest server jar file.
+                    Once you downloaded the server after that you can run server using below command.
+
+
+                    <pre>
+java -jar zipkin-server-2.21.7-exec.jar
+                    </pre>
+
+                    <img alt="" src="assets/images/zipkin-run-show.PNG" class="img-fluid mt-3" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[20] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">pom.xml</strong>
+                      </div>
+                      <div class="card-body">
+                        <pre>
+&lt;dependency>
+  &lt;groupId>org.springframework.cloud&lt;/groupId>
+  &lt;artifactId>spring-cloud-starter-zipkin&lt;/artifactId>
+&lt;/dependency>
+                        </pre>
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+
+                    <!-- Block Start-->
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <strong class="text-success">Now if we will make request then we can see each request with
+                          unique id directly in the zipkin.</strong>
+                      </div>
+                      <div class="card-body">
+                        <img alt="" src="assets/images/zipkin-trace-show1.PNG" class="img-fluid mt-3" />
+                        <br />
+                        <img alt="" src="assets/images/zipkin-trace-show2.PNG" class="img-fluid mt-3" />
+
+                      </div>
+                    </div>
+                    <!-- Block End-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[21] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    <ul>
+                      <li>
+                        Spring Cloud Bus
+                      </li>
+                      <li>
+                        Fault tolerance with Hystrix
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[22] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+                    If our all the service using spring cloud config server for common configuration. If all the
+                    services and instances up and running AND we are updating configuration in GIT. Then we want to
+                    update the configuration automatically for all the instance or we can say by using one call we can
+                    update the configuration in services. That is where Spring Cloud Bus comes into picture.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[23] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+WIP
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="{{tabs[24] == name ? name : ''}}">
+          <div class="container-fluid pt-3 mt-auto">
+            <div class="row mb-5 pb-5">
+              <div class="card border-info">
+                <h4 class="card-header text-success">
+
+                </h4>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div class="card-body text-info">
+WIP
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+
+      </tabset>
+    </div>
+  </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br />
+<br /><br />
+<br />
+<br />

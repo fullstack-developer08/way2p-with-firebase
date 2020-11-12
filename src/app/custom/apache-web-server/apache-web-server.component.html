@@ -1,0 +1,128 @@
+<div class="jumbotron">
+    <h1 class="display-4">Apache Http/Web Server Basics</h1>
+</div>
+<div class="row">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Use Cases
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        If we want to call the API and some API do not allow the cross origin request. To solve this
+                        issue we can use Apache server to rewrite the URL.
+                    </p>
+                    
+                    <p class="card-text">
+                        In Angular when we change anything in code it restart the server and refresh the browser but It
+                        happenes when we save the changes. I have habit to save once i done my changes and it refresh
+                        the page unnecessary, to solve this issue we can use Apache server.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body text-info">
+            <h4 class="card-title text-primary"></h4>
+            <div class="card mb-3">
+                <div class="card-header">
+                    Redirecting Apache Web Server Location to someother Url/localhost server
+                </div>
+                <div class="card-body">
+                    <p>Download the Apache for windows operating system from <a
+                            href="https://www.apachelounge.com/download/"
+                            target="_blank">https://www.apachelounge.com/download/</a></p>
+
+                    <p>Open the httpd.conf file available inside the conf directory and modify based on below
+                        suggestions.</p>
+
+                    <h4>Enable/uncomment below modules</h4>
+                    <pre>
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_connect_module modules/mod_proxy_connect.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule proxy_http2_module modules/mod_proxy_http2.so
+LoadModule rewrite_module modules/mod_rewrite.so
+LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule vhost_alias_module modules/mod_vhost_alias.so
+                    </pre>
+
+                    <h4>Add the mod_rewrite.c inside alias_module</h4>
+                    <pre>
+&lt;IfModule alias_module>
+    #
+    # Redirect: Allows you to tell clients about documents that used to 
+    # exist in your server's namespace, but do not anymore. The client 
+    # will make a new request for the document at its new location.
+    # Example:
+    # Redirect permanent /foo http://www.example.com/bar
+
+    #
+    # Alias: Maps web paths into filesystem paths and is used to
+    # access content that does not live under the DocumentRoot.
+    # Example:
+    # Alias /webpath /full/filesystem/path
+    #
+    # If you include a trailing / on /webpath then the server will
+    # require it to be present in the URL.  You will also likely
+    # need to provide a &lt;Directory> section to allow access to
+    # the filesystem path.
+
+    #
+    # ScriptAlias: This controls which directories contain server scripts. 
+    # ScriptAliases are essentially the same as Aliases, except that
+    # documents in the target directory are treated as applications and
+    # run by the server when requested rather than as documents sent to the
+    # client.  The same rules about trailing "/" apply to ScriptAlias
+    # directives as to Alias.
+    #
+    ScriptAlias /cgi-bin/ "${{'{'}}SRVROOT}/cgi-bin/"
+    
+    <mark>&lt;IfModule mod_rewrite.c>
+        RewriteEngine On
+
+        SSLProxyEngine On
+
+        RewriteRule "/test/(.*)/etc" "https://jsonplaceholder.typicode.com/$1"
+        
+        
+        
+
+        &lt;Location /way2p>
+            ProxyPass http://localhost:4200
+            ProxyPassReverse http://localhost:4200
+        &lt;/Location>
+    &lt;/IfModule></mark>
+
+&lt;/IfModule>
+                    </pre>
+
+                    <p class="card-text">
+                        Now after restart apache server and when we launch the URL http://localhost/way2p it will fetch
+                        the data from 4200 port. Our Project should be up and running on 4200 port.
+                    </p>
+                    <p class="card-text">
+                        (.*) - It is a variable that we are replacing with $1. we can have many variable and while using
+                        that variable need to use $1, $2 etc.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

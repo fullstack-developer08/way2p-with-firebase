@@ -1,0 +1,155 @@
+<div class="container">
+    <div>
+        <h1>Example of @ViewChild</h1>
+        <div class="row border-info m-5">
+            <div class="col-sm-6" #userData>
+                <h4>Display User Information - Main Component</h4>
+                <p>First Name: {{userForm?.firstName}}</p>
+                <p>LastName Name: {{userForm?.lastName}}</p>
+                <p>Phone No: {{userForm?.phoneNumber}}</p>
+            </div>
+            <div class="col-sm-6">
+                <h4>User Form - Child Component</h4>
+                <second-child #secondChild></second-child>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+
+            <div class="card border-info m-2">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <div class="card-header text-success">
+                        Introduction
+                    </div>
+                    <div class="card-body text-info">
+                        There are many ways where we can use @ViewChild. We will talk about two popular cases.<br />
+                        <br />
+                        
+                        <ul>
+                            <li>Any element in html file is a child component.</li>
+                            <li>Custom element in html file is also a child component.</li>
+                        </ul>
+                        <br />
+
+                        <p class="m-2 card-text">
+                            <strong>Case 1 - </strong>If we will apply the template reference variable to element(not custom element) then we can
+                            change the innerHTML, style and class etc...
+                        </p>
+
+                        <p class="m-2 card-text">
+                            <strong>Case 2 -</strong>If we will apply the template reference variable to custom element(not native element) then we can
+                            change the property of that component and we can also call the method of that component.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-info m-2">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <div class="card-header text-success">
+                        Implementation of avobe example
+                    </div>
+                    <div class="card-body text-info">
+                        <tabset>
+                            <tab heading="Component1.ts">
+                                <pre>
+import {{ '{' }} AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {{ '{' }} SecondChildComponent } from './another-child-component';
+
+@Component({{ '{' }}
+  selector: 'component1',
+  templateUrl: './component1.html',
+  styleUrls: ['./component1.scss']
+})
+export class Component1 implements OnInit, AfterViewInit {{ '{' }}
+  @ViewChild("secondChild") secondChild: SecondChildComponent;
+  @ViewChild("userData") userData: ElementRef;
+  userForm;
+  
+  constructor() {{ '{' }} }
+
+  ngOnInit(): void {{ '{' }}
+    
+  }
+
+  ngAfterViewInit(): void {{ '{' }}
+    this.secondChild.userForm.valueChanges.subscribe((data) => {{ '{' }}
+      this.userForm = data;
+    });
+    this.userData.nativeElement.style.backgroundColor = "lightgreen";
+  }
+
+}
+
+                                    </pre>
+                            </tab>
+
+                            <tab heading="Component1.html">
+                                <pre>
+&lt;div class="row border-info m-5">
+    &lt;div class="col-sm-6" #userData>
+        &lt;h4>Display User Information&lt;/h4>
+        &lt;p>First Name: {{'{{'}}userForm?.firstName}}&lt;/p>
+        &lt;p>LastName Name: {{'{{'}}userForm?.lastName}}&lt;/p>
+        &lt;p>Phone No: {{'{{'}}userForm?.phoneNumber}}&lt;/p>
+    &lt;/div>
+    &lt;div class="col-sm-6">
+        &lt;second-child #secondChild>&lt;/second-child>
+    &lt;/div>
+&lt;/div>
+                                </pre>
+                            </tab>
+
+                            <tab heading="SecondChildComponent">
+                                <pre>
+import {{ '{' }} Component, OnInit } from '@angular/core';
+import {{ '{' }} FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({{ '{' }}
+  selector: 'second-child',
+  template: `
+    &lt;form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+        &lt;input type="text" placeholder="First Name" formControlName="firstName"/>
+        &lt;input type="text" placeholder="Last Name" formControlName="lastName"/>
+        &lt;input type="text" placeholder="Phone No" formControlName="phoneNumber"/>
+        &lt;button type="submit"> Submit&lt;/button>
+    &lt;/form>
+  `
+})
+export class SecondChildComponent implements OnInit {{ '{' }}
+  userForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {{ '{' }} }
+
+  ngOnInit(): void {{ '{' }}
+    this.userForm = this.createUserForm();
+  }
+
+  createUserForm = () => {{ '{' }}
+    return this.formBuilder.group({{ '{' }}
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
+    });
+  }
+
+  onSubmit() {{ '{' }}
+    this.userForm.reset();
+  }
+
+}
+
+                                </pre>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+<br/><br/><br/><br/>
