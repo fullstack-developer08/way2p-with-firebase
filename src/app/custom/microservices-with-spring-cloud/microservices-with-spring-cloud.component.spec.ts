@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MicroservicesWithSpringCloudComponent } from './microservices-with-spring-cloud.component';
 
@@ -6,7 +6,7 @@ describe('MicroservicesWithSpringCloudComponent', () => {
   let component: MicroservicesWithSpringCloudComponent;
   let fixture: ComponentFixture<MicroservicesWithSpringCloudComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MicroservicesWithSpringCloudComponent ]
     })

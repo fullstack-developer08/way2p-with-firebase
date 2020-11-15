@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CodeCoverageWithJacocoAndSonarComponent } from './code-coverage-with-jacoco-and-sonar.component';
 
@@ -6,7 +6,7 @@ describe('CodeCoverageWithJacocoAndSonarComponent', () => {
   let component: CodeCoverageWithJacocoAndSonarComponent;
   let fixture: ComponentFixture<CodeCoverageWithJacocoAndSonarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CodeCoverageWithJacocoAndSonarComponent ]
     })

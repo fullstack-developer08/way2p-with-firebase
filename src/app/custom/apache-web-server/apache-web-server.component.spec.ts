@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ApacheWebServerComponent } from './apache-web-server.component';
 
@@ -6,7 +6,7 @@ describe('ApacheWebServerComponent', () => {
   let component: ApacheWebServerComponent;
   let fixture: ComponentFixture<ApacheWebServerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ApacheWebServerComponent ]
     })

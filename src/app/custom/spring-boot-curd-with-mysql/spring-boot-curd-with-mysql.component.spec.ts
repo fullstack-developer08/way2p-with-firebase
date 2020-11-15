@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SpringBootCurdWithMysqlComponent } from './spring-boot-curd-with-mysql.component';
 
@@ -6,7 +6,7 @@ describe('SpringBootCurdWithMysqlComponent', () => {
   let component: SpringBootCurdWithMysqlComponent;
   let fixture: ComponentFixture<SpringBootCurdWithMysqlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SpringBootCurdWithMysqlComponent ]
     })

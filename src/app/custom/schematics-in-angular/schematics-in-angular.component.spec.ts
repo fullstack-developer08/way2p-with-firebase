@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SchematicsInAngularComponent } from './schematics-in-angular.component';
 
@@ -6,7 +6,7 @@ describe('SchematicsInAngularComponent', () => {
   let component: SchematicsInAngularComponent;
   let fixture: ComponentFixture<SchematicsInAngularComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SchematicsInAngularComponent ]
     })

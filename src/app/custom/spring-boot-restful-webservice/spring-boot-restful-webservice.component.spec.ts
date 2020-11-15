@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SpringBootRestfulWebserviceComponent } from './spring-boot-restful-webservice.component';
 
@@ -6,7 +6,7 @@ describe('SpringBootRestfulWebserviceComponent', () => {
   let component: SpringBootRestfulWebserviceComponent;
   let fixture: ComponentFixture<SpringBootRestfulWebserviceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SpringBootRestfulWebserviceComponent ]
     })
