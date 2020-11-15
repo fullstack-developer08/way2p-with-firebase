@@ -29,7 +29,7 @@ export class HelperService {
                 const pre = document.getElementsByTagName("pre");
                 for (var i = 0; i < pre.length; i++) {
                     const button = document.createElement("button");
-                    button.className = "copy-button btn btn-primary";
+                    button.className = "copy-button btn btn-outline-success btn-sm";
                     button.textContent = "Copy";
                     const s = pre[i].innerText;
                     pre[i].className = "rel-pos border border-primary p-3 prettyprint";
