@@ -18,6 +18,7 @@ export class RxjsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabs = [
+      'introduction',
       'of Operator',
       'from Operator',
       'interval Operator',
@@ -28,6 +29,8 @@ export class RxjsComponent implements OnInit {
       'tap Operator',
       'switchMap Operator',
       'mergeMap/flatMap Operator',
+      'debounceTime and distinctUntilChanged Operator',
+      'Subject and BehaviorSubject'
     ];
     this.activeTab = this.tabs[0];
   }

@@ -24,6 +24,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   public articleType: string = '';
   public sort: string = '';
   public blogTech: string = '';
+  contacts;
 
   constructor(
     private store: Store<AppState>,
@@ -76,6 +77,14 @@ export class AdminComponent implements OnInit, OnDestroy {
           this.isAdmin = false;
           this.router.navigate([''])
         }
+      });
+
+      this.firebaseSrvc.getContactInfo().subscribe((allData) => {
+        this.contacts = [];
+        allData.forEach((data) => {
+          const obj = {...data.payload.doc.data(), id: data.payload.doc.id}
+          this.contacts.push(obj);
+        });
       });
   }
 

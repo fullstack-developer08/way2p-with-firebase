@@ -54,8 +54,8 @@ const routes: Routes = [
   { path: 'schematics-in-angular', component: SchematicsInAngularComponent },
   { path: 'create-schematics-like-angular-cli', component: SchematicsLikeAngularCliComponent },
   { path: 'angular-practices', component: AngularPracticesWithExampleComponent },
-  { path: 'rxjs/learning', component: RxjsComponent },
-  { path: 'ngrx/learning', component: NgrxComponent },
+  { path: 'rxjs-learning', component: RxjsComponent },
+  { path: 'ngrx-learning', component: NgrxComponent },
   
   { path: 'login', loadChildren: () => import('./admin/login/login.module').then(m => m.LoginModule) },
   { path: 'visitors-details', loadChildren: () => import('./visitors-details/visitors-details.module').then(m => m.VisitorsDetailsModule) },

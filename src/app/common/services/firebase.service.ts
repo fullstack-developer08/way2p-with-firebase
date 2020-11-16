@@ -104,5 +104,9 @@ export class FirebaseService {
     addContactInfo(obj) {
       return this.firestore.collection("contact").add(obj);
     }
+    
 
+    getContactInfo(): Observable<DocumentChangeAction<any>[]> {
+      return this.firestore.collection("contact").snapshotChanges();
+    }
 }

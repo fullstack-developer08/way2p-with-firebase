@@ -44,11 +44,11 @@ export class HomeComponent implements OnInit {
           desc: 'Angular Practices'
         },
         {
-          url: 'ngrx/learning',
+          url: 'ngrx-learning',
           desc: 'Ngrx'
         },
         {
-          url: 'rxjs/learning',
+          url: 'rxjs-learning',
           desc: 'Rxjs'
         },
         {

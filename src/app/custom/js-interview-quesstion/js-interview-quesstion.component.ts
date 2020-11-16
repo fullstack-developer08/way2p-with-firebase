@@ -16,7 +16,7 @@ export class JsInterviewQuesstionComponent implements OnInit {
   tabs = [
     'How do you clone an object?',
     'How do you add an element at the begining of an array? How do you add one at end?',
-    'What is Closure?', 
+    'What is Closure?',
     'What is Prototype Inheritance?',
     'How do you add new element using javascript to DOM?',
     'Explain Hoisting in JavaScript',
@@ -35,17 +35,27 @@ export class JsInterviewQuesstionComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = this.tabs[0];
-    this.activeTab = this.tabs[0];
+    this.activeTab = 0;
     this.helperService.copyPreTagContent(null);
   }
 
-  selectTab(tabId: number|string, name?: string) {
-    this.staticTabs.tabs[tabId].active = true;
-    this.name = name;
-    if (typeof tabId === 'number') this.activeTab = tabId;
-    else {
-      
-      this.staticTabs.tabs[this.activeTab+1].active = true;
+  selectTab(tabId: number, name?: string) {
+    if (this.staticTabs.tabs[tabId]) {
+      this.staticTabs.tabs[tabId].active = true
+      this.activeTab = tabId;
+      this.name = this.tabs[this.activeTab];
+    }
+
+  }
+
+  changeTab(type) {
+    if (type === 'pre') {
+      const tab = this.activeTab > 0 ? this.activeTab - 1 : 0;
+      this.selectTab(tab)
+    }
+    else if (type === 'next') {
+      const tab = this.tabs.length === this.activeTab ? this.activeTab : this.activeTab + 1;
+      this.selectTab(tab)
     }
   }
 
