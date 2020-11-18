@@ -26,7 +26,23 @@ export class JsInterviewQuesstionComponent implements OnInit {
     'What is the use of a WeakMap object in JavaScript?',
     'Difference between write and writeln method',
     'What is the difference between window & Document?',
-    'Is JavaScript a case-sensitive language?'
+    'Is JavaScript a case-sensitive language?',
+    'What is the difference between an alert box and a confirmation box?',
+    'What is Callback?',
+    'What is a prompt box?',
+    'What is === operator?',
+    'Explain the difference between "==" and "==="?',
+    'What would be the result of 5+4+"7"?',
+    'What is an undefined value in JavaScript?',
+    'What is the use of typeof operator?',
+    'Which keywords are used to handle exceptions?',
+    'What is the use of blur function?',
+    'What is the difference between JavaScript and Jscript?',
+    'What is the difference between null and undefined keywords?',
+    'What is the difference between let and const keywords?',
+    'What is the difference between == and === sign?',
+    'What is the difference between let and var keywords?',
+    'What is prototype based inheritance?'
   ];
 
   constructor(private helperService: HelperService) {

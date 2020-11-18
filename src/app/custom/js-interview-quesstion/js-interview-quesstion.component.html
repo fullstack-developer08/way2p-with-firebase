@@ -16,13 +16,13 @@
             </div>
             <ul class="list-group" id="list-tab" role="tablist">
                 <ng-container *ngFor="let tab of tabs; let i=index">
-                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === name">
-                        <span class="btn btn-outline-warning">{{i+1}}</span> {{tab}}
+                    <a *ngIf="i <= 14" class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === name">
+                        <span class="badge badge-primary badge-pill">{{i+1}}</span> {{tab}}
                     </a>
                 </ng-container>
             </ul>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-6">
 
             <tabset #staticTabs>
 
@@ -678,7 +678,7 @@ document.writeln("color:mediumblue">"Have a nice day!");
                         <div class="row mb-5 pb-5">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    2. Is JavaScript a case-sensitive language?
+                                    Is JavaScript a case-sensitive language?
                                 </div>
                                 <div class="card-body">
                                     <ul>
@@ -692,9 +692,388 @@ document.writeln("color:mediumblue">"Have a nice day!");
                     </div>
                 </tab>
 
+                <tab heading="{{tabs[13] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[13]}}
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body text-info">
+
+                                        <p>An alert box displays only one button which is the OK button.</p>
+                                        <p>But a Confirmation box displays two buttons namely OK and cancel.</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[14] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[14]}}
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body text-info">
+
+                                        <p>
+                                            A callback is a plain JavaScript function passed to some method as an argument or option. It is a function that is to be executed after another function has finished executing, hence the name ‘call back‘. In JavaScript, functions are objects. Because
+                                            of this, functions can take functions as arguments, and can be returned by other functions.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[15] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[15]}}
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body text-info">
+                                        <p>
+                                            A prompt box is a box which allows the user to enter input by providing a text box. Label and box will be provided to enter the text or number.
+                                        </p>
+                                        <h6>Example</h6>
+                                        <pre>
+let inputData = prompt("Hi, Please enter your password again to proceed further!");
+console.log(inputData);
+                                          </pre>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <!-- <tab heading="{{tabs[16] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[16]}}
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body text-info">
+                                        <p>
+                                            A prompt box is a box which allows the user to enter input by providing a text box. Label and box will be provided to enter the text or number.
+                                        </p>
+                                        <h6>Example</h6>
+                                        <pre>
+let inputData = prompt("Hi, Please enter your password again to proceed further!");
+console.log(inputData);
+                                          </pre>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab> -->
+
+                <tab heading="{{tabs[16] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[16]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        === is called as strict equality operator which returns true when the two operands are having the same value without any type conversion.
+                                    </p>
+                                    <p>
+                                        === it will check type and value, if type will mismatch it will return false
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[17] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[17]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        "==" checks only for equality in value whereas "===" is a stricter equality test and returns false if either the value or the type of the two variables are different.
+                                    </p>
+                                    <p>
+                                        === it will check type and value, if type will mismatch it will return false
+                                    </p>
+                                    <p>
+                                        == it will check only value, if type will mismatchand value is same then it will return true false
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[18] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[18]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Since 5 and 4 are integers, they will be added numerically. And since 7 is a string, its concatenation will be done. So the result would be 97.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[19] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[19]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Undefined value means
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            If we have declare variable but not assigned and reading value of that variable then it will return undefined value.
+                                        </li>
+                                        <li>
+                                            If you are using Typescript then editor will not allow you to use variable if it is not declared
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[20] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[20]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        'typeof' is an operator which is used to return a string description of the variable type.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[21] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[21]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Try… Catch---finally is used to handle exceptions in the JavaScript
+                                    </p>
+                                    <pre>
+try{{'{'}}
+    Code
+}
+catch(exp){{'{'}}
+    Code to throw an exception
+}
+finally{{'{'}}
+    Code runs either it finishes successfully or after catch
+}
+                                      </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[22] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[22]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        The blur() method is used to remove focus from an element.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[23] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[23]}}
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Both are almost similar. JavaScript is developed by Netscape and Jscript was developed by Microsoft .
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[24] == name ? name : ''}}">
+                    <div class="contaier-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[24]}}
+                                </div>
+                                <div class="card-body">
+                                    Both repersents empty value
+                                    <div>
+                                        <h5>undefined</h5>
+                                        -> typeof undefined => "undefined" -> If we try to access variable that is not defined then we get error like can not read property of undefined
+                                    </div>
+                                    <div>
+                                        <h5>null</h5>
+                                        -> typeof null => "object" -> if we try to access a variable that is defined but not initialized then we will get error can not read property of null
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[25] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[25]}}
+                                </div>
+                                <div class="card-body">
+                                    Both is defined to use variables
+                                    <div>
+                                        <h5>let</h5>
+                                        -> let we can assign the value as many no of times -> It has block scope.
+                                        <br />
+                                    </div>
+                                    <div>
+                                        <h5>const</h5>
+                                        -> After first assignment of value we can not reassign the value again
+                                        <br /> -> It has function level scope.<br /> -> If we declare variable with const but not initialized then it will give error like missing initializer<br /> -> If we are creating variable as const but it type of
+                                        Array or object then we can change the value but we can reassign the value.<br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[26] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[26]}}
+                                </div>
+                                <div class="card-body">
+                                    Both are comparison operators
+                                    <div>
+                                        <h5>==</h5>
+                                        -> It compares only value
+                                    </div>
+                                    <div>
+                                        <h5>===</h5>
+                                        -> It compares value and type
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[27] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[27]}}
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <h4>var:</h4>
+                                        -> var was there is JS from the beginning. <br /> -> var has function scope. <br /> -> var gets hoisted. (it means if try to get value of variable before declaration it will undefined)<br />
+                                    </div>
+                                    <div>
+                                        <h4>let:</h4>
+                                        -> let was introduced in ES2015/ES6.<br /> -> let has block scope.(which means variable defined with let keyword will die end of the block or garbage collected)<br /> -> let does not get hoisted.(it means if we
+                                        try to get value from before decalre variable it will return error in console like xyz is not defined) <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[28] == name ? name : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    {{tabs[28]}}
+                                </div>
+                                <div class="card-body">
+                                    Basically, every object has a property called Prototype where you can add methods and properties to it. And when you create other object from this object the newly created object will automatically inherit the property and methods of parent. But not by
+                                    including in its own property but instead it uses from it's parent.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
 
 
             </tabset>
+        </div>
+        <div class="col-sm-3">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a *ngIf="i > 14" class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === name">
+                        <span class="badge badge-primary badge-pill">{{i+1}}</span> {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
         </div>
     </div>
 </div>
