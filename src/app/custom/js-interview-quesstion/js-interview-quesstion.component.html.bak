@@ -1,0 +1,87 @@
+<!-- <img alt="" src="" class="img-fluid mt-3" /> -->
+<!-- <p class="card-text"></p> -->
+
+
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">Javascript Interview Questions</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === name">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == name ? name : ''}}">
+
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <pre>
+var obj = {{'{'}}a: 1, b: 2};
+
+var clonedObj = Object.assign({{'{'}}}, obj);
+
+
+                                                </pre>
+
+                                                <p class="card-text">
+                                                    Now the value of clonedObj is {{'{'}}a:1,b:2} but points to a different object than obj.
+                                                    <br/>
+                                                </p>
+
+                                                <p class="card-text">
+                                                    Note the potential pitfall, through: Object.clone() will just do a shallow copy, not a deep copy.
+                                                    This means that nested objects aren't copied. They still refer to the same nested objects as the original.
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /><br />
+<br />
+<br /><br />
+<br />
+<br />
+<br /><br />
+<br />
+<br />

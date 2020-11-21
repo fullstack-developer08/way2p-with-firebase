@@ -37,6 +37,7 @@ import { AngularPracticesWithExampleComponent } from './custom/angular-practices
 import { ContactComponent } from './contact/contact.component';
 import { RxjsComponent } from './custom/rxjs/rxjs.component';
 import { NgrxComponent } from './custom/ngrx/ngrx.component';
+import { ES6Component } from './custom/es6/es6.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { NgrxComponent } from './custom/ngrx/ngrx.component';
     AngularPracticesWithExampleComponent,
     ContactComponent,
     RxjsComponent,
-    NgrxComponent
+    NgrxComponent,
+    ES6Component
   ],
   imports: [
     BrowserModule,

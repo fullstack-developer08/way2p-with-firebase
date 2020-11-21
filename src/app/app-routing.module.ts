@@ -22,11 +22,12 @@ import { AngularPracticesWithExampleComponent } from './custom/angular-practices
 import { ContactComponent } from './contact/contact.component';
 import { RxjsComponent } from './custom/rxjs/rxjs.component';
 import { NgrxComponent } from './custom/ngrx/ngrx.component';
+import { ES6Component } from './custom/es6/es6.component';
 
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'modify', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'contact', component: ContactComponent },
 
 
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'angular-practices', component: AngularPracticesWithExampleComponent },
   { path: 'rxjs-learning', component: RxjsComponent },
   { path: 'ngrx-learning', component: NgrxComponent },
+  { path: 'es6', component: ES6Component },
   
   { path: 'login', loadChildren: () => import('./admin/login/login.module').then(m => m.LoginModule) },
   { path: 'visitors-details', loadChildren: () => import('./visitors-details/visitors-details.module').then(m => m.VisitorsDetailsModule) },
@@ -66,6 +68,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
-  providers: [{ provide: APP_BASE_HREF, useValue: '' }]
+  providers: [{ provide: APP_BASE_HREF, useValue: '/app/' }]
 })
 export class AppRoutingModule { }

@@ -44,6 +44,10 @@ export class HomeComponent implements OnInit {
           desc: 'Angular Practices'
         },
         {
+          url: 'es6',
+          desc: 'ES6'
+        },
+        {
           url: 'ngrx-learning',
           desc: 'Ngrx'
         },
@@ -53,7 +57,7 @@ export class HomeComponent implements OnInit {
         },
         {
           url: 'javascript-interview-question',
-          desc: 'Javascript Interview Question(WIP)'
+          desc: 'Javascript Interview Question'
         },
         {
           url: 'typescript-full-course',

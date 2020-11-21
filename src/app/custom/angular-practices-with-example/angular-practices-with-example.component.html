@@ -606,7 +606,7 @@ textarea.ng-touched.ng-invalid {{'{'}}
                                 <div class="list-group" id="list-tab" role="tablist">
                                     <div class="card-body text-info">
 
-                                        
+
 
                                         <!-- Block Start-->
                                         <div class="card mb-3">
@@ -759,7 +759,7 @@ export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
                                             </div>
                                         </div>
                                         <!-- Block End-->
-                                        
+
 
                                     </div>
                                 </div>
@@ -937,7 +937,178 @@ export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
                                             </div>
                                         </div>
                                         <!-- Block End-->
-                                        
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[7] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    valueChanges Observable
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    valueChanges we used to get the updated value of the form and
+                                                    fields.
+                                                </p>
+                                                <p class="card-text">
+                                                    valueChanges observable we can apply at form level and field level.
+                                                </p>
+                                                <p class="card-text">
+                                                    If we will apply valueChanges at form level, It will emit the
+                                                    data/value on each form changes.
+                                                </p>
+                                                <p class="card-text">
+                                                    If we will apply valueChanges at field level, It will emit the
+                                                    data/value for the perticular field.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    statusChanges Observable
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    statusChanges observable is used to get the status of validation of
+                                                    form and fields.
+                                                </p>
+                                                <p class="card-text">
+                                                    statusChanges observable will provide three value VALID, INVALID and
+                                                    PENDING(if any async validator).
+                                                </p>
+                                                <p class="card-text">
+                                                    statusChanges observable we can apply at form level and field level.
+                                                </p>
+                                                <p class="card-text">
+                                                    If we will apply statusChanges at form level, It will emit the
+                                                    validation status on each form value changes.
+                                                </p>
+                                                <p class="card-text">
+                                                    If we will apply statusChanges at field level, It will emit the
+                                                    validation status for the perticular field.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    valueChanges Example on form level
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+import {{'{'}} AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {{'{'}} Observable, of } from 'rxjs';
+import {{'{'}} HttpClient } from '@angular/common/http';
+import {{'{'}} map } from 'rxjs/operators';
+
+@Component({{'{'}}
+  selector: 'app-reactive-form-with-formarray',
+  templateUrl: './reactive-form-with-formarray.component.html',
+  styleUrls: ['./reactive-form-with-formarray.component.css']
+})
+export class ReactiveFormWithFormarrayComponent implements OnInit {{'{'}}
+  empForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {{'{'}} 
+
+  }
+
+  ngOnInit(): void {{'{'}}
+    this.empForm = this.createEmpForm();
+
+    <mark>
+    // valueChanges apply on form
+    this.empForm.valueChanges.subscribe((data) => {{'{'}}
+      console.log(data)
+    });
+
+    // valueChanges omn field
+    this.empForm.get('empDetails').get('emailAddress').valueChanges.subscribe(console.log)
+
+    //statusChanges on form
+    this.empForm.statusChanges.subscribe(console.log);
+
+    //statusChanges on field
+    this.empForm.get('empDetails').get('emailAddress').statusChanges.subscribe(console.log)</mark>
+  }
+
+  createEmpForm() {{'{'}}
+    return this.fb.group({{'{'}}
+      'empDetails': this.fb.group({{'{'}}
+        'emailAddress': ['', [Validators.required, Validators.email]],
+        'employeeName': ['', [Validators.required, this.customNameValidator.bind(this)],  [this.customAsyncValidator.bind(this)]]
+      }),
+      'skills': this.fb.array([
+        ['', Validators.required],
+        ['', Validators.required],
+        ['', Validators.required]
+      ])
+    })
+  }
+
+  onSubmit() {{'{'}}
+    console.log(this.empForm);
+  }
+
+  addSkill() {{'{'}}
+    (this.empForm.get('skills') as FormArray).push(new FormControl('', Validators.required));
+  }
+
+  removeSkill() {{'{'}}
+    const length = (this.empForm.get('skills') as FormArray).length;
+    (this.empForm.get('skills') as FormArray).removeAt(length-1);
+  }
+
+  customNameValidator(control: FormControl) {{'{'}}
+    if(control.value.indexOf('Arif') > -1) {{'{'}}
+      return {{'{'}} isNameAlreadyTaken: true };
+    }
+    return null;
+  }
+
+  customAsyncValidator(control: AbstractControl): Observable&lt;any> {{'{'}}
+      return this.http.get('https://jsonplaceholder.typicode.com/todos').pipe(map((data: any) => {{'{'}}
+        if(control.value === 'delectus aut autem') {{'{'}}
+          return {{'{'}} isNameAlreadyTaken: true };
+        }
+      }))
+  }
+
+} 
+
+                                                </pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
 
                                     </div>
                                 </div>

@@ -30,7 +30,11 @@ export class RxjsComponent implements OnInit {
       'switchMap Operator',
       'mergeMap/flatMap Operator',
       'debounceTime and distinctUntilChanged Operator',
-      'Subject and BehaviorSubject'
+      'Subject and BehaviorSubject',
+      'pluck operator',
+      'toArray operator',
+      'combineLatest operator',
+      'withLatestFrom operator',
     ];
     this.activeTab = this.tabs[0];
   }

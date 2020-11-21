@@ -1,0 +1,612 @@
+<div class="">
+    <div class="jumbotron">
+        <h1 class="display-4">ES6</h1>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-3 sticky-top">
+            <ul class="list-group" id="list-tab" role="tablist">
+                <ng-container *ngFor="let tab of tabs; let i=index">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
+                        [class.active]="tab === activeTab">
+                        {{tab}}
+                    </a>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <tabset #staticTabs>
+
+                <tab heading="{{tabs[0] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[0]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <p class="card-text">
+                                            This feature was added in ES6. Spread and Rest operator are really the same
+                                            thing. three periods or dots is both the spread and rest operators because
+                                            they are really two side of the same thing. It's ability to take an array
+                                            and split it into its individual elements or take a bunch of elements and
+                                            combine them into a single array.
+                                        </p>
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Spread Operator
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-body text-info">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header text-primary">
+                                                            Copy and extend Array using spread operator
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre>
+const names = ['Arif', 'Yash'];
+
+console.log(names);
+
+// push return length of the array so we will avoid this instead we will use concat
+console.log(names.push('Sidarth')); 
+
+// concat return the new array after concatnating, it will not update the existing variable
+console.log(names.concat('Rohit')); 
+
+// if you we see here our Rohit value missed in the array because of concat
+console.log(names); 
+
+// here we have spread operator and it is equal to the concat of above line
+console.log([...names, 'Rohit']); 
+
+console.log(['Facebook', ...names]);
+                                                                </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-body text-info">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header text-primary">
+                                                            Copy and extend object using spread operator
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre>
+const user = {{'{'}}
+    name: 'Arif',
+    age: 26
+}
+
+console.log({{'{'}}
+    ...user
+});
+
+---------------------------------------
+
+const user = {{'{'}}
+    name: 'Arif',
+    age: 26
+}
+
+// it allow to override the age
+console.log({{'{'}}
+    ...user,
+    age:27
+});
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Rest Operator
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Rest operator is has same three dots but it is related to the
+                                                    function arguments. If we pass function argument with rest operator
+                                                    then it can take any number of arguments.
+                                                </p>
+                                                <div class="card-body text-info">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header text-primary">
+                                                            rest operator in function arguments
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre>
+import {{'{'}} Component, OnInit } from '@angular/core';
+
+@Component({{'{'}}
+  selector: 'app-es6',
+  templateUrl: './es6.component.html',
+  styleUrls: ['./es6.component.css']
+})
+export class Es6Component implements OnInit {{'{'}}
+  contacts = ['Yash', 'Rohit'];
+  person = ['Arif', 30, true, this.contacts];
+
+  constructor() {{'{'}} }
+
+  ngOnInit(): void {{'{'}}
+    this.myAnotherFunc( ...this.person );
+  }
+
+  myAnotherFunc(...list) {{'{'}}
+    list.forEach((value, index)=>console.log(value,index))
+  }
+
+}
+
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[1] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[1]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <p class="card-text">
+                                            Let us first talk about the normal function, whenever we just make a normal
+                                            function what we do is we make a function and give it a name and then
+                                            whenever we call it either just runs a bunch of code or if it has a return
+                                            value then it runs up to the return statement and then gives you back a
+                                            value.
+
+                                            <br />
+                                            <br />
+
+                                            Let us talk about generators, generators function they look a lot like we
+                                            know just a normal function but the thing is they actually don't execute all
+                                            the code at once like a normal function, what they do is say that you had 10
+                                            different lines in your generator, you could say run the first two lines and
+                                            then pause and wait until i tell you to go on now once i tell you run the
+                                            next three lines and then pause so it pretty much allows you to make
+                                            function with like checkpoints in them.
+
+                                            <br />
+                                            <br />
+
+                                            checkpoints will be determined by <mark>yield</mark> keyword so basically
+                                            means pause. I
+                                            mean that's what it means in real life too.
+
+                                            <br />
+                                            <br />
+                                            <mark>next</mark> function is used to execute the execution of generator
+                                            till the yeild field.
+                                            If we will next time then it will start the execution after the first yeild
+                                            and stop the execute on second yeild.
+                                        </p>
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                Example - 1
+                                            </div>
+                                            <div class="card-body">
+                                                import {{'{'}} Component, OnInit } from '@angular/core';
+
+                                                @Component({{'{'}}
+                                                selector: 'app-es6',
+                                                templateUrl: './es6.component.html',
+                                                styleUrls: ['./es6.component.css']
+                                                })
+                                                export class Es6Component implements OnInit {{'{'}}
+
+                                                constructor() {{'{'}} }
+
+                                                ngOnInit(): void {{'{'}}
+                                                const sample = this.sampleGenerator();
+                                                console.log(sample.next())
+                                                console.log(sample.next())
+                                                console.log(sample.next())
+                                                }
+
+                                                *sampleGenerator() {{'{'}}
+                                                console.log('before apple');
+                                                yield 'apples';
+                                                console.log('after apples and before bacon')
+                                                yield 'bacon';
+                                                console.log('line after bacon');
+                                                yield 'corn';
+                                                }
+
+                                                }
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                    Example - 2
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre>
+    import {{'{'}} Component, OnInit } from '@angular/core';
+
+@Component({{'{'}}
+  selector: 'app-es6',
+  templateUrl: './es6.component.html',
+  styleUrls: ['./es6.component.css']
+})
+export class Es6Component implements OnInit {{'{'}}
+
+  constructor() {{'{'}} }
+
+  ngOnInit(): void {{'{'}}
+    const getNextIdObj = this.getNextId();
+    console.log(getNextIdObj.next())
+    console.log(getNextIdObj.next())
+    console.log(getNextIdObj.next())
+    console.log(getNextIdObj.next())
+  }
+
+  *getNextId() {{'{'}}
+    let id = 0;
+    while(id < 3) {{'{'}}
+      yield id++;
+    }
+  }
+
+}
+
+</pre>
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[2] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[2]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <div class="card mb-3">
+                                            <div class="card-header text-primary">
+                                                ES6 - template String
+                                            </div>
+                                            <div class="card-body">
+
+                                                <p class="mb-2 mt-2">`` (back tags) this is mandatory.</p>
+                                                <p class="mb-2 mt-2">See browser console to check the output.</p>
+                                                <pre>
+class Person {{'{'}}
+    constructor(firstName, lastName, email = 'xyz@gmail.com', contactNo = 'No. not found') {{'{'}}
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.contactNo = contactNo;
+    }
+    getPersonData() {{'{'}}
+        return <span class="text-success">`&lt;p>${{'{'}}this.firstName} | ${{'{'}}this.lastName} | ${{'{'}}this.email} | ${{'{'}}this.contactNo}&lt;/p>`</span>;
+    }
+}
+
+const p1 = new Person('Arif', 'Khan');
+console.log(p1.getPersonData());
+ 
+const p2 = new Person('Xyz', 'Xyz');
+console.log(p2.getPersonData());
+                                                    </pre>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[3] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tab[3]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                    ES-6 Object Destructuring Advantages
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-2 mt-2">ES6 Object destructing it is going to allow us to easily work with Arrays and Objects.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                    Accessing object variable <span class="text-danger">without object destructuring</span>.       
+                                                </div>
+                                                <div class="card-body">
+                                                    <pre> 
+                                        const person = {
+                                            firstName: 'Arif',
+                                            lastName: 'Khan',
+                                            email: 'tech.aarifkhan@gmail.com',
+                                            location: {
+                                                'city': 'Chennai',
+                                                'country': 'India'
+                                            }
+                                        }
+                                        
+                                        console.log(`
+                                        
+                                        ${person.firstName} 
+                                        ${person.lastName} 
+                                        ${person.email}
+                                        ${person.location.city}
+                                        ${person.location.country}
+                                        
+                                        `);
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                    Accessing object variable with object destructing
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="mb-2 mt-2">Our aim to access variable firstName, lastName etc. without using person object.</p>
+                                                    <pre>
+const person = {
+    firstName: 'Arif',
+    lastName: 'Khan',
+    email: 'tech.aarifkhan@gmail.com',
+    location: {
+        'city': 'Chennai',
+        'country': 'India'
+    }
+}
+
+<span class="text-success">const { firstName, lastName } = person;</span> // this line is equivalent to below two lines
+// firstName = person.firstName;
+// lastName = person.lastName;
+
+console.log(`
+
+${firstName} 
+${lastName} 
+
+`);
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                        object destructing with changing the variable name
+                                                </div>
+                                                <div class="card-body">
+                                                    <pre>
+                                        const person = {
+                                            firstName: 'Arif',
+                                            lastName: 'Khan',
+                                            email: 'tech.aarifkhan@gmail.com',
+                                            location: {
+                                                'city': 'Chennai',
+                                                'country': 'India'
+                                            }
+                                        }
+                                        
+                                        const { firstName, lastName } = person;
+                                        // firstName = person.firstName;
+                                        // lastName = person.lastName;
+                                        
+                                        console.log(`
+                                        
+                                        ${firstName} 
+                                        ${lastName} 
+                                        
+                                        `);
+                                        
+                                        const { city, <span class="text-success">country: cy</span> } = person.location;
+                                        
+                                        console.log(`
+                                        
+                                        ${city} 
+                                        ${cy} 
+                                        
+                                        `);
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                    Assigning default property while object destructuring
+                                                </div>
+                                                <div class="card-body">
+                                                    <pre>
+                                        const person = {
+                                            lastName: 'Khan',
+                                            email: 'tech.aarifkhan@gmail.com',
+                                            location: {
+                                                'city': 'Chennai',
+                                                'country': 'India'
+                                            }
+                                        }
+                                        
+                                        const { <span class="text-success">firstName = 'XYZ'</span>, lastName } = person;
+                                        // firstName = person.firstName;
+                                        // lastName = person.lastName;
+                                        
+                                        console.log(`
+                                        
+                                        ${firstName} 
+                                        ${lastName} 
+                                        
+                                        `);
+                                        
+                                        const { city,   country: cy } = person.location;
+                                        
+                                        console.log(`
+                                        
+                                        ${city} 
+                                        ${cy} 
+                                                                
+                                        `);
+                                                    </pre>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card-body text-info">
+                                            <div class="card mb-3">
+                                                <div class="card-header text-primary">
+                                                    Array destructing
+                                                </div>
+                                                <div class="card-body">
+                                                    <pre>
+const address = [
+    'Chennai',
+    'India',
+    '33'
+];
+
+const [city, country] = address;
+
+console.log(
+`
+    City: ${city},
+    Country: ${country}
+`
+);
+
+const [, , temp] = address;
+
+console.log(
+`
+temprature: ${temp}
+`
+);
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+                                        <!-- Block Start-->
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <strong class="text-success">
+
+                                                </strong>
+                                            </div>
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                        <!-- Block End-->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

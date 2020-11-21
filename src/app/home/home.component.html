@@ -25,7 +25,7 @@
                     </button>
                 </ng-container>
                 
-                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'frontend'}">
+                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/modify" [queryParams]="{ articleType: 'frontend'}">
                     +
                 </button>
             </div>
@@ -62,7 +62,7 @@
                 <!-- <button type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/java-reactive-programming">
                     Spring Webflux
                 </button> -->
-                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/admin" [queryParams]="{ articleType: 'backend'}">
+                <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/modify" [queryParams]="{ articleType: 'backend'}">
                     +
                 </button>
             </div>

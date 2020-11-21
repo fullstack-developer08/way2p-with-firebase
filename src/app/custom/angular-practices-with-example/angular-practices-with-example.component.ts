@@ -25,8 +25,7 @@ export class AngularPracticesWithExampleComponent implements OnInit {
       'Reactive Form - Nested Form along with Form Array',
       'Reactive Form - Custom Validation',
       'Reactive Form - Custom Async Validator',
-      'Reactive Form - statusChange and valueChange',
-      'Reactive Form - setValue and patchValue',
+      'Reactive Form - statusChanges and valueChanges',
     ];
     this.activeTab = this.tabs[0];
   }

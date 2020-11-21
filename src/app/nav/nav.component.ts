@@ -71,7 +71,7 @@ export class NavComponent implements OnInit, OnDestroy {
     if(text.length < 3) {
       this.searchedMatchedBlogs = [];
     }
-    if(this.blogs.length > 0 && text.length > 3) {
+    if(this.blogs.length > 0 && text.length > 2) {
       this.searchedMatchedBlogs = [];
       this.searchedMatchedBlogs = this.blogs.filter((b: any) => {
         return (

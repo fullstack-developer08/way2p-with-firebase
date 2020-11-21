@@ -54,12 +54,12 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   initEditBlog(id) {
     this.store.dispatch(dispatchBlogIdForEdit(id));
-    this.router.navigate(['/admin'])
+    this.router.navigateByUrl('/modify')
   }
 
   initDeleteBlog(id) {
     this.store.dispatch(dispatchBlogIdForDelete(id));
-    this.router.navigate(['/admin'])
+    this.router.navigateByUrl('/modify')
   }
 
   ngOnDestroy() {
