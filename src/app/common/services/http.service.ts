@@ -11,7 +11,7 @@ export class HttpService {
     constructor(private http: HttpClient) {}
     
     getClientIP() {
-        return of(null);
-        // return this.http.get('https://ipapi.co/json/').pipe(map(res => res))
+        // return of(null);
+        return this.http.get('https://ipapi.co/json/').pipe(map(res => res))
     }
 }

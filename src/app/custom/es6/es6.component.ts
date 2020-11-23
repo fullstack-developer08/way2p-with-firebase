@@ -13,7 +13,7 @@ export class ES6Component implements OnInit {
   tabs: string[] = [];
   
   constructor(private helperService: HelperService) { 
-    this.helperService.copyPreTagContent(null);
+    this.helperService.copyPreTagContent(null); 
   }
 
   ngOnInit(): void {
@@ -22,7 +22,9 @@ export class ES6Component implements OnInit {
       'ES6 Generators',
       'ES6 Template String',
       'ES6 Object and Array Destructing',
-      'heading 5',
+      'ES5 vs ES6',
+      'Arrow Function',
+      'var, let, and const',
     ];
     this.activeTab = this.tabs[0];
   }

@@ -6,8 +6,7 @@
         <div class="col-sm-3 sticky-top">
             <ul class="list-group" id="list-tab" role="tablist">
                 <ng-container *ngFor="let tab of tabs; let i=index">
-                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)"
-                        [class.active]="tab === activeTab">
+                    <a class="list-group-item list-group-item-action" (click)="selectTab(i, tab)" [class.active]="tab === activeTab">
                         {{tab}}
                     </a>
                 </ng-container>
@@ -27,11 +26,8 @@
                                     <div class="card-body text-info">
 
                                         <p class="card-text">
-                                            This feature was added in ES6. Spread and Rest operator are really the same
-                                            thing. three periods or dots is both the spread and rest operators because
-                                            they are really two side of the same thing. It's ability to take an array
-                                            and split it into its individual elements or take a bunch of elements and
-                                            combine them into a single array.
+                                            This feature was added in ES6. Spread and Rest operator are really the same thing. three periods or dots is both the spread and rest operators because they are really two side of the same thing. It's ability to take an array and split it into its individual
+                                            elements or take a bunch of elements and combine them into a single array.
                                         </p>
 
                                         <!-- Block Start-->
@@ -112,9 +108,7 @@ console.log({{'{'}}
                                             </div>
                                             <div class="card-body">
                                                 <p class="card-text">
-                                                    Rest operator is has same three dots but it is related to the
-                                                    function arguments. If we pass function argument with rest operator
-                                                    then it can take any number of arguments.
+                                                    Rest operator is has same three dots but it is related to the function arguments. If we pass function argument with rest operator then it can take any number of arguments.
                                                 </p>
                                                 <div class="card-body text-info">
                                                     <div class="card mb-3">
@@ -174,36 +168,20 @@ export class Es6Component implements OnInit {{'{'}}
                                     <div class="card-body text-info">
 
                                         <p class="card-text">
-                                            Let us first talk about the normal function, whenever we just make a normal
-                                            function what we do is we make a function and give it a name and then
-                                            whenever we call it either just runs a bunch of code or if it has a return
-                                            value then it runs up to the return statement and then gives you back a
-                                            value.
+                                            Let us first talk about the normal function, whenever we just make a normal function what we do is we make a function and give it a name and then whenever we call it either just runs a bunch of code or if it has a return value then it runs up to the return
+                                            statement and then gives you back a value.
+
+                                            <br />
+                                            <br /> Let us talk about generators, generators function they look a lot like we know just a normal function but the thing is they actually don't execute all the code at once like a normal function, what they
+                                            do is say that you had 10 different lines in your generator, you could say run the first two lines and then pause and wait until i tell you to go on now once i tell you run the next three lines and then pause
+                                            so it pretty much allows you to make function with like checkpoints in them.
+
+                                            <br />
+                                            <br /> checkpoints will be determined by <mark>yield</mark> keyword so basically means pause. I mean that's what it means in real life too.
 
                                             <br />
                                             <br />
-
-                                            Let us talk about generators, generators function they look a lot like we
-                                            know just a normal function but the thing is they actually don't execute all
-                                            the code at once like a normal function, what they do is say that you had 10
-                                            different lines in your generator, you could say run the first two lines and
-                                            then pause and wait until i tell you to go on now once i tell you run the
-                                            next three lines and then pause so it pretty much allows you to make
-                                            function with like checkpoints in them.
-
-                                            <br />
-                                            <br />
-
-                                            checkpoints will be determined by <mark>yield</mark> keyword so basically
-                                            means pause. I
-                                            mean that's what it means in real life too.
-
-                                            <br />
-                                            <br />
-                                            <mark>next</mark> function is used to execute the execution of generator
-                                            till the yeild field.
-                                            If we will next time then it will start the execution after the first yeild
-                                            and stop the execute on second yeild.
+                                            <mark>next</mark> function is used to execute the execution of generator till the yeild field. If we will next time then it will start the execution after the first yeild and stop the execute on second yeild.
                                         </p>
 
                                         <!-- Block Start-->
@@ -212,34 +190,9 @@ export class Es6Component implements OnInit {{'{'}}
                                                 Example - 1
                                             </div>
                                             <div class="card-body">
-                                                import {{'{'}} Component, OnInit } from '@angular/core';
-
-                                                @Component({{'{'}}
-                                                selector: 'app-es6',
-                                                templateUrl: './es6.component.html',
-                                                styleUrls: ['./es6.component.css']
-                                                })
-                                                export class Es6Component implements OnInit {{'{'}}
-
-                                                constructor() {{'{'}} }
-
-                                                ngOnInit(): void {{'{'}}
-                                                const sample = this.sampleGenerator();
-                                                console.log(sample.next())
-                                                console.log(sample.next())
-                                                console.log(sample.next())
-                                                }
-
-                                                *sampleGenerator() {{'{'}}
-                                                console.log('before apple');
-                                                yield 'apples';
-                                                console.log('after apples and before bacon')
-                                                yield 'bacon';
-                                                console.log('line after bacon');
-                                                yield 'corn';
-                                                }
-
-                                                }
+                                                import {{'{'}} Component, OnInit } from '@angular/core'; @Component({{'{'}} selector: 'app-es6', templateUrl: './es6.component.html', styleUrls: ['./es6.component.css'] }) export class Es6Component implements OnInit {{'{'}} constructor() {{'{'}} } ngOnInit():
+                                                void {{'{'}} const sample = this.sampleGenerator(); console.log(sample.next()) console.log(sample.next()) console.log(sample.next()) } *sampleGenerator() {{'{'}} console.log('before apple'); yield 'apples';
+                                                console.log('after apples and before bacon') yield 'bacon'; console.log('line after bacon'); yield 'corn'; } }
                                             </div>
                                         </div>
                                         <!-- Block End-->
@@ -347,7 +300,7 @@ console.log(p2.getPersonData());
                         <div class="row mb-5 pb-5">
                             <div class="card border-info">
                                 <h4 class="card-header text-success">
-                                    {{tab[3]}}
+                                    {{tabs[3]}}
                                 </h4>
                                 <div class="list-group" id="list-tab" role="tablist">
                                     <div class="card-body text-info">
@@ -362,21 +315,22 @@ console.log(p2.getPersonData());
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
-                                        
+
+
+
                                         <div class="card-body text-info">
                                             <div class="card mb-3">
                                                 <div class="card-header text-primary">
-                                                    Accessing object variable <span class="text-danger">without object destructuring</span>.       
+                                                    Accessing object variable <span class="text-danger">without object
+                                                        destructuring</span>.
                                                 </div>
                                                 <div class="card-body">
-                                                    <pre> 
-                                        const person = {
+                                                    <pre>
+                                        const person = {{'{'}}
                                             firstName: 'Arif',
                                             lastName: 'Khan',
                                             email: 'tech.aarifkhan@gmail.com',
-                                            location: {
+                                            location: {{'{'}}
                                                 'city': 'Chennai',
                                                 'country': 'India'
                                             }
@@ -384,20 +338,20 @@ console.log(p2.getPersonData());
                                         
                                         console.log(`
                                         
-                                        ${person.firstName} 
-                                        ${person.lastName} 
-                                        ${person.email}
-                                        ${person.location.city}
-                                        ${person.location.country}
+                                        ${{'{'}}person.firstName} 
+                                        ${{'{'}}person.lastName} 
+                                        ${{'{'}}person.email}
+                                        ${{'{'}}person.location.city}
+                                        ${{'{'}}person.location.country}
                                         
                                         `);
                                                     </pre>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
-                                        
+
+
+
                                         <div class="card-body text-info">
                                             <div class="card mb-3">
                                                 <div class="card-header text-primary">
@@ -406,75 +360,75 @@ console.log(p2.getPersonData());
                                                 <div class="card-body">
                                                     <p class="mb-2 mt-2">Our aim to access variable firstName, lastName etc. without using person object.</p>
                                                     <pre>
-const person = {
+const person = {{'{'}}
     firstName: 'Arif',
     lastName: 'Khan',
     email: 'tech.aarifkhan@gmail.com',
-    location: {
+    location: {{'{'}}
         'city': 'Chennai',
         'country': 'India'
     }
 }
 
-<span class="text-success">const { firstName, lastName } = person;</span> // this line is equivalent to below two lines
+<span class="text-success">const {{'{'}} firstName, lastName } = person;</span> // this line is equivalent to below two lines
 // firstName = person.firstName;
 // lastName = person.lastName;
 
 console.log(`
 
-${firstName} 
-${lastName} 
+${{'{'}}firstName} 
+${{'{'}}lastName} 
 
 `);
                                                     </pre>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
-                                        
+
+
+
                                         <div class="card-body text-info">
                                             <div class="card mb-3">
                                                 <div class="card-header text-primary">
-                                                        object destructing with changing the variable name
+                                                    object destructing with changing the variable name
                                                 </div>
                                                 <div class="card-body">
                                                     <pre>
-                                        const person = {
-                                            firstName: 'Arif',
-                                            lastName: 'Khan',
-                                            email: 'tech.aarifkhan@gmail.com',
-                                            location: {
-                                                'city': 'Chennai',
-                                                'country': 'India'
-                                            }
-                                        }
-                                        
-                                        const { firstName, lastName } = person;
-                                        // firstName = person.firstName;
-                                        // lastName = person.lastName;
-                                        
-                                        console.log(`
-                                        
-                                        ${firstName} 
-                                        ${lastName} 
-                                        
-                                        `);
-                                        
-                                        const { city, <span class="text-success">country: cy</span> } = person.location;
-                                        
-                                        console.log(`
-                                        
-                                        ${city} 
-                                        ${cy} 
-                                        
-                                        `);
+const person = {{'{'}}
+    firstName: 'Arif',
+    lastName: 'Khan',
+    email: 'tech.aarifkhan@gmail.com',
+    location: {{'{'}}
+        'city': 'Chennai',
+        'country': 'India'
+    }
+}
+
+const {{'{'}} firstName, lastName } = person;
+// firstName = person.firstName;
+// lastName = person.lastName;
+
+console.log(`
+
+${{'{'}}firstName} 
+${{'{'}}lastName} 
+
+`);
+
+const {{'{'}} city, <span class="text-success">country: cy</span> } = person.location;
+
+console.log(`
+
+${{'{'}}city} 
+${{'{'}}cy} 
+
+`);
                                                     </pre>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="card-body text-info">
                                             <div class="card mb-3">
                                                 <div class="card-header text-primary">
@@ -482,39 +436,39 @@ ${lastName}
                                                 </div>
                                                 <div class="card-body">
                                                     <pre>
-                                        const person = {
-                                            lastName: 'Khan',
-                                            email: 'tech.aarifkhan@gmail.com',
-                                            location: {
-                                                'city': 'Chennai',
-                                                'country': 'India'
-                                            }
-                                        }
-                                        
-                                        const { <span class="text-success">firstName = 'XYZ'</span>, lastName } = person;
-                                        // firstName = person.firstName;
-                                        // lastName = person.lastName;
-                                        
-                                        console.log(`
-                                        
-                                        ${firstName} 
-                                        ${lastName} 
-                                        
-                                        `);
-                                        
-                                        const { city,   country: cy } = person.location;
-                                        
-                                        console.log(`
-                                        
-                                        ${city} 
-                                        ${cy} 
-                                                                
-                                        `);
+const person = {{'{'}}
+    lastName: 'Khan',
+    email: 'tech.aarifkhan@gmail.com',
+    location: {{'{'}}
+        'city': 'Chennai',
+        'country': 'India'
+    }
+}
+
+const {{'{'}} <span class="text-success">firstName = 'XYZ'</span>, lastName } = person;
+// firstName = person.firstName;
+// lastName = person.lastName;
+
+console.log(`
+
+${{'{'}}firstName} 
+${{'{'}}lastName} 
+
+`);
+
+const {{'{'}} city,   country: cy } = person.location;
+
+console.log(`
+
+${{'{'}}city} 
+${{'{'}}cy} 
+                        
+`);
                                                     </pre>
-                                                </div>    
+                                                </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="card-body text-info">
                                             <div class="card mb-3">
                                                 <div class="card-header text-primary">
@@ -532,8 +486,8 @@ const [city, country] = address;
 
 console.log(
 `
-    City: ${city},
-    Country: ${country}
+    City: ${{'{'}}city},
+    Country: ${{'{'}}country}
 `
 );
 
@@ -541,7 +495,7 @@ const [, , temp] = address;
 
 console.log(
 `
-temprature: ${temp}
+temprature: ${{'{'}}temp}
 `
 );
                                                     </pre>
@@ -556,41 +510,137 @@ temprature: ${temp}
                         </div>
                     </div>
                 </tab>
+
                 <tab heading="{{tabs[4] == activeTab ? activeTab : ''}}">
                     <div class="container-fluid pt-3 mt-auto">
                         <div class="row mb-5 pb-5">
                             <div class="card border-info">
                                 <h4 class="card-header text-success">
-
+                                    {{tabs[4]}}
                                 </h4>
                                 <div class="list-group" id="list-tab" role="tablist">
                                     <div class="card-body text-info">
 
-                                        <!-- Block Start-->
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <strong class="text-success">
-                                                </strong>
+                                        <div class="card-body text-info">
+                                            <h4>Example - 1</h4>
+                                            <p class="m-2">Arrow function introduced in ES6.</p>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">
+                                                            function without arrow function
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre class="prettyprint">
+                                        var doMultiply = function (a,b) {{'{'}}
+                                            return a*b;
+                                        }                      
+                                                        </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">
+                                                            function with arrow function
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre class="prettyprint">
+                                        var doMultiply = (a,b) => a*b;
+                                        
+                                        console.log(doMultiply(5,5));                    
+                                                        </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
 
+                                            <h4>Example - 2</h4>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">
+                                                            function without arrow function
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre class="prettyprint">
+                                        var doSqure = function(a) {{'{'}}
+                                            return a*a;
+                                        }
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">
+                                                            function with arrow function
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <pre class="prettyprint">
+                                        var doSqure = a => a*a;
+                                            
+                                        console.log(doSqure(5));                  
+                                                            </pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Block End-->
 
-                                        <!-- Block Start-->
-                                        <div class="card mb-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{tabs[5] == activeTab ? activeTab : ''}}">
+                    <div class="container-fluid pt-3 mt-auto">
+                        <div class="row mb-5 pb-5">
+                            <div class="card border-info">
+                                <h4 class="card-header text-success">
+                                    {{tabs[5]}}
+                                </h4>
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <div class="card-body text-info">
+                                        <div class="card mb-3" style="padding: 10px">
                                             <div class="card-header">
-                                                <strong class="text-success">
-
-                                                </strong>
+                                                1. What is the difference between let and var keywords?
                                             </div>
                                             <div class="card-body">
-
+                                                <div>
+                                                    <h4>var:</h4>
+                                                    -> var was there is JS from the beginning. <br /> -> var has function scope. <br /> -> var gets hoisted. (it means if try to get value of variable before declaration it will undefined)<br />
+                                                </div>
+                                                <div>
+                                                    <h4>let:</h4>
+                                                    -> let was introduced in ES2015/ES6.<br /> -> let has block scope.(which means variable defined with let keyword will die end of the block or garbage collected)<br /> -> let does not get hoisted.(it
+                                                    means if we try to get value from before decalre variable it will return error in console like xyz is not defined)
+                                                    <br />
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Block End-->
 
+                                        <div class="card mb-3" style="padding: 10px">
+                                            <div class="card-header">
+                                                3. What is the difference between let and const keywords?
+                                            </div>
+                                            <div class="card-body">
+                                                Both is used to define variables
+                                                <div>
+                                                    <h5>let</h5>
+                                                    -> let we can assign the value as many no of times <br />-> It has block scope.
+                                                    <br />
+                                                </div>
+                                                <div>
+                                                    <h5>const</h5>
+                                                    -> After first assignment of value we can not reassign the value again<br /> -> It has function level scope.<br /> -> If we declare variable with const but not initialized then it will give error like
+                                                    missing initializer<br /> -> If we are creating variable as const but it type of Array or object then we can change the value but we can reassign the value.<br />
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

@@ -14,17 +14,17 @@
                     Open Web Socket Connection
                 </button> -->
                 <ng-container *ngFor="let links of staticFrontEndLinks">
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" [class.btn-outline-success]="(links.url === 'schematics-in-angular' || links.url === 'create-schematics-like-angular-cli') ? true : false" [routerLink]="links.url">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" [routerLink]="links.url">
                         {{links.desc}}
                     </button>
                 </ng-container>
-                
+
                 <ng-container *ngFor="let frontend of frontendBlogs">
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary" [routerLink]="frontend.blogHref" [queryParams]="{ from: 'home'}">
                         {{frontend.blogName}}
                     </button>
                 </ng-container>
-                
+
                 <button *ngIf="isAdmin" type="button" class="btn btn-lg btn-block btn-outline-primary" routerLink="/modify" [queryParams]="{ articleType: 'frontend'}">
                     +
                 </button>
